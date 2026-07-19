@@ -367,8 +367,10 @@ internal class DualPlayerCombatMotionBridge(
         private fun ultimateActivation(current: Features): Float {
             val leftRaise = (current.shoulderCenter.y - current.leftWrist.y) / current.torsoLength
             val rightRaise = (current.shoulderCenter.y - current.rightWrist.y) / current.torsoLength
-            return (min(leftRaise, rightRaise) / poseConfig.ultimateMinimumRaiseTorsoLengths)
-                .coerceIn(0f, 1f)
+            val raised = min(leftRaise, rightRaise) / poseConfig.ultimateMinimumRaiseTorsoLengths
+            val wristsTogether = 1f - distance(current.leftWrist, current.rightWrist) /
+                (current.shoulderWidth * poseConfig.ultimateMaximumWristDistanceShoulderWidths)
+            return min(raised, wristsTogether).coerceIn(0f, 1f)
         }
 
         private fun LivePoseObservation.toFeatures(timestampNs: Long): Features? {

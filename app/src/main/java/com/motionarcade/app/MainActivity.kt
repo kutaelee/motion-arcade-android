@@ -317,7 +317,7 @@ private fun CameraPermissionScreen(
 private const val CAMERA_PERMISSION_PREFERENCES = "camera-permission-recovery-v1"
 private const val CAMERA_PERMISSION_DENIED = "denied"
 
-private enum class ArcadePlayMode {
+internal enum class ArcadePlayMode {
     FISHING,
     FISHING_DUAL,
     BOXING_SOLO,
@@ -326,7 +326,7 @@ private enum class ArcadePlayMode {
     MONSTER_DUAL,
 }
 
-private fun arcadePlayMode(
+internal fun arcadePlayMode(
     game: ArcadeGameChoice,
     playerCount: ArcadePlayerCount,
 ): ArcadePlayMode = when (game to playerCount) {

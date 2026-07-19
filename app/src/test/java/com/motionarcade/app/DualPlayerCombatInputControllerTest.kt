@@ -49,6 +49,29 @@ class DualPlayerCombatInputControllerTest {
     }
 
     @Test
+    fun monsterChargeAndUltimateCollisionCanOnlyEmitMagicCharge() {
+        val config = DualPlayerCombatMotionConfigs.monster(calibrationRevision = 0)
+        val accepted = mutableListOf<MotionEventEnvelope>()
+        val controller = DualPlayerCombatInputController(
+            "monster-team-power-collision",
+            config,
+            onEvent = accepted::add,
+        )
+        val colliding = setOf(MotionType.MONSTER_MAGIC_CHARGE, MotionType.TEAM_ULTIMATE)
+
+        controller.onSafeMotionFrame(frame(config, 1_000_000_000L, colliding))
+        controller.onSafeMotionFrame(frame(config, 1_800_000_000L, colliding))
+
+        assertEquals(
+            listOf(
+                PlayerId.P1 to MotionType.MONSTER_MAGIC_CHARGE,
+                PlayerId.P2 to MotionType.MONSTER_MAGIC_CHARGE,
+            ),
+            accepted.map { it.playerId to it.type },
+        )
+    }
+
+    @Test
     fun roleBoundCameraFrameEmitsOneSemanticEventForEachPlayer() {
         val config = DualPlayerCombatMotionConfigs.boxing(calibrationRevision = 0)
         val accepted = mutableListOf<MotionEventEnvelope>()
@@ -188,6 +211,16 @@ class DualPlayerCombatInputControllerTest {
         config: DualPlayerCombatMotionConfig,
         timestampNs: Long,
         activeType: MotionType?,
+    ): DualPlayerCombatMotionFrame = frame(
+        config = config,
+        timestampNs = timestampNs,
+        activeTypes = setOfNotNull(activeType),
+    )
+
+    private fun frame(
+        config: DualPlayerCombatMotionConfig,
+        timestampNs: Long,
+        activeTypes: Set<MotionType>,
     ): DualPlayerCombatMotionFrame =
         DualPlayerCombatMotionFrame(
             sessionGeneration = 1L,
@@ -205,8 +238,8 @@ class DualPlayerCombatInputControllerTest {
                         playerId = playerId,
                         type = type,
                         timestampNs = timestampNs,
-                        activation = if (type == activeType) 1f else 0f,
-                        quality = if (type == activeType) 1f else 0f,
+                        activation = if (type in activeTypes) 1f else 0f,
+                        quality = if (type in activeTypes) 1f else 0f,
                         confidence = 1f,
                         calibrationRevision = config.calibrationRevision,
                         source = InputSource.MOTION,

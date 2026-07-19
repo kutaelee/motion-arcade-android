@@ -225,6 +225,46 @@ class DualPlayerTrackingBridgeTest {
         }
         assertEquals(setOf(PlayerId.P1, PlayerId.P2), charge.map { it.playerId }.toSet())
         assertTrue(charge.all { it.activation >= 0.82f })
+        val ultimate = motionFrames.last().samples.filter { it.type == MotionType.TEAM_ULTIMATE }
+        assertEquals(setOf(PlayerId.P1, PlayerId.P2), ultimate.map { it.playerId }.toSet())
+        assertTrue(ultimate.all { it.activation == 0f })
+    }
+
+    @Test
+    fun monsterTeamUltimateUsesRaisedJoinedHandsWithoutActivatingMagicCharge() {
+        val motionFrames = mutableListOf<DualPlayerCombatMotionFrame>()
+        val bridge = DualPlayerTrackingBridge(
+            loadedConfig = config,
+            roleSetupPolicy = DualPlayerRoleSetupPolicy.P1_ANALYSIS_LEFT_P2_ANALYSIS_RIGHT,
+            calibrationRevision = 1L,
+            sink = DualPlayerTrackingSink.NONE,
+            initialSetupRequiresExplicitRearm = false,
+            combatMotionBridge = DualPlayerCombatMotionBridge(
+                config = DualPlayerCombatMotionConfigs.monster(calibrationRevision = 1),
+                sink = DualPlayerCombatMotionFrameSink(motionFrames::add),
+            ),
+        )
+        listOf(0L, 400_000_000L, 800_000_000L).forEachIndexed { index, timestamp ->
+            bridge.onPoseObservation(
+                frame(
+                    revision = index + 1L,
+                    timestampNs = timestamp,
+                    poses = listOf(ultimatePose(0.25f), ultimatePose(0.75f)),
+                ),
+                decision(
+                    if (index == 0) LivePoseContinuityBoundary.RESET_GENERATION
+                    else LivePoseContinuityBoundary.CONTIGUOUS,
+                ),
+            )
+        }
+
+        val samples = motionFrames.last().samples.associateBy { it.playerId to it.type }
+        listOf(PlayerId.P1, PlayerId.P2).forEach { playerId ->
+            assertTrue(requireNotNull(samples[playerId to MotionType.TEAM_ULTIMATE]).activation >= 0.82f)
+            assertTrue(
+                requireNotNull(samples[playerId to MotionType.MONSTER_MAGIC_CHARGE]).activation < 0.82f,
+            )
+        }
     }
 
     @Test
@@ -592,6 +632,13 @@ class DualPlayerTrackingBridgeTest {
         val base = pose(centerX).landmarks.toMutableList()
         base[15] = LivePoseLandmark(centerX - 0.14f, 0.16f, 0f, 0.95f, 0.95f)
         base[16] = LivePoseLandmark(centerX + 0.14f, 0.16f, 0f, 0.95f, 0.95f)
+        return LivePoseObservation(base)
+    }
+
+    private fun ultimatePose(centerX: Float): LivePoseObservation {
+        val base = pose(centerX).landmarks.toMutableList()
+        base[15] = LivePoseLandmark(centerX - 0.02f, 0.15f, 0f, 0.95f, 0.95f)
+        base[16] = LivePoseLandmark(centerX + 0.02f, 0.15f, 0f, 0.95f, 0.95f)
         return LivePoseObservation(base)
     }
 
