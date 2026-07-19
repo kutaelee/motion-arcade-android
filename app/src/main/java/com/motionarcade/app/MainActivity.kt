@@ -349,6 +349,7 @@ private fun CameraPreviewScreen(
     var selectedGame by rememberSaveable { mutableStateOf<ArcadePlayMode?>(null) }
     var selectedFishingRod by rememberSaveable { mutableIntStateOf(NO_FISHING_ROD_SELECTED) }
     var fishingRodConfirmed by rememberSaveable { mutableStateOf(false) }
+    var tutorialCompleted by rememberSaveable { mutableStateOf(false) }
     var lensSelection by rememberSaveable { mutableStateOf(CameraLensSelection.FRONT) }
     var rearConfirmationPending by rememberSaveable { mutableStateOf(false) }
     var lensBindEpoch by rememberSaveable { mutableIntStateOf(0) }
@@ -357,6 +358,7 @@ private fun CameraPreviewScreen(
         selectedGame = null
         fishingRodConfirmed = false
         selectedFishingRod = NO_FISHING_ROD_SELECTED
+        tutorialCompleted = false
     }
     fun completeLensRequest(next: CameraLensSelection?) {
         rearConfirmationPending = false
@@ -397,7 +399,21 @@ private fun CameraPreviewScreen(
                 selectedGame = arcadePlayMode(game, players)
                 fishingRodConfirmed = false
                 selectedFishingRod = NO_FISHING_ROD_SELECTED
+                tutorialCompleted = false
             },
+        )
+        return
+    }
+    if (shouldPresentArcadeTutorial(
+            mode = requireNotNull(selectedGame),
+            fishingRodConfirmed = fishingRodConfirmed,
+            tutorialCompleted = tutorialCompleted,
+        )
+    ) {
+        ArcadeTutorialScreen(
+            mode = requireNotNull(selectedGame),
+            onComplete = { tutorialCompleted = true },
+            onBack = ::returnToGameSelection,
         )
         return
     }
@@ -661,6 +677,12 @@ private fun CameraPreviewScreen(
         inference = inference,
         expectedPlayers = 1,
     )
+    val recoveryControls = fishingRecoveryControls(
+        runtimeFailed = fishingState.runtimeFailed,
+        status = status,
+        inference = inference,
+        rebindAttempts = cameraRebindPolicy.manualRetryAttempts,
+    )
 
     Box(
         modifier = Modifier
@@ -710,7 +732,7 @@ private fun CameraPreviewScreen(
                 Text(text = "게임 선택")
             }
         }
-        if (fishingState.runtimeFailed) {
+        if (FishingRecoveryControl.RUNTIME_RESTART in recoveryControls) {
             Button(
                 modifier = Modifier
                     .align(Alignment.Center)
@@ -720,7 +742,7 @@ private fun CameraPreviewScreen(
                 Text(text = stringResource(R.string.fishing_runtime_restart))
             }
         }
-        if (previewCanRetry(status, inference, cameraRebindPolicy.manualRetryAttempts)) {
+        if (FishingRecoveryControl.CAMERA_RECONNECT in recoveryControls) {
             Button(
                 modifier = Modifier
                     .align(Alignment.TopCenter)
@@ -887,6 +909,23 @@ internal fun previewCanRetry(
             cameraStatusCanRetry(status) ||
                 inference.phase == LivePoseInferencePhase.FAILED
         )
+
+internal enum class FishingRecoveryControl {
+    RUNTIME_RESTART,
+    CAMERA_RECONNECT,
+}
+
+internal fun fishingRecoveryControls(
+    runtimeFailed: Boolean,
+    status: FrontCameraPreviewStatus,
+    inference: LivePoseInferenceSnapshot,
+    rebindAttempts: Int,
+): Set<FishingRecoveryControl> = buildSet {
+    if (runtimeFailed) add(FishingRecoveryControl.RUNTIME_RESTART)
+    if (previewCanRetry(status, inference, rebindAttempts)) {
+        add(FishingRecoveryControl.CAMERA_RECONNECT)
+    }
+}
 
 internal enum class FishingCameraRebindEvent {
     PAUSE,
