@@ -1,6 +1,7 @@
 package com.motionarcade.vision.camera
 
 import com.motionarcade.vision.pose.LivePoseInferencePhase
+import com.motionarcade.vision.pose.LivePoseFailureReason
 import com.motionarcade.vision.pose.LivePoseInferenceSink
 import com.motionarcade.vision.pose.LivePoseInferenceSnapshot
 import com.motionarcade.vision.pose.LivePoseObservationDeliveryGate
@@ -176,6 +177,11 @@ class LatestLivePoseInferenceMainDeliveryTest {
             poseCount = null,
             callbackCount = revision,
             resultTimestampMs = null,
+            failureReason = if (phase == LivePoseInferencePhase.FAILED) {
+                LivePoseFailureReason.CAMERA_PIPELINE_TERMINATED
+            } else {
+                null
+            },
         )
 
     private class QueuedExecutor : Executor {

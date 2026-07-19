@@ -3,6 +3,7 @@ package com.motionarcade.app
 import com.motionarcade.vision.camera.FrontCameraPreviewStatus
 import com.motionarcade.vision.pose.LivePoseInferencePhase
 import com.motionarcade.vision.pose.LivePoseInferenceSnapshot
+import com.motionarcade.vision.pose.LivePoseFailureReason
 import com.motionarcade.vision.tracking.IdentityPauseReason
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -64,6 +65,43 @@ class PoseRecognitionFeedbackTest {
         assertTrue(reason.contains("겹쳐"))
         assertTrue(reason.contains("떨어지세요"))
     }
+
+    @Test
+    fun resultTimeoutExplainsLocalLoadAndRejectsFirewallAdvice() {
+        val reason = requireNotNull(
+            poseRecognitionFailureReason(
+                FrontCameraPreviewStatus.ACTIVE,
+                failed(LivePoseFailureReason.RESULT_TIMEOUT),
+                1,
+            ),
+        )
+        assertTrue(reason.contains("1초"))
+        assertTrue(reason.contains("기기 부하"))
+        assertTrue(reason.contains("방화벽 문제는 아닙니다"))
+    }
+
+    @Test
+    fun modelCreationFailureExplainsOnDeviceRuntime() {
+        val reason = requireNotNull(
+            poseRecognitionFailureReason(
+                FrontCameraPreviewStatus.ACTIVE,
+                failed(LivePoseFailureReason.SESSION_CREATE_FAILED),
+                1,
+            ),
+        )
+        assertTrue(reason.contains("온디바이스"))
+        assertTrue(reason.contains("서버 연결은 사용하지 않습니다"))
+    }
+
+    private fun failed(reason: LivePoseFailureReason) = LivePoseInferenceSnapshot(
+        sessionGeneration = 1,
+        revision = 1,
+        phase = LivePoseInferencePhase.FAILED,
+        poseCount = null,
+        callbackCount = 0,
+        resultTimestampMs = null,
+        failureReason = reason,
+    )
 
     private fun active(
         count: Int,

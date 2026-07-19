@@ -50,6 +50,10 @@ class LivePosePipelineTest {
         fixture.callbacks.onResult(1, 0L)
 
         assertEquals(LivePoseInferencePhase.FAILED, fixture.snapshots.last().phase)
+        assertEquals(
+            LivePoseFailureReason.FRAME_SUBMISSION_FAILED,
+            fixture.snapshots.last().failureReason,
+        )
         assertEquals(snapshotCountAtFailure, fixture.snapshots.size)
         assertEquals(1, fixture.session.closeCount)
         assertEquals(0L, fixture.snapshots.last().callbackCount)
@@ -65,6 +69,10 @@ class LivePosePipelineTest {
         errorFixture.callbacks.onError()
         errorFixture.callbacks.onResult(1, 0L)
         assertEquals(LivePoseInferencePhase.FAILED, errorFixture.snapshots.last().phase)
+        assertEquals(
+            LivePoseFailureReason.MEDIAPIPE_CALLBACK_ERROR,
+            errorFixture.snapshots.last().failureReason,
+        )
 
         val countFixture = Fixture()
         val countPipeline = countFixture.pipeline()
@@ -155,6 +163,7 @@ class LivePosePipelineTest {
             listOf(LivePoseInferencePhase.INITIALIZING, LivePoseInferencePhase.FAILED),
             snapshots.map(LivePoseInferenceSnapshot::phase),
         )
+        assertEquals(LivePoseFailureReason.SESSION_CREATE_FAILED, snapshots.last().failureReason)
         assertTrue(snapshots.zipWithNext().all { (left, right) -> left.revision < right.revision })
     }
 
@@ -285,6 +294,7 @@ class LivePosePipelineTest {
         fixture.callbacks.onResult(1, 1L)
 
         assertEquals(LivePoseInferencePhase.FAILED, terminal.phase)
+        assertEquals(LivePoseFailureReason.RESULT_TIMEOUT, terminal.failureReason)
         assertEquals(null, terminal.poseCount)
         assertEquals(null, terminal.resultTimestampMs)
         assertEquals(terminal, fixture.snapshots.last())

@@ -1,6 +1,7 @@
 package com.motionarcade.vision.camera
 
 import com.motionarcade.vision.pose.LivePoseInferencePhase
+import com.motionarcade.vision.pose.LivePoseFailureReason
 import com.motionarcade.vision.pose.LivePoseInferenceSink
 import com.motionarcade.vision.pose.LivePoseInferenceSnapshot
 import org.junit.Assert.assertEquals
@@ -73,6 +74,7 @@ class LivePoseGenerationReducerTest {
                 poseCount = null,
                 callbackCount = 1L,
                 resultTimestampMs = null,
+                failureReason = LivePoseFailureReason.MEDIAPIPE_CALLBACK_ERROR,
             ),
         )
 

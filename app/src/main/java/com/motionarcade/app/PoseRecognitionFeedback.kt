@@ -7,6 +7,7 @@ import androidx.compose.ui.platform.LocalContext
 import com.motionarcade.vision.camera.FrontCameraPreviewStatus
 import com.motionarcade.vision.pose.LivePoseInferencePhase
 import com.motionarcade.vision.pose.LivePoseInferenceSnapshot
+import com.motionarcade.vision.pose.LivePoseFailureReason
 import com.motionarcade.vision.tracking.IdentityPauseReason
 
 internal fun poseRecognitionFailureReason(
@@ -27,8 +28,22 @@ internal fun poseRecognitionFailureReason(
         FrontCameraPreviewStatus.BIND_FAILED ->
             "카메라 연결에 실패했습니다. 다른 앱의 카메라 사용을 종료하고 다시 시도하세요."
         else -> when (inference.phase) {
-            LivePoseInferencePhase.FAILED ->
-                "동작 인식 엔진이 멈췄습니다. 카메라를 다시 시작하세요."
+            LivePoseInferencePhase.FAILED -> when (inference.failureReason) {
+                LivePoseFailureReason.RESULT_TIMEOUT ->
+                    "온디바이스 동작 인식 결과가 1초 안에 도착하지 않았습니다. 기기 부하를 줄이고 카메라를 다시 시작하세요. 서버나 방화벽 문제는 아닙니다."
+                LivePoseFailureReason.SESSION_CREATE_FAILED ->
+                    "온디바이스 동작 인식 모델을 시작하지 못했습니다. 앱을 다시 시작하세요. 서버 연결은 사용하지 않습니다."
+                LivePoseFailureReason.TIMESTAMP_REJECTED ->
+                    "카메라 프레임 시간이 올바르지 않아 동작 인식을 멈췄습니다. 카메라를 다시 시작하세요."
+                LivePoseFailureReason.FRAME_SUBMISSION_FAILED,
+                LivePoseFailureReason.MEDIAPIPE_CALLBACK_ERROR,
+                LivePoseFailureReason.CALLBACK_PROTOCOL_ERROR ->
+                    "온디바이스 동작 인식 처리 오류가 발생했습니다. 카메라를 다시 시작하세요. 서버 연결은 사용하지 않습니다."
+                LivePoseFailureReason.SESSION_CLOSE_FAILED,
+                LivePoseFailureReason.CAMERA_PIPELINE_TERMINATED ->
+                    "동작 인식 엔진이 로컬에서 멈췄습니다. 카메라를 다시 시작하세요. 서버나 방화벽 문제는 아닙니다."
+                null -> "동작 인식 엔진이 멈췄습니다. 카메라를 다시 시작하세요."
+            }
             LivePoseInferencePhase.ACTIVE -> when (val count = requireNotNull(inference.poseCount)) {
                 expectedPlayers -> when {
                     inference.upperBodyOnScreen == false ->
