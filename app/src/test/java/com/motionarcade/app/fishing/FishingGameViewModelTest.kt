@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.lifecycle.SavedStateHandle
 import com.motionarcade.app.FishingViewModelRuntimeTarget
+import com.motionarcade.app.checkpoint.TypedCheckpointEnvelopeCodec
 import com.motionarcade.core.contract.InputSource
 import com.motionarcade.core.contract.MotionType
 import com.motionarcade.core.contract.PauseReason
@@ -519,6 +520,36 @@ class FishingGameViewModelTest {
             handle.get<ByteArray>("fishing.checkpoint.rejected.v1"),
         )
         assertTrue(requireNotNull(handle.get<ByteArray>("fishing.checkpoint.v1")).size > 5)
+    }
+
+    @Test
+    fun exactLegacyCheckpointRestoresThenIsAtomicallyRewrittenAsTypedV2() {
+        val legacyPayload = FishingLegacyCheckpointFixtures.pausedV1
+        val original = requireNotNull(FishingCheckpointCodec.decode(legacyPayload))
+        val legacyConfig = motionConfig.withCalibrationRevision(original.calibrationRevision)
+        val handle = SavedStateHandle(
+            mapOf(
+                "fishing.checkpoint.v1" to legacyPayload,
+                "fishing.motion-config-id.v1" to legacyConfig.configId,
+                "fishing.motion-config-revision.v1" to legacyConfig.calibrationRevision,
+            ),
+        )
+
+        val recreated = FishingGameViewModel(handle, legacyConfig)
+        assertTrue(bindMotionGeneration(recreated, 1L))
+
+        assertEquals(original.sessionId, recreated.uiState.value.snapshot.sessionId)
+        assertEquals(
+            "checkpoint_restored_waiting_for_rearm",
+            recreated.uiState.value.lastInputDetail,
+        )
+        val rewritten = requireNotNull(handle.get<ByteArray>("fishing.checkpoint.v1"))
+        assertTrue(TypedCheckpointEnvelopeCodec.hasEnvelopeMagic(rewritten))
+        assertArrayEquals(
+            legacyPayload,
+            requireNotNull(TypedCheckpointEnvelopeCodec.decode(rewritten)).payload,
+        )
+        assertNull(handle.get<ByteArray>("fishing.checkpoint.rejected.v1"))
     }
 
     @Test

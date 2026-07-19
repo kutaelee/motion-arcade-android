@@ -1,5 +1,8 @@
 package com.motionarcade.app.fishing
 
+import com.motionarcade.app.checkpoint.TypedCheckpointEnvelopeCodec
+import com.motionarcade.core.contract.GameId
+import com.motionarcade.core.contract.GameMode
 import com.motionarcade.core.contract.PauseReason
 import com.motionarcade.core.contract.SessionStatus
 import com.motionarcade.games.fishing.FishingGameSession
@@ -11,6 +14,72 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class FishingCheckpointCodecTest {
+    @Test
+    fun writerUsesTypedV2EnvelopeAndExactLegacyPayloadMigratesToV2() {
+        val checkpoint = FishingGameSession.start(
+            sessionId = "fishing-envelope-migration",
+            seed = 29L,
+            calibrationRevision = 3,
+            eventTimelineOriginNs = 0L,
+        ).checkpoint()
+        val expectedPersisted = FishingGameSession.restore(checkpoint).checkpoint()
+        val preChangeBytes = FishingLegacyCheckpointFixtures.pausedV1
+
+        val encodedV2 = FishingCheckpointCodec.encode(checkpoint)
+        val envelope = requireNotNull(TypedCheckpointEnvelopeCodec.decode(encodedV2))
+        assertEquals(GameId.FISHING, envelope.gameId)
+        assertEquals(GameMode.SOLO, envelope.mode)
+        assertEquals(FishingCheckpointCodec.PAYLOAD_CODEC_ID, envelope.payloadCodecId)
+        assertEquals(FishingCheckpointCodec.PAYLOAD_CODEC_VERSION, envelope.payloadCodecVersion)
+
+        val migrated = requireNotNull(FishingCheckpointCodec.decode(preChangeBytes))
+        assertEquals(expectedPersisted, migrated)
+        assertEquals(SessionStatus.RUNNING, checkpoint.status)
+        assertEquals(SessionStatus.PAUSED, migrated.status)
+        assertEquals(PauseReason.APP_BACKGROUND, migrated.pauseReason)
+        val rewritten = FishingCheckpointCodec.encode(migrated)
+        assertTrue(TypedCheckpointEnvelopeCodec.hasEnvelopeMagic(rewritten))
+        assertArrayEquals(encodedV2, rewritten)
+        assertArrayEquals(
+            preChangeBytes,
+            requireNotNull(TypedCheckpointEnvelopeCodec.decode(rewritten)).payload,
+        )
+    }
+
+    @Test
+    fun envelopeCorruptionAndWrongTypedRouteFailBeforeLegacyFallback() {
+        val checkpoint = FishingGameSession.start("fishing-envelope-negative", 31L, 2, 0L)
+            .checkpoint()
+        val encoded = FishingCheckpointCodec.encode(checkpoint)
+        val corrupted = encoded.copyOf().also { bytes ->
+            bytes[bytes.lastIndex] = (bytes.last().toInt() xor 1).toByte()
+        }
+        assertNull(FishingCheckpointCodec.decode(corrupted))
+
+        val payload = requireNotNull(TypedCheckpointEnvelopeCodec.decode(encoded)).payload
+        val wrongMode = TypedCheckpointEnvelopeCodec.encode(
+            GameId.FISHING,
+            GameMode.DUAL,
+            FishingCheckpointCodec.PAYLOAD_CODEC_ID,
+            FishingCheckpointCodec.PAYLOAD_CODEC_VERSION,
+            payload,
+        )
+        assertNull(FishingCheckpointCodec.decode(wrongMode))
+        val wrongCodec = TypedCheckpointEnvelopeCodec.encode(
+            GameId.FISHING,
+            GameMode.SOLO,
+            "other-codec",
+            1,
+            payload,
+        )
+        assertNull(FishingCheckpointCodec.decode(wrongCodec))
+        assertNull(
+            FishingCheckpointCodec.decode(
+                """{"schemaVersion":1,"gameId":"FISHING","mode":"SOLO","state":{}}"""
+                    .toByteArray(),
+            ),
+        )
+    }
     @Test
     fun roundTripUsesDomainValidationAndRestoresNonResultPaused() {
         val session = FishingGameSession.start(
@@ -46,7 +115,7 @@ class FishingCheckpointCodecTest {
         for (size in 0 until encoded.size) {
             assertNull("accepted truncated size=$size", FishingCheckpointCodec.decode(encoded.copyOf(size)))
         }
-        val wrongVersion = encoded.copyOf().also { bytes -> bytes[7] = 2 }
+        val wrongVersion = encoded.copyOf().also { bytes -> bytes[7] = 3 }
         assertNull(FishingCheckpointCodec.decode(wrongVersion))
         assertNull(FishingCheckpointCodec.decode(encoded + 0.toByte()))
         assertNull(
