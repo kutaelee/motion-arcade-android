@@ -15,10 +15,11 @@ internal fun poseRecognitionFailureReason(
     inference: LivePoseInferenceSnapshot,
     expectedPlayers: Int,
     minimumUpperBodyConfidence: Float = 0.6f,
+    automaticRecoveryScheduled: Boolean = false,
 ): String? {
     require(expectedPlayers in 1..2)
     require(minimumUpperBodyConfidence in 0f..1f)
-    return when (status) {
+    val reason = when (status) {
         FrontCameraPreviewStatus.PERMISSION_MISSING ->
             "카메라 권한이 없어 인식할 수 없습니다. 설정에서 권한을 허용하세요."
         FrontCameraPreviewStatus.FRONT_CAMERA_UNAVAILABLE ->
@@ -62,6 +63,15 @@ internal fun poseRecognitionFailureReason(
             else -> null
         }
     }
+    return if (
+        reason != null &&
+        automaticRecoveryScheduled &&
+        inference.phase == LivePoseInferencePhase.FAILED
+    ) {
+        "$reason 자동으로 카메라를 한 번 다시 연결합니다."
+    } else {
+        reason
+    }
 }
 
 internal fun dualTrackingFailureReason(reason: IdentityPauseReason?): String? = when (reason) {
@@ -82,6 +92,7 @@ internal fun PoseRecognitionFailureToast(
     inference: LivePoseInferenceSnapshot,
     expectedPlayers: Int,
     minimumUpperBodyConfidence: Float = 0.6f,
+    automaticRecoveryScheduled: Boolean = false,
 ) {
     val context = LocalContext.current
     val reason = poseRecognitionFailureReason(
@@ -89,6 +100,7 @@ internal fun PoseRecognitionFailureToast(
         inference,
         expectedPlayers,
         minimumUpperBodyConfidence,
+        automaticRecoveryScheduled,
     )
     LaunchedEffect(reason) {
         if (reason != null) Toast.makeText(context, reason, Toast.LENGTH_LONG).show()

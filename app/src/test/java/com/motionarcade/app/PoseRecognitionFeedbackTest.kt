@@ -93,6 +93,21 @@ class PoseRecognitionFeedbackTest {
         assertTrue(reason.contains("서버 연결은 사용하지 않습니다"))
     }
 
+    @Test
+    fun scheduledAutomaticRecoveryIsDisclosedWithoutSuggestingNetworkChanges() {
+        val reason = requireNotNull(
+            poseRecognitionFailureReason(
+                FrontCameraPreviewStatus.ACTIVE,
+                failed(LivePoseFailureReason.RESULT_TIMEOUT),
+                expectedPlayers = 1,
+                automaticRecoveryScheduled = true,
+            ),
+        )
+
+        assertTrue(reason.contains("자동으로 카메라를 한 번 다시 연결합니다."))
+        assertTrue(reason.contains("서버나 방화벽 문제는 아닙니다."))
+    }
+
     private fun failed(reason: LivePoseFailureReason) = LivePoseInferenceSnapshot(
         sessionGeneration = 1,
         revision = 1,

@@ -87,6 +87,7 @@ import com.motionarcade.vision.motion.FishingMotionFrameSink
 import com.motionarcade.vision.pose.LivePoseInferencePhase
 import com.motionarcade.vision.pose.LivePoseInferenceSink
 import com.motionarcade.vision.pose.LivePoseInferenceSnapshot
+import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -565,12 +566,47 @@ private fun CameraPreviewScreen(
     val surface = remember(context) { FrontCameraPreviewSurface(context) }
     var status by remember { mutableStateOf(FrontCameraPreviewStatus.IDLE) }
     var inference by remember { mutableStateOf(LivePoseInferenceSnapshot.idle()) }
+    var autoRecovery by remember(
+        surface,
+        lifecycleOwner,
+        lensSelection,
+        lensBindEpoch,
+        activeFishingMotionConfig,
+    ) {
+        mutableStateOf(LivePoseAutoRecoveryState())
+    }
     var bindRequest by remember { mutableIntStateOf(0) }
     var cameraRebindPolicy by remember { mutableStateOf(FishingCameraRebindPolicyState()) }
     var boundGameIdentity by remember {
         mutableStateOf(
             fishingState.snapshot.sessionId to fishingState.snapshot.eventTimelineEpoch,
         )
+    }
+    LaunchedEffect(
+        inference.sessionGeneration,
+        inference.phase,
+    ) {
+        val failedSnapshot = inference
+        val decision = decideLivePoseAutoRecovery(
+            state = autoRecovery,
+            inference = failedSnapshot,
+            lifecycleResumed = lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED),
+        )
+        autoRecovery = decision.state
+        if (decision.requestRebind) {
+            delay(LIVE_POSE_AUTO_RECOVERY_DELAY_MILLIS)
+            if (canCompleteLivePoseAutoRecovery(
+                    lifecycleResumed = lifecycleOwner.lifecycle.currentState.isAtLeast(
+                        Lifecycle.State.RESUMED,
+                    ),
+                    inference = inference,
+                    failedGeneration = failedSnapshot.sessionGeneration,
+                )
+            ) {
+                status = FrontCameraPreviewStatus.STARTING
+                bindRequest = Math.incrementExact(bindRequest)
+            }
+        }
     }
 
     LaunchedEffect(
@@ -639,6 +675,7 @@ private fun CameraPreviewScreen(
                     fishingRuntime.onForeground()
                 }
                 Lifecycle.Event.ON_PAUSE -> {
+                    autoRecovery = LivePoseAutoRecoveryState()
                     cameraRebindPolicy = reduceFishingCameraRebindPolicy(
                         cameraRebindPolicy,
                         FishingCameraRebindEvent.PAUSE,
@@ -676,6 +713,7 @@ private fun CameraPreviewScreen(
         status = status,
         inference = inference,
         expectedPlayers = 1,
+        automaticRecoveryScheduled = autoRecovery.isRecovering(inference),
     )
     val recoveryControls = fishingRecoveryControls(
         runtimeFailed = fishingState.runtimeFailed,
