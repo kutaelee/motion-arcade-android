@@ -14,9 +14,10 @@ export type QaTask = {
 export const qaManifest = {
   repositoryUrl: "https://github.com/kutaelee/motion-arcade-android",
   build: {
-    displayName: "Upper-body reasons + game selection · Physical QA 14",
+    displayName: "QA 14 보관본 · Slice 6 신규 APK 승인 대기",
     scopeWarning:
-      "게임·인원 선택, 부분 신체 인식 안내, 16:9 낚시 전장, 가장자리 HUD와 v1.0 ImageGen 에셋을 확인하는 ARM64 후보입니다. 듀얼 낚시 협동 역할·듀얼 복싱 PvP·최종 에셋 승인은 아직 완료되지 않았습니다.",
+      "아래 APK는 게임·인원 선택, 부분 신체 안내, 16:9 낚시 HUD와 v1.0 ImageGen 에셋을 확인하는 QA14 보관본입니다. 새 Monster 강공격·충전·협동 필살기 분리는 포함하지 않으며, 해당 신규 APK는 에셋 재배포 승인 뒤 별도로 공개합니다.",
+    badge: "QA 14 ARCHIVE",
     signing: "debug-signed physical QA prerelease",
     packageName: "com.motionarcade.app.debug",
     sha256: "49af2c78747067282722c39eb66d326dc1da8566928e1f565fb4310b82ad5193",
@@ -26,8 +27,15 @@ export const qaManifest = {
       "https://github.com/kutaelee/motion-arcade-qa-builds/releases/tag/upper-body-reasons-qa-14",
     downloadUrl:
       "https://github.com/kutaelee/motion-arcade-qa-builds/releases/download/upper-body-reasons-qa-14/app-arm64-v8a-debug.apk",
-    releaseState: "active_prerelease",
-    notIncluded: ["에셋 사람 승인", "듀얼 낚시 협동 역할", "듀얼 복싱 PvP", "성능 릴리스 게이트"],
+    releaseState: "archived_prerelease",
+    releaseNote:
+      "설치 전 SHA-256을 확인하세요. 이 보관본으로 UI·부분 신체 안내·v1.0 에셋 눈검수는 가능하지만, 새 Monster 자세 분리 결과를 판정하면 안 됩니다.",
+    truthStrip: [
+      { value: "UI", label: "게임·인원 선택" },
+      { value: "UPPER", label: "필요 상체 관절" },
+      { value: "16:9", label: "낚시 전장" },
+    ],
+    notIncluded: ["신규 Monster 자세 분리", "에셋 재배포 승인", "실기기 성능 게이트"],
   },
   submission: {
     newIssueUrl: "https://github.com/kutaelee/motion-arcade-android/issues/new",
@@ -86,7 +94,7 @@ export const qaManifest = {
         "세로와 가로 방향에서 영상이 찌그러지거나 90/180도 잘못 회전하지 않는지 확인합니다.",
         "오른손을 들었을 때 화면이 자연스러운 셀피 미러 방향으로 반응하는지 확인합니다.",
         "홈 화면으로 나갔다 돌아오고, 화면을 잠갔다 해제한 뒤 프리뷰가 한 번만 정상 복귀하는지 확인합니다.",
-        "두 사람이 머리부터 발끝까지 들어오도록 섰을 때 과도한 crop이나 검은 띠가 없는지 확인합니다.",
+        "두 사람의 머리·어깨·팔꿈치·손목·엉덩이가 들어오도록 섰을 때 과도한 crop이나 검은 띠가 없는지 확인합니다. 무릎·발목은 필수 조건이 아닙니다.",
       ],
       evidence: [
         "정확한 기기 모델·Android 버전·화면 방향",
@@ -125,7 +133,7 @@ export const qaManifest = {
       whyHuman:
         "두 사람이 교차하거나 가려질 때 역할을 임의로 바꾸지 않고 멈추는지, 그리고 실제 카메라에서만 보이는 crop·조명·프레임 지연이 없는지 자동 테스트만으로 판정할 수 없습니다.",
       checks: [
-        "전면 카메라로 두 사람이 전신이 보이게 서면 BOXING 또는 MONSTER에 ‘2P camera setup / safety hold’가 나타나는지 확인합니다.",
+        "전면 카메라에 두 사람의 머리·어깨·팔꿈치·손목·엉덩이가 보이게 서면 BOXING 또는 MONSTER에 ‘2P camera setup / safety hold’가 나타나는지 확인합니다. 무릎·발목은 화면 밖이어도 됩니다.",
         "P1은 분석 화면의 왼쪽, P2는 오른쪽에 선 채 ‘Set / re-arm P1 + P2’를 누르고 약 1초 동안 중립 자세를 유지합니다. 그 전에는 게임 재개와 터치 입력이 열리지 않아야 합니다.",
         "안전 상태가 된 뒤 두 사람이 서로 자리를 가로질러 지나가거나 몸이 겹치게 섭니다. 안전 정지 문구가 나타나고 라운드 타이머·점수 변화가 멈추는지 확인합니다.",
         "교차·가림 뒤에는 두 사람이 다시 원래 역할 위치로 돌아가 중립 자세를 유지하고 re-arm을 다시 눌러야만 입력이 열리는지 확인합니다. 자동으로 다시 열리면 실패입니다.",
@@ -136,6 +144,28 @@ export const qaManifest = {
         "기기·Android 버전·화면 방향·두 사람의 거리·조명 조건",
         "안전 정지가 없었거나 역할이 뒤바뀐 것으로 보인 정확한 재현 순서와 시각",
       ],
+    },
+    {
+      id: "slice-6-monster-motion-separation",
+      slice: "Slice 6",
+      title: "Monster 강공격·충전·협동 필살기 분리 QA",
+      status: "waiting_approval",
+      whyHuman:
+        "자동 테스트는 포즈 경계를 증명하지만, 실제 두 사람이 500ms 강공격과 800ms 팀 파워 자세를 자연스럽게 구분할 수 있는지는 실기기 관찰이 필요합니다.",
+      checks: [
+        "강공격은 양손을 머리 위에서 500ms 유지한 뒤 아래로 내릴 때만 1회 발생하는지 확인합니다.",
+        "양팔 V자 충전을 800ms 유지하면 게이지만 충전되고 강공격·협동 필살기가 발생하지 않는지 확인합니다.",
+        "두 사람 모두 머리 위에서 양손을 모은 협동 필살기 자세를 각자 800ms 유지하고, 두 사람의 자세 확인 시점 차이가 600ms 이내일 때만 필살기가 발생하는지 확인합니다.",
+        "얼굴이 부분적으로 가려져도 방어·부활·충전 등 해당 동작에 필요한 상체 관절이 보이면 계속 플레이되는지 확인합니다. 강공격은 머리 기준점이 보이지 않으면 발생하지 않아야 합니다.",
+        "두 사람이 교차하거나 한 사람이 사라진 뒤에는 입력이 멈추고 명시적 re-arm 전까지 자동 재개되지 않는지 확인합니다.",
+      ],
+      evidence: [
+        "강공격·충전·필살기 각각의 성공 1회와 오발동 없음이 보이는 짧은 영상",
+        "실패한 동작, 발생 시각, 사람 간 거리·조명·화면 방향",
+        "얼굴 부분 가림 상태에서 허용된 동작과 차단된 강공격 결과",
+      ],
+      waitingReason:
+        "코드·944개 JVM 테스트·APK 로컬 빌드는 통과했습니다. v1.0 ImageGen 에셋 재배포 승인 뒤 정확한 SHA-256의 신규 QA APK 링크를 활성화합니다.",
     },
     {
       id: "g6-v1-runtime-art-review",
@@ -162,7 +192,7 @@ export const qaManifest = {
       id: "g8-three-games-thermal",
       slice: "Release Gate G8",
       title: "게임 3종 지속 플레이·발열 관찰",
-      status: "ready",
+      status: "waiting_build",
       whyHuman:
         "대표 게임 렌더링을 포함한 장시간 체감 지연, 프레임 끊김, 기기 발열과 throttling은 실제 기기에서만 승인할 수 있습니다.",
       checks: [
@@ -175,6 +205,8 @@ export const qaManifest = {
         "문제가 나타난 구간의 짧은 화면 영상",
         "앱이 내보내는 집계 성능 증거(원시 개인 데이터 제외)",
       ],
+      waitingReason:
+        "세 게임의 최신 모션·렌더링을 모두 포함하고 재배포 승인이 끝난 APK가 공개되면 활성화됩니다.",
     },
     {
       id: "g6-style-anchor-review",

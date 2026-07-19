@@ -89,9 +89,9 @@ export default function Home() {
 
             <aside className="build-card" aria-labelledby="current-build-title">
               <div className="build-card-head">
-                <p className="card-kicker">현재 QA APK</p>
-                <span className="status-dot" aria-label="전면 카메라 실기기 QA 릴리스">
-                  2P SAFETY QA
+                <p className="card-kicker">보관된 QA APK</p>
+                <span className="status-dot" aria-label="보관된 UI·에셋 QA 릴리스">
+                  {qaManifest.build.badge}
                 </span>
               </div>
               <h2 id="current-build-title">{qaManifest.build.displayName}</h2>
@@ -125,30 +125,23 @@ export default function Home() {
                 href={qaManifest.build.downloadUrl}
                 aria-describedby="release-note"
               >
-                APK 다운로드
+                QA14 APK 다운로드
                 <span aria-hidden="true">↓</span>
               </a>
               <p id="release-note" className="microcopy">
-                Android 설정이 출처 확인을 요청할 수 있습니다. 설치 전 위 SHA-256을
-                확인하세요. 이 debug APK는 2인 역할 추적 안전 QA 전용이며 제스처→행동 인식과 개인별 점수는 아직 없습니다.
+                {qaManifest.build.releaseNote}
               </p>
             </aside>
           </div>
         </header>
 
         <section className="truth-strip" aria-label="현재 빌드 범위">
-          <div>
-            <span className="truth-number">2B</span>
-            <span>2인 역할 추적</span>
-          </div>
-          <div>
-            <span className="truth-number">2P</span>
-            <span>P1 left / P2 right</span>
-          </div>
-          <div>
-            <span className="truth-number">PAUSE</span>
-            <span>교차·가림 뒤 re-arm</span>
-          </div>
+          {qaManifest.build.truthStrip.map((fact) => (
+            <div key={fact.value}>
+              <span className="truth-number">{fact.value}</span>
+              <span>{fact.label}</span>
+            </div>
+          ))}
           <p>{qaManifest.build.notIncluded.join(" · ")}</p>
         </section>
 
