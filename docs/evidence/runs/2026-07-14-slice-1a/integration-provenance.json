@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "slice": "1A",
+  "baselineTag": "slice-1a-start",
+  "implementationCommit": "884fd9d71763f362f62b0a4b43afc6ca531cbdc0",
+  "implementationTree": "5ac45df0e229213ee28e9a7f10c1a215426cd0dc",
+  "preReviewCiValidatedCommit": "6c46b1b9be7e417bb08f52fe207b9f4f0daedfb9",
+  "preReviewCiValidatedTree": "cc912660327f87d22a75db342f0b4b8f182934ae",
+  "postReviewSourceCommit": "500ca21df791a034381c22fd1f6d8bb553d69dae",
+  "postReviewSourceTree": "75cf093cab5ed34236967ee285ae3d2d3513b239",
+  "independentlyReviewedCandidateCommit": "b9a22d995aa9daa232a0776309bd697c0f8f8c97",
+  "independentlyReviewedCandidateTree": "05c9a742d63a2af9aa604306580557039dc1063b",
+  "postReviewRemoteValidatedCommit": "8b53d41c6c50ae0da134f21d541229e538b6d35b",
+  "postReviewRemoteValidatedTree": "d82ac415139753f0198b9cb9db001c7d25aff012",
+  "postReviewRemoteCi": "PASS_AT_REVIEW_EVIDENCE_COMMIT",
+  "finalEvidenceCommitRemoteCi": "PENDING",
+  "branch": "agent/slice-1a-time-coordinate",
+  "pullRequest": "https://github.com/kutaelee/motion-arcade-android/pull/1",
+  "remoteRuns": {
+    "push": {
+      "id": 29380386520,
+      "event": "push",
+      "headSha": "6c46b1b9be7e417bb08f52fe207b9f4f0daedfb9",
+      "conclusion": "success",
+      "url": "https://github.com/kutaelee/motion-arcade-android/actions/runs/29380386520",
+      "ssotJob": "success",
+      "androidJob": "success"
+    },
+    "pullRequest": {
+      "id": 29380388410,
+      "event": "pull_request",
+      "headSha": "6c46b1b9be7e417bb08f52fe207b9f4f0daedfb9",
+      "conclusion": "success",
+      "url": "https://github.com/kutaelee/motion-arcade-android/actions/runs/29380388410",
+      "ssotJob": "success",
+      "androidJob": "success"
+    }
+  },
+  "postReviewRemoteRuns": {
+    "push": {
+      "id": 29382457489,
+      "headSha": "8b53d41c6c50ae0da134f21d541229e538b6d35b",
+      "conclusion": "success",
+      "url": "https://github.com/kutaelee/motion-arcade-android/actions/runs/29382457489",
+      "ssotJob": "success",
+      "androidJob": "success"
+    },
+    "pullRequest": {
+      "id": 29382458906,
+      "headSha": "8b53d41c6c50ae0da134f21d541229e538b6d35b",
+      "conclusion": "success",
+      "url": "https://github.com/kutaelee/motion-arcade-android/actions/runs/29382458906",
+      "ssotJob": "success",
+      "androidJob": "success"
+    }
+  },
+  "independentReviews": [
+    {
+      "review": 1,
+      "targetCommit": "6c46b1b9be7e417bb08f52fe207b9f4f0daedfb9",
+      "verdict": "REWORK",
+      "finding": "P2_INVALID_METADATA_MASKED_AS_PAUSE_INPUT",
+      "completedCleanly": false
+    },
+    {
+      "review": 2,
+      "targetCommit": "b9a22d995aa9daa232a0776309bd697c0f8f8c97",
+      "targetTree": "05c9a742d63a2af9aa604306580557039dc1063b",
+      "verdict": "NO_ACTIONABLE_P0_P1_P2_FINDINGS",
+      "completedCleanly": true,
+      "trackedFilesChanged": 0
+    }
+  ],
+  "remediationCommits": [
+    {
+      "commit": "1d75c9a8e822de5b1ca9d15a11d4d641552ae6e8",
+      "purpose": "preserve byte-exact checked-in SSOT projection and Linux Gradle wrapper execution mode"
+    },
+    {
+      "commit": "eb3d79e07ed113ce90edcee7a16237d2cac29b3f",
+      "purpose": "pin independently verified JUnit BOM Gradle module metadata"
+    },
+    {
+      "commit": "de1e4819a83b8deec157ff0c4944327ce191c2f0",
+      "purpose": "pin verified Linux AAPT2 and Guava Android parent artifacts"
+    },
+    {
+      "commit": "a11f12097f17649745e197325d41b6669d3aa213",
+      "purpose": "pin the remaining resolved Guava JRE parent artifact"
+    },
+    {
+      "commit": "6c46b1b9be7e417bb08f52fe207b9f4f0daedfb9",
+      "purpose": "preserve byte identity of dependency-verified native libraries in debug variants only"
+    }
+  ],
+  "remoteObservedResults": {
+    "packageValidation": "PASS",
+    "pythonPolicyTests": 75,
+    "projectVisualAssetsDeployed": 0,
+    "supplyChainStaticPolicy": "PASS",
+    "gradleBuildAndTest": "PASS",
+    "apkPolicy": "PASS",
+    "nativeEntriesMatched": 16,
+    "nativeOwners": 3,
+    "runtimeLicenseCoordinates": 159,
+    "runtimeLicenseErrors": 0,
+    "kvmRequired": true,
+    "managedDevice": "pixel6Api37",
+    "managedDeviceApi": 37,
+    "managedDevicePageSize": "16KB",
+    "managedDeviceTests": 2,
+    "managedDeviceFailures": 0
+  },
+  "evidenceBoundary": {
+    "syntheticCoordinateAcceptance": true,
+    "remoteLinuxCiObserved": true,
+    "emulatorRuntimeObserved": true,
+    "physicalOverlayObserved": false,
+    "physicalCameraBound": false,
+    "twoPersonPoseObserved": false,
+    "g2Approved": false,
+    "g9Approved": false
+  }
+}

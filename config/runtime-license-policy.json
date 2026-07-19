@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 2,
+  "configuration": "releaseRuntimeClasspath",
+  "rules": [
+    {
+      "canonicalId": "Apache-2.0",
+      "verdict": "ALLOW_DECLARED",
+      "names": [
+        "Apache 2.0",
+        "Apache License, Version 2.0",
+        "Apache-2.0",
+        "The Apache License, Version 2.0",
+        "The Apache Software License, Version 2.0"
+      ],
+      "urls": [
+        "http://www.apache.org/licenses/LICENSE-2.0.txt",
+        "https://www.apache.org/licenses/LICENSE-2.0.txt"
+      ]
+    },
+    {
+      "canonicalId": "BSD-3-Clause",
+      "verdict": "ALLOW_DECLARED",
+      "names": [
+        "BSD-3-Clause"
+      ],
+      "urls": [
+        "https://opensource.org/licenses/BSD-3-Clause"
+      ]
+    },
+    {
+      "canonicalId": "MIT",
+      "verdict": "ALLOW_DECLARED",
+      "names": [
+        "MIT",
+        "The MIT License"
+      ],
+      "urls": [
+        "http://opensource.org/licenses/MIT",
+        "https://opensource.org/licenses/MIT"
+      ]
+    },
+    {
+      "canonicalId": "GPL-2.0-with-Classpath-exception",
+      "verdict": "MANUAL_REVIEW",
+      "names": [
+        "GNU General Public License, version 2 (GPL2), with the classpath exception",
+        "GNU General Public License, version 2 with the GNU Classpath Exception"
+      ],
+      "urls": [
+        "http://www.gnu.org/software/classpath/license.html",
+        "https://www.gnu.org/software/classpath/license.html"
+      ]
+    },
+    {
+      "canonicalId": "EPL-2.0",
+      "verdict": "MANUAL_REVIEW",
+      "names": [
+        "Eclipse Public License v. 2.0"
+      ],
+      "urls": [
+        "https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.txt"
+      ]
+    }
+  ],
+  "exceptions": [
+    {
+      "coordinate": "org.checkerframework:checker-compat-qual:2.5.3",
+      "expectedLicenses": [
+        {
+          "name": "GNU General Public License, version 2 (GPL2), with the classpath exception",
+          "url": "http://www.gnu.org/software/classpath/license.html"
+        },
+        {
+          "name": "The MIT License",
+          "url": "http://opensource.org/licenses/MIT"
+        }
+      ],
+      "status": "TECHNICAL_EVIDENCE_ACCEPTED",
+      "evidence": "Technical metadata exception only: exact cached artifacts, annotation-interface class flags, and the retained official 2.5.3 tagged LICENSE are verified offline. This record is not legal advice or redistribution approval.",
+      "reviewer": "Codex project technical evidence review (not legal counsel)",
+      "date": "2026-07-14",
+      "technicalEvidence": {
+        "pomSha256": "F7FCDAC99EB33D169F6D52A35541C22FFD14F458ABBCF56F9C49EE1486598C9C",
+        "jarSha256": "D76B9AFEA61C7C082908023F0CBC1427FAB9ABD2DF915C8B8A3E7A509BCCBC6D",
+        "expectedClassCount": 10,
+        "requiredClassAccessFlags": [
+          "ACC_ANNOTATION",
+          "ACC_INTERFACE"
+        ],
+        "upstreamLicenseSources": [
+          {
+            "path": "docs/supply-chain/licenses/checker-framework-2.5.3-LICENSE.txt",
+            "sha256": "37AC781FD633D592519CC231473B9A25EBD84C3BBE829ABB8F588D3355EDC63C",
+            "url": "https://raw.githubusercontent.com/typetools/checker-framework/checker-framework-2.5.3/LICENSE.txt",
+            "urlSha256": "FA90322DD81AE07B90F8E29E4AF3D851DA779A90F15D32BFE5D5E1D1BF25A991"
+          }
+        ]
+      }
+    }
+  ]
+}

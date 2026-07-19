@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/contracts/calibration-profile.schema.json",
+  "title": "CalibrationProfile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "revision",
+    "mode",
+    "lensFacing",
+    "orientation",
+    "players",
+    "valid"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "mode": {
+      "enum": [
+        "SOLO",
+        "DUAL"
+      ]
+    },
+    "lensFacing": {
+      "enum": [
+        "FRONT",
+        "BACK"
+      ]
+    },
+    "orientation": {
+      "enum": [
+        "PORTRAIT",
+        "LANDSCAPE"
+      ]
+    },
+    "valid": {
+      "type": "boolean"
+    },
+    "players": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "playerId",
+          "shoulderWidth",
+          "torsoLength",
+          "neutralVariance",
+          "dominantSide",
+          "stance",
+          "oneArmMode"
+        ],
+        "properties": {
+          "playerId": {
+            "enum": [
+              "P1",
+              "P2"
+            ]
+          },
+          "shoulderWidth": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "torsoLength": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "neutralVariance": {
+            "type": "number",
+            "minimum": 0
+          },
+          "dominantSide": {
+            "enum": [
+              "LEFT",
+              "RIGHT",
+              "UNSPECIFIED"
+            ]
+          },
+          "stance": {
+            "enum": [
+              "ORTHODOX",
+              "SOUTHPAW",
+              "NEUTRAL"
+            ]
+          },
+          "oneArmMode": {
+            "enum": [
+              "OFF",
+              "LEFT_ONLY",
+              "RIGHT_ONLY"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "assetId": "boxing.anchor.style-board",
+  "gameId": "BOXING",
+  "generationMethod": "IMAGEGEN_SKILL",
+  "registryPath": "android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0/assets/imagegen-prompt-registry.json",
+  "styleProfileId": "boxing-v1",
+  "styleRevision": 1,
+  "templateId": "anchor-board-v1",
+  "promptVariables": {
+    "scopeSummary": "boxing mini-game Neon Gym Punch",
+    "subjects": "four boxer proportions, ring, gloves, jab hook guard effects",
+    "composition": "coherent sports arcade style board"
+  },
+  "referenceAssetIds": [],
+  "generationDate": "2026-07-18",
+  "revision": 1,
+  "reviewStatus": "PENDING_HUMAN_ANCHOR_REVIEW",
+  "resolvedPrompt": "Create an original 2D mobile arcade cartoon style anchor board for boxing mini-game Neon Gym Punch. Apply the entire locked style profile boxing-v1 without deviation. Show four boxer proportion/face/body variants, a bright safe arcade ring, a glove color family, and readable jab, hook, guard, dodge, and round-icon-shell visual concepts in one coherent sports arcade composition with label-free visual zones. Energetic but safe sports arcade; sharp readable silhouettes, oversized gloves, near-black plum #24152D slightly angular outlines, burgundy #7A284B, electric cyan #25C7D9, warm yellow #F4C84A, cream #FFF3D6, and deep indigo #292C58; upper-left arena key light and restrained cyan rim light; three-tone cel shading; fixed 3/4 front camera-facing athlete and ring-side perspective; head-to-body 1:5.2; gloves 20% oversized. No blood, bruises, realistic injury, famous boxer likeness, mixed outline colors, text on ring or banner, text, letters, numbers, logos, watermarks, copyrighted characters, artist imitation, photorealism, or external asset collage. Keep all components internally consistent in silhouette, outline weight, palette, lighting, proportions, projection, and material language."
+}

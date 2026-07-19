@@ -1,0 +1,20 @@
+{
+  "assetId": "monster.anchor.style-board",
+  "gameId": "MONSTER",
+  "generationMethod": "IMAGEGEN_SKILL",
+  "registryPath": "android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0/assets/imagegen-prompt-registry.json",
+  "styleProfileId": "monster-v1",
+  "styleRevision": 1,
+  "templateId": "anchor-board-v1",
+  "promptVariables": {
+    "scopeSummary": "monster co-op mini-game Runestone Expedition",
+    "subjects": "two hero classes, monster silhouettes, three-phase boss, arena, magic and melee effects",
+    "composition": "coherent side-view fantasy arcade style board"
+  },
+  "referenceAssetIds": [],
+  "generationDate": "2026-07-19",
+  "revision": 3,
+  "supersedes": "assets-src/imagegen/MONSTER/monster.anchor.style-board/r02/raw.png",
+  "reviewStatus": "PENDING_HUMAN_ANCHOR_REVIEW",
+  "resolvedPrompt": "Create an original 2D mobile arcade cartoon anchor board for Runestone Expedition under locked monster-v1 revision 1, showing Vanguard, Ranger-Mage, three common monsters, one elite, the same boss across three phases, a friendly ancient runestone arena, and melee, guard, magic charge, projectile, revive, and co-op ultimate effects. Use polished contemporary 2026 high-resolution three-tone cel animation texture, never pixel art or retro 8-bit; dark forest-indigo #182E38 outlines and forest teal #247F72, rune amber #F0A83B, mage violet #7655C6, stone gray #87959A, ember coral #E9604A, mist cream #F2F1D8. Preserve side-view arena, 3/4-side characters, motion-ready hair, cape, clothing, weapons, shield, limbs, ears, wings, and horns with clear overlaps and pivots. Preserve the same boss face, horns, core silhouette, and identity across all phases. Remove every letter-like rune, written mark, numeral, plus sign, cross, arrow, chevron, banner marking, UI glyph, logo-like emblem, and writing-like symbol; use only unmarked material facets and non-linguistic circular light. Keep all subjects, poses, composition, palette, lighting, proportions, and effect placement consistent. No text, letters, numbers, writing-like glyphs, logos, watermarks, copyrighted franchise resemblance, artist imitation, photorealism, gore, horror, tiny high-frequency detail, unrelated magic palettes, or external asset collage."
+}

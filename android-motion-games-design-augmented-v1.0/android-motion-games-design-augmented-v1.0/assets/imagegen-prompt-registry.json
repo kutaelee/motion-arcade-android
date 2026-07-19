@@ -1,0 +1,1554 @@
+{
+  "schemaVersion": 1,
+  "policy": {
+    "generationMethod": "IMAGEGEN_SKILL",
+    "skillPath": "skills/imagegen-asset-production/SKILL.md",
+    "oneOffPromptsForbidden": true,
+    "externalArtMixingForbidden": true,
+    "manualMasterPaintingForbidden": true,
+    "uiTextInImagesForbidden": true,
+    "substantiveEditsRequireImageGenRevision": true,
+    "approvedStyleProfiles": [
+      "common-hub-v1",
+      "fishing-v1",
+      "boxing-v1",
+      "monster-v1"
+    ]
+  },
+  "templates": [
+    {
+      "templateId": "anchor-board-v1",
+      "purpose": "게임 또는 공통 허브의 시각 DNA를 잠그는 reference board",
+      "requiredVariables": [
+        "styleProfileId",
+        "scopeSummary",
+        "subjects",
+        "composition"
+      ],
+      "promptPattern": "Create an original 2D mobile arcade cartoon style anchor board for {{scopeSummary}}. Apply the entire locked style profile {{styleProfileId}} without deviation. Show {{subjects}} in {{composition}}. Keep silhouette, outline weight, palette, lighting direction, proportions, projection, and material language internally consistent. No text, letters, numbers, logos, watermarks, copyrighted characters, artist imitation, photorealism, or external asset collage."
+    },
+    {
+      "templateId": "layered-character-v1",
+      "purpose": "동일 캐릭터의 정적 레이어 파츠와 기준 pose",
+      "requiredVariables": [
+        "styleProfileId",
+        "characterName",
+        "identityTraits",
+        "view",
+        "parts"
+      ],
+      "promptPattern": "Create an original layered 2D arcade cartoon character asset for {{characterName}}, using locked style profile {{styleProfileId}} and approved reference images. Preserve these immutable identity traits: {{identityTraits}}. View: {{view}}. Separate visual parts for {{parts}} with clean overlap for runtime pivot animation. Transparent background, centered. No text, no logo, no watermark, no extra limbs, no external references, no artist imitation."
+    },
+    {
+      "templateId": "side-background-v1",
+      "purpose": "게임 필드 배경 레이어",
+      "requiredVariables": [
+        "styleProfileId",
+        "environment",
+        "camera",
+        "layers",
+        "safeZones"
+      ],
+      "promptPattern": "Create an original 2D mobile game background using locked style profile {{styleProfileId}}. Environment: {{environment}}. Camera/projection: {{camera}}. Produce visually separable layers for {{layers}}. Preserve quiet contrast in HUD and pose-guide safe zones: {{safeZones}}. No text, no characters unless explicitly listed, no signs with letters, no logos, no watermarks, no photorealism, no copyrighted setting imitation."
+    },
+    {
+      "templateId": "creature-family-v1",
+      "purpose": "물고기 또는 몬스터 family",
+      "requiredVariables": [
+        "styleProfileId",
+        "family",
+        "members",
+        "sharedTraits",
+        "distinctTraits"
+      ],
+      "promptPattern": "Create a coherent original 2D creature family for {{family}} using locked style profile {{styleProfileId}} and approved anchor references. Members: {{members}}. Shared traits: {{sharedTraits}}. Make each member distinct through {{distinctTraits}} while keeping outline, lighting, palette logic, proportions, projection, and rendering density consistent. Transparent background. No text, no watermark, no realistic gore, no copyrighted creature resemblance."
+    },
+    {
+      "templateId": "fx-family-v1",
+      "purpose": "공격·방어·물보라·마법 FX",
+      "requiredVariables": [
+        "styleProfileId",
+        "effectFamily",
+        "frames",
+        "coverageLimit",
+        "colorRules"
+      ],
+      "promptPattern": "Create an original 2D arcade effect family for {{effectFamily}} using locked style profile {{styleProfileId}}. Provide {{frames}} key-frame concepts or separable effect layers. Follow {{colorRules}}. Keep the opaque visual coverage below {{coverageLimit}} and preserve the center pose-guide/HUD safe zones. Transparent background. No text, no logo, no watermark, no photorealism, no external asset collage."
+    },
+    {
+      "templateId": "icon-v1",
+      "purpose": "텍스트 없는 게임/보상/상태 icon",
+      "requiredVariables": [
+        "styleProfileId",
+        "symbol",
+        "shapeLanguage",
+        "safeMargin"
+      ],
+      "promptPattern": "Create an original 2D arcade icon for {{symbol}} using locked style profile {{styleProfileId}}. Shape language: {{shapeLanguage}}. Centered on a transparent background with {{safeMargin}} safe margin, strong silhouette at 64px, consistent outline and lighting. No text, letters, numbers, words, logos, watermarks, copyrighted symbols, or artist imitation."
+    }
+  ],
+  "assets": [
+    {
+      "assetId": "hub.anchor.style-board",
+      "gameId": "COMMON",
+      "styleProfileId": "common-hub-v1",
+      "styleRevision": 1,
+      "templateId": "anchor-board-v1",
+      "assetFamily": "ANCHOR",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "scopeSummary": "common app hub and system guidance",
+        "subjects": "app icon mark, game cards, camera placement figure, reward badge, settings glyphs",
+        "composition": "single coherent reference board with label-free visual zones"
+      },
+      "referenceAssetIds": [],
+      "outputSpec": {
+        "kind": "REFERENCE_BOARD",
+        "width": 1536,
+        "height": 1024,
+        "transparentBackground": false,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "fishing.anchor.style-board",
+      "gameId": "FISHING",
+      "styleProfileId": "fishing-v1",
+      "styleRevision": 1,
+      "templateId": "anchor-board-v1",
+      "assetFamily": "ANCHOR",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "scopeSummary": "fishing mini-game Harbor Pop",
+        "subjects": "angler, harbor, rod, net, seven fish silhouettes, splash effects",
+        "composition": "coherent style board with side-view gameplay references"
+      },
+      "referenceAssetIds": [],
+      "outputSpec": {
+        "kind": "REFERENCE_BOARD",
+        "width": 1536,
+        "height": 1024,
+        "transparentBackground": false,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "boxing.anchor.style-board",
+      "gameId": "BOXING",
+      "styleProfileId": "boxing-v1",
+      "styleRevision": 1,
+      "templateId": "anchor-board-v1",
+      "assetFamily": "ANCHOR",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "scopeSummary": "boxing mini-game Neon Gym Punch",
+        "subjects": "four boxer proportions, ring, gloves, jab hook guard effects",
+        "composition": "coherent sports arcade style board"
+      },
+      "referenceAssetIds": [],
+      "outputSpec": {
+        "kind": "REFERENCE_BOARD",
+        "width": 1536,
+        "height": 1024,
+        "transparentBackground": false,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "monster.anchor.style-board",
+      "gameId": "MONSTER",
+      "styleProfileId": "monster-v1",
+      "styleRevision": 1,
+      "templateId": "anchor-board-v1",
+      "assetFamily": "ANCHOR",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "scopeSummary": "monster co-op mini-game Runestone Expedition",
+        "subjects": "two hero classes, monster silhouettes, three-phase boss, arena, magic and melee effects",
+        "composition": "coherent side-view fantasy arcade style board"
+      },
+      "referenceAssetIds": [],
+      "outputSpec": {
+        "kind": "REFERENCE_BOARD",
+        "width": 1536,
+        "height": 1024,
+        "transparentBackground": false,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "hub.icon.app",
+      "gameId": "COMMON",
+      "styleProfileId": "common-hub-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "HUB_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "motion arcade app mark",
+        "shapeLanguage": "rounded friendly arcade glyph",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "hub.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "hub.icon.camera-placement",
+      "gameId": "COMMON",
+      "styleProfileId": "common-hub-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "HUB_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "safe camera placement",
+        "shapeLanguage": "rounded friendly arcade glyph",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "hub.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "hub.icon.reward-coin",
+      "gameId": "COMMON",
+      "styleProfileId": "common-hub-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "HUB_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "neutral reward coin",
+        "shapeLanguage": "rounded friendly arcade glyph",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "hub.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "hub.icon.accessibility",
+      "gameId": "COMMON",
+      "styleProfileId": "common-hub-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "HUB_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "accessible motion options",
+        "shapeLanguage": "rounded friendly arcade glyph",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "hub.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "hub.icon.privacy-camera",
+      "gameId": "COMMON",
+      "styleProfileId": "common-hub-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "HUB_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "on-device private camera processing",
+        "shapeLanguage": "rounded friendly arcade glyph",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "hub.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "hub.card.fishing",
+      "gameId": "COMMON",
+      "styleProfileId": "common-hub-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "HUB_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "fishing game selection symbol",
+        "shapeLanguage": "rounded friendly arcade glyph",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "hub.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "hub.card.boxing",
+      "gameId": "COMMON",
+      "styleProfileId": "common-hub-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "HUB_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "boxing game selection symbol",
+        "shapeLanguage": "rounded friendly arcade glyph",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "hub.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "hub.card.monster",
+      "gameId": "COMMON",
+      "styleProfileId": "common-hub-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "HUB_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "monster co-op game selection symbol",
+        "shapeLanguage": "rounded friendly arcade glyph",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "hub.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "fishing.character.angler",
+      "gameId": "FISHING",
+      "styleProfileId": "fishing-v1",
+      "styleRevision": 1,
+      "templateId": "layered-character-v1",
+      "assetFamily": "FISHING_CHARACTER",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "characterName": "primary angler",
+        "identityTraits": "coral cap, teal vest, rounded face, sand boots",
+        "view": "3/4 side facing game field",
+        "parts": "head, torso, upper arms, forearms, hands, rod hand, legs, accessory"
+      },
+      "referenceAssetIds": [
+        "fishing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "LAYERED_CHARACTER",
+        "width": 1024,
+        "height": 1024,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "fishing.background.harbor-day",
+      "gameId": "FISHING",
+      "styleProfileId": "fishing-v1",
+      "styleRevision": 1,
+      "templateId": "side-background-v1",
+      "assetFamily": "FISHING_BACKGROUND",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "environment": "cheerful small harbor fishing spot in daylight",
+        "camera": "fixed side-view with gentle depth layers",
+        "layers": "sky, distant harbor, water, pier foreground",
+        "safeZones": "top HUD and lower camera inset"
+      },
+      "referenceAssetIds": [
+        "fishing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "BACKGROUND",
+        "width": 1920,
+        "height": 1080,
+        "transparentBackground": false,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "fishing.background.harbor-dusk",
+      "gameId": "FISHING",
+      "styleProfileId": "fishing-v1",
+      "styleRevision": 1,
+      "templateId": "side-background-v1",
+      "assetFamily": "FISHING_BACKGROUND",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "environment": "same harbor at warm dusk without changing geometry",
+        "camera": "same fixed side-view as daylight",
+        "layers": "sky, distant harbor, water, pier foreground",
+        "safeZones": "top HUD and lower camera inset"
+      },
+      "referenceAssetIds": [
+        "fishing.anchor.style-board",
+        "fishing.background.harbor-day"
+      ],
+      "outputSpec": {
+        "kind": "BACKGROUND",
+        "width": 1920,
+        "height": 1080,
+        "transparentBackground": false,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "fishing.creatures.fish-family",
+      "gameId": "FISHING",
+      "styleProfileId": "fishing-v1",
+      "styleRevision": 1,
+      "templateId": "creature-family-v1",
+      "assetFamily": "FISH_FAMILY",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "family": "seven catchable fish",
+        "members": "four common, two rare, one boss fish",
+        "sharedTraits": "rounded readable bodies, Harbor Pop eyes and fins",
+        "distinctTraits": "body silhouette, fin shape, stripe pattern, rarity accent"
+      },
+      "referenceAssetIds": [
+        "fishing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "CREATURE_SHEET",
+        "width": 1536,
+        "height": 1024,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "fishing.prop.rod",
+      "gameId": "FISHING",
+      "styleProfileId": "fishing-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "FISHING_PROP_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "fishing rod and float",
+        "shapeLanguage": "rounded nautical arcade",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "fishing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON_OR_PROP",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "fishing.prop.net",
+      "gameId": "FISHING",
+      "styleProfileId": "fishing-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "FISHING_PROP_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "landing net",
+        "shapeLanguage": "rounded nautical arcade",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "fishing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON_OR_PROP",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "fishing.icon.tension",
+      "gameId": "FISHING",
+      "styleProfileId": "fishing-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "FISHING_PROP_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "line tension state",
+        "shapeLanguage": "rounded nautical arcade",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "fishing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON_OR_PROP",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "fishing.icon.bite",
+      "gameId": "FISHING",
+      "styleProfileId": "fishing-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "FISHING_PROP_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "fish bite alert",
+        "shapeLanguage": "rounded nautical arcade",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "fishing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON_OR_PROP",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "fishing.icon.rare",
+      "gameId": "FISHING",
+      "styleProfileId": "fishing-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "FISHING_PROP_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "rare catch symbol",
+        "shapeLanguage": "rounded nautical arcade",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "fishing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON_OR_PROP",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "fishing.fx.water-family",
+      "gameId": "FISHING",
+      "styleProfileId": "fishing-v1",
+      "styleRevision": 1,
+      "templateId": "fx-family-v1",
+      "assetFamily": "FISHING_FX",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "effectFamily": "water ripple, splash, catch burst",
+        "frames": "four to six",
+        "coverageLimit": "30 percent of game field",
+        "colorRules": "sea teal, foam, limited coral accent"
+      },
+      "referenceAssetIds": [
+        "fishing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "FX_SHEET",
+        "width": 1536,
+        "height": 1024,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "boxing.character.boxer-1",
+      "gameId": "BOXING",
+      "styleProfileId": "boxing-v1",
+      "styleRevision": 1,
+      "templateId": "layered-character-v1",
+      "assetFamily": "BOXER_CHARACTER",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "characterName": "boxer 1",
+        "identityTraits": "compact agile boxer, cyan gloves, short rounded hair",
+        "view": "3/4 front camera-facing stance",
+        "parts": "head, torso, upper arms, forearms, oversized gloves, hips, legs"
+      },
+      "referenceAssetIds": [
+        "boxing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "LAYERED_CHARACTER",
+        "width": 1024,
+        "height": 1024,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "boxing.character.boxer-2",
+      "gameId": "BOXING",
+      "styleProfileId": "boxing-v1",
+      "styleRevision": 1,
+      "templateId": "layered-character-v1",
+      "assetFamily": "BOXER_CHARACTER",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "characterName": "boxer 2",
+        "identityTraits": "tall technical boxer, yellow gloves, angular hair",
+        "view": "3/4 front camera-facing stance",
+        "parts": "head, torso, upper arms, forearms, oversized gloves, hips, legs"
+      },
+      "referenceAssetIds": [
+        "boxing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "LAYERED_CHARACTER",
+        "width": 1024,
+        "height": 1024,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "boxing.character.boxer-3",
+      "gameId": "BOXING",
+      "styleProfileId": "boxing-v1",
+      "styleRevision": 1,
+      "templateId": "layered-character-v1",
+      "assetFamily": "BOXER_CHARACTER",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "characterName": "boxer 3",
+        "identityTraits": "stocky defensive boxer, coral gloves, headband without text",
+        "view": "3/4 front camera-facing stance",
+        "parts": "head, torso, upper arms, forearms, oversized gloves, hips, legs"
+      },
+      "referenceAssetIds": [
+        "boxing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "LAYERED_CHARACTER",
+        "width": 1024,
+        "height": 1024,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "boxing.character.boxer-4",
+      "gameId": "BOXING",
+      "styleProfileId": "boxing-v1",
+      "styleRevision": 1,
+      "templateId": "layered-character-v1",
+      "assetFamily": "BOXER_CHARACTER",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "characterName": "boxer 4",
+        "identityTraits": "balanced champion boxer, burgundy gloves, swept hair",
+        "view": "3/4 front camera-facing stance",
+        "parts": "head, torso, upper arms, forearms, oversized gloves, hips, legs"
+      },
+      "referenceAssetIds": [
+        "boxing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "LAYERED_CHARACTER",
+        "width": 1024,
+        "height": 1024,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "boxing.background.ring",
+      "gameId": "BOXING",
+      "styleProfileId": "boxing-v1",
+      "styleRevision": 1,
+      "templateId": "side-background-v1",
+      "assetFamily": "BOXING_BACKGROUND",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "environment": "bright safe arcade boxing ring with abstract audience shapes",
+        "camera": "fixed arena perspective matching character 3/4 front",
+        "layers": "arena lights, audience, ropes, floor",
+        "safeZones": "top round HUD and side player panels"
+      },
+      "referenceAssetIds": [
+        "boxing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "BACKGROUND",
+        "width": 1920,
+        "height": 1080,
+        "transparentBackground": false,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "boxing.fx.combat-family",
+      "gameId": "BOXING",
+      "styleProfileId": "boxing-v1",
+      "styleRevision": 1,
+      "templateId": "fx-family-v1",
+      "assetFamily": "BOXING_FX",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "effectFamily": "jab streak, hook arc, guard shield, dodge cue, victory burst",
+        "frames": "four to six or separable layers",
+        "coverageLimit": "25 percent of game field",
+        "colorRules": "cyan/yellow/coral accents on plum outline"
+      },
+      "referenceAssetIds": [
+        "boxing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "FX_SHEET",
+        "width": 1536,
+        "height": 1024,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "boxing.icon.round",
+      "gameId": "BOXING",
+      "styleProfileId": "boxing-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "BOXING_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "round indicator without number",
+        "shapeLanguage": "angular sport arcade",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "boxing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "boxing.icon.guard",
+      "gameId": "BOXING",
+      "styleProfileId": "boxing-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "BOXING_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "guard state",
+        "shapeLanguage": "angular sport arcade",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "boxing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "boxing.icon.stamina",
+      "gameId": "BOXING",
+      "styleProfileId": "boxing-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "BOXING_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "stamina gauge symbol",
+        "shapeLanguage": "angular sport arcade",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "boxing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "boxing.icon.victory",
+      "gameId": "BOXING",
+      "styleProfileId": "boxing-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "BOXING_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "victory badge without text",
+        "shapeLanguage": "angular sport arcade",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "boxing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "boxing.icon.counter",
+      "gameId": "BOXING",
+      "styleProfileId": "boxing-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "BOXING_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "counter timing symbol",
+        "shapeLanguage": "angular sport arcade",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "boxing.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "monster.character.vanguard",
+      "gameId": "MONSTER",
+      "styleProfileId": "monster-v1",
+      "styleRevision": 1,
+      "templateId": "layered-character-v1",
+      "assetFamily": "HERO_CHARACTER",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "characterName": "Vanguard hero",
+        "identityTraits": "chunky shield, amber rune, forest-teal armor, broad silhouette",
+        "view": "3/4 side facing arena center",
+        "parts": "head, torso, upper arms, forearms, hands, weapon, cape or shield, legs"
+      },
+      "referenceAssetIds": [
+        "monster.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "LAYERED_CHARACTER",
+        "width": 1024,
+        "height": 1024,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "monster.character.ranger-mage",
+      "gameId": "MONSTER",
+      "styleProfileId": "monster-v1",
+      "styleRevision": 1,
+      "templateId": "layered-character-v1",
+      "assetFamily": "HERO_CHARACTER",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "characterName": "Ranger Mage hero",
+        "identityTraits": "violet rune focus, short cape, slim bow-staff hybrid, readable V-pose arms",
+        "view": "3/4 side facing arena center",
+        "parts": "head, torso, upper arms, forearms, hands, weapon, cape or shield, legs"
+      },
+      "referenceAssetIds": [
+        "monster.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "LAYERED_CHARACTER",
+        "width": 1024,
+        "height": 1024,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "monster.creatures.common-family",
+      "gameId": "MONSTER",
+      "styleProfileId": "monster-v1",
+      "styleRevision": 1,
+      "templateId": "creature-family-v1",
+      "assetFamily": "MONSTER_FAMILY",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "family": "three common monsters and one elite",
+        "members": "horned hopper, stone-shell crawler, winged ember imp, elite rune brute",
+        "sharedTraits": "chunky playful fantasy anatomy and dark forest-indigo outline",
+        "distinctTraits": "silhouette, movement part, accent color, weak-point shape"
+      },
+      "referenceAssetIds": [
+        "monster.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "CREATURE_SHEET",
+        "width": 1536,
+        "height": 1024,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "monster.creature.boss-phases",
+      "gameId": "MONSTER",
+      "styleProfileId": "monster-v1",
+      "styleRevision": 1,
+      "templateId": "creature-family-v1",
+      "assetFamily": "BOSS_FAMILY",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "family": "one boss across three phases",
+        "members": "phase one, phase two armor-open, phase three rune-charged",
+        "sharedTraits": "same face, horns, core silhouette and rune identity",
+        "distinctTraits": "attack appendage, exposed weak point, controlled glow intensity"
+      },
+      "referenceAssetIds": [
+        "monster.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "CREATURE_SHEET",
+        "width": 1536,
+        "height": 1024,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "monster.background.arena",
+      "gameId": "MONSTER",
+      "styleProfileId": "monster-v1",
+      "styleRevision": 1,
+      "templateId": "side-background-v1",
+      "assetFamily": "MONSTER_BACKGROUND",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "environment": "ancient friendly runestone arena in a forest ruin",
+        "camera": "fixed side-view arena",
+        "layers": "mist forest, runestones, arena floor, foreground grass",
+        "safeZones": "top boss bar, side player HUD, lower camera inset"
+      },
+      "referenceAssetIds": [
+        "monster.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "BACKGROUND",
+        "width": 1920,
+        "height": 1080,
+        "transparentBackground": false,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "monster.fx.action-family",
+      "gameId": "MONSTER",
+      "styleProfileId": "monster-v1",
+      "styleRevision": 1,
+      "templateId": "fx-family-v1",
+      "assetFamily": "MONSTER_FX",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "effectFamily": "melee slash, shield guard, magic charge, projectile, revive, co-op ultimate",
+        "frames": "four to eight or separable layers",
+        "coverageLimit": "35 percent of game field",
+        "colorRules": "amber for Vanguard, violet for Mage, coral for danger, cream for revive"
+      },
+      "referenceAssetIds": [
+        "monster.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "FX_SHEET",
+        "width": 1536,
+        "height": 1024,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "monster.icon.revive",
+      "gameId": "MONSTER",
+      "styleProfileId": "monster-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "MONSTER_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "revive state",
+        "shapeLanguage": "chunky runestone arcade",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "monster.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "monster.icon.ultimate",
+      "gameId": "MONSTER",
+      "styleProfileId": "monster-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "MONSTER_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "team ultimate",
+        "shapeLanguage": "chunky runestone arcade",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "monster.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "monster.icon.weakpoint",
+      "gameId": "MONSTER",
+      "styleProfileId": "monster-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "MONSTER_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "boss weak point",
+        "shapeLanguage": "chunky runestone arcade",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "monster.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "monster.icon.role",
+      "gameId": "MONSTER",
+      "styleProfileId": "monster-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "MONSTER_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "role assignment",
+        "shapeLanguage": "chunky runestone arcade",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "monster.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    },
+    {
+      "assetId": "monster.icon.phase",
+      "gameId": "MONSTER",
+      "styleProfileId": "monster-v1",
+      "styleRevision": 1,
+      "templateId": "icon-v1",
+      "assetFamily": "MONSTER_ICON",
+      "generationMethod": "IMAGEGEN_SKILL",
+      "status": "PLANNED",
+      "promptVariables": {
+        "symbol": "boss phase change",
+        "shapeLanguage": "chunky runestone arcade",
+        "safeMargin": "12 percent"
+      },
+      "referenceAssetIds": [
+        "monster.anchor.style-board"
+      ],
+      "outputSpec": {
+        "kind": "ICON",
+        "width": 512,
+        "height": 512,
+        "transparentBackground": true,
+        "colorSpace": "sRGB",
+        "densityPolicy": "drawable-nodpi"
+      },
+      "negativeConstraints": [
+        "NO_TEXT",
+        "NO_LOGO",
+        "NO_WATERMARK",
+        "NO_COPYRIGHT_IMITATION",
+        "NO_EXTERNAL_ASSET_COLLAGE"
+      ]
+    }
+  ]
+}

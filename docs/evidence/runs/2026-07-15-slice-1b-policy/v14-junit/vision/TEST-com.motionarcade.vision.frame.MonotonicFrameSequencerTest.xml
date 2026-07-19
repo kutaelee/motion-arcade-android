@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.motionarcade.vision.frame.MonotonicFrameSequencerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-07-15T17:17:34.346Z" hostname="DESKTOP-D283RK5" time="0.0">
+  <properties/>
+  <testcase name="assignsIncreasingFrameIdsToStrictlyMonotonicSourceTime" classname="com.motionarcade.vision.frame.MonotonicFrameSequencerTest" time="0.0"/>
+  <testcase name="negativeDuplicateAndOutOfOrderTimeAreRejectedWithoutAdvancingState" classname="com.motionarcade.vision.frame.MonotonicFrameSequencerTest" time="0.0"/>
+  <testcase name="frameIdExhaustionFailsClosed" classname="com.motionarcade.vision.frame.MonotonicFrameSequencerTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

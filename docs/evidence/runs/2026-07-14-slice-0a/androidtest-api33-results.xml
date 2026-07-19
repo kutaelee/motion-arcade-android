@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="2" failures="0" errors="0" skipped="0" time="1.678" timestamp="2026-07-14T14:50:56" hostname="localhost">
+  <testsuite name="com.motionarcade.app.MediaPipePrivacyInstrumentationTest" tests="2" failures="0" errors="0" skipped="0" time="0.995" timestamp="2026-07-14T14:50:56" hostname="localhost">
+    <properties>
+      <property name="device" value="Pixel_6_2(AVD) - 13" />
+      <property name="flavor" value="" />
+      <property name="project" value=":app" />
+    </properties>
+    <testcase name="packagedPoseModelCreatesTwoPoseLandmarkerWithoutRemoteTransport" classname="com.motionarcade.app.MediaPipePrivacyInstrumentationTest" time="0.991" />
+    <testcase name="packagedMediaPipeLoggerFactoryReturnsLocalNoOpLogger" classname="com.motionarcade.app.MediaPipePrivacyInstrumentationTest" time="0.004" />
+  </testsuite>
+</testsuites>

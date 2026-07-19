@@ -1,0 +1,18 @@
+artifact=<repository>\artifacts\slice-0a\motion-arcade-slice-0a-58d350e136c50c2b1a407fd887e66a4939ceb8ac6348545a828a69d6c76f665f.apk
+apkSha256=58D350E136C50C2B1A407FD887E66A4939CEB8AC6348545A828A69D6C76F665F
+serial=emulator-5554
+model=sdk_gphone64_x86_64
+api=33
+installExit=0
+Performing Streamed Install
+Success
+startExit=0
+Stopping: com.motionarcade.app.debug
+Starting: Intent { cmp=com.motionarcade.app.debug/com.motionarcade.app.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.motionarcade.app.debug/com.motionarcade.app.MainActivity
+TotalTime: 1448
+WaitTime: 1462
+Complete
+processId=5866

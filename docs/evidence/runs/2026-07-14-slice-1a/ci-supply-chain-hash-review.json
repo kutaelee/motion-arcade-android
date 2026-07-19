@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "reviewedAtUtc": "2026-07-15T00:47:00Z",
+  "artifacts": [
+    {
+      "coordinate": "org.junit:junit-bom:5.11.0-M2",
+      "artifact": "junit-bom-5.11.0-M2.module",
+      "url": "https://repo1.maven.org/maven2/org/junit/junit-bom/5.11.0-M2/junit-bom-5.11.0-M2.module",
+      "bytes": 7104,
+      "sha256": "86477abcf490d6ca059aa9973cb108d22a506f49d1a5569bb32cc6cbf43c2cce",
+      "publishedSha256Matched": true,
+      "downloadRecomputedSha256Matched": true,
+      "freshGradleCacheSha256Matched": true
+    },
+    {
+      "coordinate": "com.android.tools.build:aapt2:9.2.1-15009934",
+      "artifact": "aapt2-9.2.1-15009934-linux.jar",
+      "url": "https://dl.google.com/dl/android/maven2/com/android/tools/build/aapt2/9.2.1-15009934/aapt2-9.2.1-15009934-linux.jar",
+      "bytes": 2347854,
+      "sha256": "755f6727fb3f4cce5e319eac0f3618ed4b36b49a46d4bb2cbb6fa8e9175a54d6",
+      "publishedSha256Available": false,
+      "downloadRecomputedSha256Matched": true,
+      "sameRepositoryWindowsSiblingMatchedExistingSha256": "ac25e699c4830b5179f138736fd6200567aa1d73acc4dff0b0ba2b73013a8cdb",
+      "sameRepositoryPomMatchedExistingSha256": "3f422e9f421a692446b3cc480a1c78b53b29ea934fd67ad52786ef5cd6a67e87"
+    },
+    {
+      "coordinate": "com.google.guava:guava-parent:33.3.1-android",
+      "artifact": "guava-parent-33.3.1-android.pom",
+      "url": "https://repo1.maven.org/maven2/com/google/guava/guava-parent/33.3.1-android/guava-parent-33.3.1-android.pom",
+      "bytes": 20632,
+      "sha256": "6e11986ea7250b51f847157e2dc937f32a306804dfce0007a5e81ddb9b95c579",
+      "computedSha1": "d4598d14da6c708054bc42f2be7e6245ac715be4",
+      "publishedSha1": "d4598d14da6c708054bc42f2be7e6245ac715be4",
+      "publishedSha1Matched": true,
+      "downloadRecomputedSha256": true
+    },
+    {
+      "coordinate": "com.google.guava:guava-parent:33.4.8-jre",
+      "artifact": "guava-parent-33.4.8-jre.pom",
+      "url": "https://repo1.maven.org/maven2/com/google/guava/guava-parent/33.4.8-jre/guava-parent-33.4.8-jre.pom",
+      "bytes": 24597,
+      "sha256": "a03c5199a1be14443df7fd40ba8673b1c6aae04deef6688ce7d573ea489e3a20",
+      "computedSha1": "59c58a0aeeae9d89b4ab534645dbffe7038843bf",
+      "publishedSha1": "59c58a0aeeae9d89b4ab534645dbffe7038843bf",
+      "publishedSha1Matched": true,
+      "downloadRecomputedSha256": true
+    }
+  ],
+  "policyBoundary": {
+    "verificationMetadataUsesSha256": true,
+    "signaturesEnabled": false,
+    "newDependencyIntroduced": false,
+    "lockfileChanged": false,
+    "legalApprovalClaimed": false
+  }
+}

@@ -1,0 +1,1 @@
+APK_POLICY=PASS package=com.motionarcade.app.debug permissions=android.permission.CAMERA,com.motionarcade.app.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION modelSha256=59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a

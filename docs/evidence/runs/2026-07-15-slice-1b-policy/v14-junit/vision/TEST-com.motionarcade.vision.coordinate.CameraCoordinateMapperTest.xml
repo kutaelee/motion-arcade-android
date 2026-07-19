@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.motionarcade.vision.coordinate.CameraCoordinateMapperTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-07-15T17:17:34.190Z" hostname="DESKTOP-D283RK5" time="0.075">
+  <properties/>
+  <testcase name="unsupportedRotationHasNoGuessedFallback" classname="com.motionarcade.vision.coordinate.CameraCoordinateMapperTest" time="0.001"/>
+  <testcase name="rotationGoldenPointsAreNumericallyFixed" classname="com.motionarcade.vision.coordinate.CameraCoordinateMapperTest" time="0.044"/>
+  <testcase name="all96RotationLensAspectScaleCropCombinationsMatchIndependentOracle" classname="com.motionarcade.vision.coordinate.CameraCoordinateMapperTest" time="0.016"/>
+  <testcase name="missingPreviewCropDropsFrameInsteadOfGuessing" classname="com.motionarcade.vision.coordinate.CameraCoordinateMapperTest" time="0.002"/>
+  <testcase name="frontMirrorChangesDisplayOnlyAndPreservesAnalysisCoordinates" classname="com.motionarcade.vision.coordinate.CameraCoordinateMapperTest" time="0.0"/>
+  <testcase name="invalidAnalysisMetadataDropsFrameAndIncrementsCategoryOnly" classname="com.motionarcade.vision.coordinate.CameraCoordinateMapperTest" time="0.001"/>
+  <testcase name="explicitPreviewCropMapsThroughCommonBufferSpace" classname="com.motionarcade.vision.coordinate.CameraCoordinateMapperTest" time="0.0"/>
+  <testcase name="nonFinitePointIsDroppedAndCountedWithoutCoordinateRetention" classname="com.motionarcade.vision.coordinate.CameraCoordinateMapperTest" time="0.005"/>
+  <testcase name="invalidFrameMetadataOutranksUnresolvedOrMissingViewportBasis" classname="com.motionarcade.vision.coordinate.CameraCoordinateMapperTest" time="0.003"/>
+  <testcase name="rotatedOffsetCropHasFixedNumericOracle" classname="com.motionarcade.vision.coordinate.CameraCoordinateMapperTest" time="0.0"/>
+  <testcase name="fitAndFillHaveDifferentFixedLetterboxAndCropOffsets" classname="com.motionarcade.vision.coordinate.CameraCoordinateMapperTest" time="0.0"/>
+  <testcase name="unresolvedOrInconsistentViewportMappingPausesGameInput" classname="com.motionarcade.vision.coordinate.CameraCoordinateMapperTest" time="0.001"/>
+  <testcase name="analysisAndDisplayRotationsAreIndependent" classname="com.motionarcade.vision.coordinate.CameraCoordinateMapperTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

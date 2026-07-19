@@ -1,0 +1,48 @@
+{
+  "packageName": "android-motion-games-design-augmented",
+  "packageVersion": "1.0",
+  "generatedDate": "2026-07-14",
+  "language": "ko-KR",
+  "scope": "Design augmentation only; no Android implementation or generated image assets",
+  "fileCountIncludingChecksumManifest": 66,
+  "source": {
+    "file": "source/ORIGINAL_SPEC.md",
+    "sha256": "78a95f1f52c51d39da7630acab8ce494137c98a9704e69d85383569d833dec5a"
+  },
+  "designAugmentation": {
+    "identifiedTacitKnowledgeGaps": 25,
+    "runtimeJsonContracts": 5,
+    "assetManifestSchemas": 1,
+    "adrsAdded": 5,
+    "operationalRunbooksAdded": 5
+  },
+  "assetSsot": {
+    "method": "IMAGEGEN_SKILL",
+    "skill": "skills/imagegen-asset-production/SKILL.md",
+    "registry": "assets/imagegen-prompt-registry.json",
+    "plannedAssetRequests": 44,
+    "promptTemplates": 6,
+    "styleProfiles": [
+      "assets/style-profiles/common-hub-v1.md",
+      "assets/style-profiles/fishing-v1.md",
+      "assets/style-profiles/boxing-v1.md",
+      "assets/style-profiles/monster-v1.md"
+    ],
+    "generatedMasterAssets": 0,
+    "anchorReviewStatus": "PENDING"
+  },
+  "validation": {
+    "packageValidator": "scripts/validate_package.py",
+    "schemaValidator": "scripts/validate_json_schemas.py",
+    "assetSsotValidator": "scripts/validate_asset_ssot.py",
+    "checksumValidator": "scripts/validate_sha256s.py",
+    "evidenceReport": "docs/evidence/package-validation-report.md"
+  },
+  "status": {
+    "designPackage": "COMPLETED",
+    "androidImplementation": "NOT_STARTED",
+    "physicalDeviceVerification": "PENDING",
+    "actualImageGeneration": "NOT_STARTED",
+    "releaseApproval": "MANUAL_REVIEW_REQUIRED"
+  }
+}

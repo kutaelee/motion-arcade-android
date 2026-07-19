@@ -1,0 +1,773 @@
+{
+    "schemaVersion":  1,
+    "generationMethod":  "IMAGEGEN_SKILL",
+    "assets":  [
+                   {
+                       "assetId":  "fishing.anchor.style-board",
+                       "gameId":  "FISHING",
+                       "styleProfileId":  "fishing-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  2,
+                       "templateId":  "anchor-board-v1",
+                       "promptRecordHash":  "2ae7ab942661970a0c02164c5479a785c6c93ce27fd1ec0f25589043dacb78db",
+                       "sourceFile":  "assets-src/imagegen/FISHING/fishing.anchor.style-board/r02/raw.png",
+                       "sourceSha256":  "b8fe801f7ccd7b2fbb7afc14bb97723aca4d0e4b9096330e95cbd92b561524bf",
+                       "processedFile":  "assets-src/imagegen/FISHING/fishing.anchor.style-board/r02/raw.png",
+                       "processedSha256":  "b8fe801f7ccd7b2fbb7afc14bb97723aca4d0e4b9096330e95cbd92b561524bf",
+                       "width":  1536,
+                       "height":  1024,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.0,
+                                               "y":  0.0,
+                                               "width":  1.0,
+                                               "height":  1.0
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-18",
+                       "revision":  2,
+                       "processingRecipe":  [
+                                                "metadata(anchor-reference-only)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   },
+                   {
+                       "assetId":  "boxing.anchor.style-board",
+                       "gameId":  "BOXING",
+                       "styleProfileId":  "boxing-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  2,
+                       "templateId":  "anchor-board-v1",
+                       "promptRecordHash":  "3b0f32267daa0e500f7ff4e129ea6016dd01b96bab17b517ff06af123197a6a9",
+                       "sourceFile":  "assets-src/imagegen/BOXING/boxing.anchor.style-board/r02/raw.png",
+                       "sourceSha256":  "8a35f5c9eea5e54cb6c0ddec5f7fddb38204797d238c774eb921dd07a416c8ae",
+                       "processedFile":  "assets-src/imagegen/BOXING/boxing.anchor.style-board/r02/raw.png",
+                       "processedSha256":  "8a35f5c9eea5e54cb6c0ddec5f7fddb38204797d238c774eb921dd07a416c8ae",
+                       "width":  1536,
+                       "height":  1024,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.0,
+                                               "y":  0.0,
+                                               "width":  1.0,
+                                               "height":  1.0
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-18",
+                       "revision":  2,
+                       "processingRecipe":  [
+                                                "metadata(anchor-reference-only)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   },
+                   {
+                       "assetId":  "monster.anchor.style-board",
+                       "gameId":  "MONSTER",
+                       "styleProfileId":  "monster-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  3,
+                       "templateId":  "anchor-board-v1",
+                       "promptRecordHash":  "d89cafe30fda4328443b0b93b60ea33e962d248d9fda93f14cb79ba7a8558c0b",
+                       "sourceFile":  "assets-src/imagegen/MONSTER/monster.anchor.style-board/r03/raw.png",
+                       "sourceSha256":  "b74861797c9ee39b7220ddc31063f0f597b946cfbbf580c2e3785fe54d9200de",
+                       "processedFile":  "assets-src/imagegen/MONSTER/monster.anchor.style-board/r03/raw.png",
+                       "processedSha256":  "b74861797c9ee39b7220ddc31063f0f597b946cfbbf580c2e3785fe54d9200de",
+                       "width":  1536,
+                       "height":  1024,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.0,
+                                               "y":  0.0,
+                                               "width":  1.0,
+                                               "height":  1.0
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-18",
+                       "revision":  3,
+                       "processingRecipe":  [
+                                                "metadata(anchor-reference-only)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   },
+                   {
+                       "assetId":  "boxing.character.boxer-1",
+                       "gameId":  "BOXING",
+                       "styleProfileId":  "boxing-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  2,
+                       "templateId":  "layered-character-v1",
+                       "promptRecordHash":  "fe4a7343eaf9ec6eaadacc3c915a59fe83c7f2f0f4cc6c5986494cbc1cf84571",
+                       "sourceFile":  "assets-src/imagegen/BOXING/boxing.character.boxer-1/r01/raw.png",
+                       "sourceSha256":  "8f15404eb544ff992acc2258b5ddddfad87d6befab5668273323eb5da4263e8b",
+                       "processedFile":  "app/src/main/res/drawable-nodpi/boxing_boxer_1_v1.png",
+                       "processedSha256":  "11c5b13a83913a1575543ea7ddc9fdec664d001e9ca1e93141f6bcffcf97db88",
+                       "width":  1024,
+                       "height":  1024,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.19,
+                                               "y":  0.02,
+                                               "width":  0.62,
+                                               "height":  0.96
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-19",
+                       "revision":  1,
+                       "processingRecipe":  [
+                                                "remove-chroma-key(auto-border-soft-matte-despill)",
+                                                "resize(LANCZOS-1024x1024)",
+                                                "lossless-format-convert(PNG)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   },
+                   {
+                       "assetId":  "boxing.character.boxer-2",
+                       "gameId":  "BOXING",
+                       "styleProfileId":  "boxing-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  2,
+                       "templateId":  "layered-character-v1",
+                       "promptRecordHash":  "aead74e86e09f63dffb93e8a956da02da8aae31fc62c67aef5001416f2f84665",
+                       "sourceFile":  "assets-src/imagegen/BOXING/boxing.character.boxer-2/r01/raw.png",
+                       "sourceSha256":  "31d9ccac0233b574d7d9f87ddbf34aeb548e761605874becb22f9eb565c114ce",
+                       "processedFile":  "app/src/main/res/drawable-nodpi/boxing_boxer_2_v1.png",
+                       "processedSha256":  "73523919ccff0368afbb7eecb34f15657c6d7d87008f0f407cd957eab71e3cdd",
+                       "width":  1024,
+                       "height":  1024,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.22,
+                                               "y":  0.02,
+                                               "width":  0.56,
+                                               "height":  0.96
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-19",
+                       "revision":  1,
+                       "processingRecipe":  [
+                                                "remove-chroma-key(auto-border-soft-matte-despill)",
+                                                "resize(LANCZOS-1024x1024)",
+                                                "lossless-format-convert(PNG)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   },
+                   {
+                       "assetId":  "boxing.character.boxer-3",
+                       "gameId":  "BOXING",
+                       "styleProfileId":  "boxing-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  2,
+                       "templateId":  "layered-character-v1",
+                       "promptRecordHash":  "2d0ed00acb5df27ca34a9361f9fe1ba4e344dbe1ea09ca5bf60ee1c86fb4748a",
+                       "sourceFile":  "assets-src/imagegen/BOXING/boxing.character.boxer-3/r01/raw.png",
+                       "sourceSha256":  "e8862077318779d1061db9d10318282f875f0cb2ddf1dadf4bfc1bd6fae6ca53",
+                       "processedFile":  "app/src/main/res/drawable-nodpi/boxing_boxer_3_v1.png",
+                       "processedSha256":  "26adc9dde288c566a0dfbece5b001726f206918497999573fdf58281bbe87481",
+                       "width":  1024,
+                       "height":  1024,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.16,
+                                               "y":  0.08,
+                                               "width":  0.68,
+                                               "height":  0.84
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-19",
+                       "revision":  1,
+                       "processingRecipe":  [
+                                                "remove-chroma-key(auto-border-soft-matte-despill)",
+                                                "resize(LANCZOS-1024x1024)",
+                                                "lossless-format-convert(PNG)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   },
+                   {
+                       "assetId":  "boxing.character.boxer-4",
+                       "gameId":  "BOXING",
+                       "styleProfileId":  "boxing-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  2,
+                       "templateId":  "layered-character-v1",
+                       "promptRecordHash":  "e4be7036ed9b4521d6f29fb54f07aa2f63924faa230eb4a764c27f1933305f99",
+                       "sourceFile":  "assets-src/imagegen/BOXING/boxing.character.boxer-4/r01/raw.png",
+                       "sourceSha256":  "3574d3bf470c63bb4151e0abdbaed536166ca1174cb513abf8be995df1e5ca05",
+                       "processedFile":  "app/src/main/res/drawable-nodpi/boxing_boxer_4_v1.png",
+                       "processedSha256":  "4a05aaa5ab0808c5a6378648da3ff1f12228b2fbaf474b427d297dfe10fee8a4",
+                       "width":  1024,
+                       "height":  1024,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.23,
+                                               "y":  0.04,
+                                               "width":  0.54,
+                                               "height":  0.94
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-19",
+                       "revision":  1,
+                       "processingRecipe":  [
+                                                "remove-chroma-key(auto-border-soft-matte-despill)",
+                                                "resize(LANCZOS-1024x1024)",
+                                                "lossless-format-convert(PNG)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   },
+                   {
+                       "assetId":  "boxing.background.ring",
+                       "gameId":  "BOXING",
+                       "styleProfileId":  "boxing-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  2,
+                       "templateId":  "side-background-v1",
+                       "promptRecordHash":  "33c973212ca91f47fa7f9d948ff101de8fb9931007274b63fb92d7097dc2f87d",
+                       "sourceFile":  "assets-src/imagegen/BOXING/boxing.background.ring/r01/raw.png",
+                       "sourceSha256":  "94e930969831ef82f845031034269621436b5317487d072bc9ea4602619cfce0",
+                       "processedFile":  "app/src/main/res/drawable-nodpi/boxing_ring_v1.png",
+                       "processedSha256":  "60f8c825c914946930512cf8fb04d43a86330210c8059d2bb66d9ccbbb187adc",
+                       "width":  1920,
+                       "height":  1080,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.0,
+                                               "y":  0.0,
+                                               "width":  1.0,
+                                               "height":  1.0
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-19",
+                       "revision":  1,
+                       "processingRecipe":  [
+                                                "resize(LANCZOS-1920x1080)",
+                                                "lossless-format-convert(PNG)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   },
+                   {
+                       "assetId":  "boxing.fx.combat-family",
+                       "gameId":  "BOXING",
+                       "styleProfileId":  "boxing-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  2,
+                       "templateId":  "fx-family-v1",
+                       "promptRecordHash":  "cf363eb6242512a56e11f88c58c5041da895c5d25d4c031539ce4d8d62a5399c",
+                       "sourceFile":  "assets-src/imagegen/BOXING/boxing.fx.combat-family/r01/raw.png",
+                       "sourceSha256":  "120bc19f8a99d997b6d02d6dfe3885a629c761b81de0bc85c53e9048da54d42d",
+                       "processedFile":  "app/src/main/res/drawable-nodpi/boxing_combat_fx_v1.png",
+                       "processedSha256":  "ce2c44dab4f21feab2ecd8bc31a25804e77a0694369bfa7d59ae57bbbb03ab67",
+                       "width":  1536,
+                       "height":  1024,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.0,
+                                               "y":  0.0,
+                                               "width":  1.0,
+                                               "height":  1.0
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-19",
+                       "revision":  1,
+                       "processingRecipe":  [
+                                                "remove-chroma-key(auto-border-soft-matte-despill)",
+                                                "lossless-format-convert(PNG)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   },
+                   {
+                       "assetId":  "monster.character.vanguard",
+                       "gameId":  "MONSTER",
+                       "styleProfileId":  "monster-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  3,
+                       "templateId":  "layered-character-v1",
+                       "promptRecordHash":  "f4c0b932eb662c9d2fbe04e725f967bdfb1ed9b3e4f4776146493bc9fb63c914",
+                       "sourceFile":  "assets-src/imagegen/MONSTER/monster.character.vanguard/r02/raw.png",
+                       "sourceSha256":  "d4c9f73e3b4a467c24000f0ece3a82c89fdc4bbd17734610c94f77219208ab3b",
+                       "processedFile":  "app/src/main/res/drawable-nodpi/monster_vanguard_actions_v2.png",
+                       "processedSha256":  "bf86d5e0f1de0e9e9148d947d64592fac6024601b949ff79dcf36842735c9c32",
+                       "width":  1254,
+                       "height":  1254,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.08,
+                                               "y":  0.04,
+                                               "width":  0.84,
+                                               "height":  0.92
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-19",
+                       "revision":  2,
+                       "processingRecipe":  [
+                                                "remove-chroma-key(auto-border-soft-matte-despill)",
+                                                "lossless-format-convert(PNG)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   },
+                   {
+                       "assetId":  "monster.character.ranger-mage",
+                       "gameId":  "MONSTER",
+                       "styleProfileId":  "monster-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  3,
+                       "templateId":  "layered-character-v1",
+                       "promptRecordHash":  "a0e5bdfd917701165e916d99223bbb89645095111c7813280e7007b1baac873e",
+                       "sourceFile":  "assets-src/imagegen/MONSTER/monster.character.ranger-mage/r02/raw.png",
+                       "sourceSha256":  "c704538f26100946bde44aa89bb0197d4dd2e78739a8b99f19854fed95294b58",
+                       "processedFile":  "app/src/main/res/drawable-nodpi/monster_ranger_mage_actions_v2.png",
+                       "processedSha256":  "dbcff58915cd6102e5f059ab4dabf48060e2ffcf21be8d0a048e31c87fc48465",
+                       "width":  1254,
+                       "height":  1254,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.08,
+                                               "y":  0.04,
+                                               "width":  0.84,
+                                               "height":  0.92
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-19",
+                       "revision":  2,
+                       "processingRecipe":  [
+                                                "remove-chroma-key(auto-border-soft-matte-despill)",
+                                                "lossless-format-convert(PNG)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   },
+                   {
+                       "assetId":  "monster.creatures.common-family",
+                       "gameId":  "MONSTER",
+                       "styleProfileId":  "monster-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  3,
+                       "templateId":  "creature-family-v1",
+                       "promptRecordHash":  "ab3995b418ef428379ae5f32a4b7149ec911c04ce05a74e73fdeba60d50a843d",
+                       "sourceFile":  "assets-src/imagegen/MONSTER/monster.creatures.common-family/r01/raw.png",
+                       "sourceSha256":  "63eb8d46cf381676f937ea1b2e7422c8ed2e5891fe6abfaa14ca3a8538a48a05",
+                       "processedFile":  "app/src/main/res/drawable-nodpi/monster_common_family_v1.png",
+                       "processedSha256":  "29403b50295d185497765030b8e8d37eba6a7449d3c5e56003694f918195b040",
+                       "width":  1536,
+                       "height":  1024,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.02,
+                                               "y":  0.2,
+                                               "width":  0.96,
+                                               "height":  0.6
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-19",
+                       "revision":  1,
+                       "processingRecipe":  [
+                                                "remove-chroma-key(auto-border-soft-matte-despill)",
+                                                "resize-contain-and-pad(LANCZOS-1536x1024)",
+                                                "lossless-format-convert(PNG)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   },
+                   {
+                       "assetId":  "monster.creature.boss-phases",
+                       "gameId":  "MONSTER",
+                       "styleProfileId":  "monster-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  3,
+                       "templateId":  "creature-family-v1",
+                       "promptRecordHash":  "153c7f9f3a33651953ecc6a5a3479ebeb7d947e350a076dc2cc2166fea0c77fd",
+                       "sourceFile":  "assets-src/imagegen/MONSTER/monster.creature.boss-phases/r01/raw.png",
+                       "sourceSha256":  "a65b1484f771bc7e3c63956bfdb93db7db2777e8b814c5360633aca16ef2c13e",
+                       "processedFile":  "app/src/main/res/drawable-nodpi/monster_boss_phases_v1.png",
+                       "processedSha256":  "07c25a2962094e32de3bf0b314a3923fdc1f2cf9dab81f2af3f00254934bf4e9",
+                       "width":  1536,
+                       "height":  1024,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.02,
+                                               "y":  0.2,
+                                               "width":  0.96,
+                                               "height":  0.6
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-19",
+                       "revision":  1,
+                       "processingRecipe":  [
+                                                "remove-chroma-key(auto-border-soft-matte-despill)",
+                                                "resize-contain-and-pad(LANCZOS-1536x1024)",
+                                                "lossless-format-convert(PNG)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   },
+                   {
+                       "assetId":  "monster.background.arena",
+                       "gameId":  "MONSTER",
+                       "styleProfileId":  "monster-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  3,
+                       "templateId":  "side-background-v1",
+                       "promptRecordHash":  "3348e9b37b3ef9a938e4a6b6d55aeda608333384a5378d4502fcda8cded72a66",
+                       "sourceFile":  "assets-src/imagegen/MONSTER/monster.background.arena/r01/raw.png",
+                       "sourceSha256":  "66e27e2988a89f1f8504d50484f023448a18e55a84ae83d2e4b90192e8bd25a9",
+                       "processedFile":  "app/src/main/res/drawable-nodpi/monster_arena_v1.png",
+                       "processedSha256":  "4ada0d9956ec24dffeb5a83391771568e3a61bfe90503276ee9f53b73cf207f6",
+                       "width":  1920,
+                       "height":  1080,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.0,
+                                               "y":  0.0,
+                                               "width":  1.0,
+                                               "height":  1.0
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-19",
+                       "revision":  1,
+                       "processingRecipe":  [
+                                                "resize(LANCZOS-1920x1080)",
+                                                "lossless-format-convert(PNG)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   },
+                   {
+                       "assetId":  "monster.fx.action-family",
+                       "gameId":  "MONSTER",
+                       "styleProfileId":  "monster-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  3,
+                       "templateId":  "fx-family-v1",
+                       "promptRecordHash":  "dfca8f0a4953f794d336440d942a4c7d2ae49cb9c2c608c5b62977df21a66d06",
+                       "sourceFile":  "assets-src/imagegen/MONSTER/monster.fx.action-family/r01/raw.png",
+                       "sourceSha256":  "d3565d4884c5f98a1ec0edeebc3073dcde7ea59850e23e5ba973c16f66fc29d5",
+                       "processedFile":  "app/src/main/res/drawable-nodpi/monster_action_fx_v1.png",
+                       "processedSha256":  "7babdd406f05a2c368fc7aa7e2ff98cfd4d2d5c34573f361402ed31b0ea3655b",
+                       "width":  1536,
+                       "height":  1024,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.0,
+                                               "y":  0.0,
+                                               "width":  1.0,
+                                               "height":  1.0
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-19",
+                       "revision":  1,
+                       "processingRecipe":  [
+                                                "remove-chroma-key(auto-border-soft-matte-despill)",
+                                                "resize-contain(LANCZOS-1536x1024)",
+                                                "lossless-format-convert(PNG)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   },
+                   {
+                       "assetId":  "fishing.background.harbor-day",
+                       "gameId":  "FISHING",
+                       "styleProfileId":  "fishing-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  2,
+                       "templateId":  "side-background-v1",
+                       "promptRecordHash":  "8cb387d9f6398591bdfd22cccaeaf30617b9e1b2f9a011f466d6811af7a10a10",
+                       "sourceFile":  "assets-src/imagegen/FISHING/fishing.background.harbor-day/r01/raw.png",
+                       "sourceSha256":  "aa60127596146077f2a34ad089445facac7769177e4279d61c57b58b9914d888",
+                       "processedFile":  "app/src/main/res/drawable-nodpi/fishing_harbor_day_v1.png",
+                       "processedSha256":  "a8af585792200e115a087c5f4016de5908daa3915a020a19a6a31d3ec5ef8bbc",
+                       "width":  1920,
+                       "height":  1080,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.0,
+                                               "y":  0.0,
+                                               "width":  1.0,
+                                               "height":  1.0
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-19",
+                       "revision":  1,
+                       "processingRecipe":  [
+                                                "resize(LANCZOS-1920x1080)",
+                                                "lossless-format-convert(PNG)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   },
+                   {
+                       "assetId":  "fishing.creatures.fish-family",
+                       "gameId":  "FISHING",
+                       "styleProfileId":  "fishing-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  2,
+                       "templateId":  "creature-family-v1",
+                       "promptRecordHash":  "771d486e22e8db0d237d844ce5e2619de00065ee1f9873ac5a4d77fe4d8455b8",
+                       "sourceFile":  "assets-src/imagegen/FISHING/fishing.creatures.fish-family/r01/raw.png",
+                       "sourceSha256":  "fef4844af01e08c83c2a791810c5cb15076625fa1f92fd17c102be0e0e8a8c7d",
+                       "processedFile":  "app/src/main/res/drawable-nodpi/fishing_fish_family_v1.png",
+                       "processedSha256":  "5114f784ec5b326e6a3228edb9a09062cfdf2fd383afbf1ad1846a07b0c20274",
+                       "width":  1536,
+                       "height":  1024,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.0,
+                                               "y":  0.0,
+                                               "width":  1.0,
+                                               "height":  1.0
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-19",
+                       "revision":  1,
+                       "processingRecipe":  [
+                                                "remove-chroma-key(auto-border-soft-matte-despill)",
+                                                "resize-contain(LANCZOS-1536x1024)",
+                                                "lossless-format-convert(PNG)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   },
+                   {
+                       "assetId":  "fishing.prop.rod",
+                       "gameId":  "FISHING",
+                       "styleProfileId":  "fishing-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  2,
+                       "templateId":  "icon-v1",
+                       "promptRecordHash":  "8c51e631466fc67b360a552d93d388094fe97c4f819f5e495759874836b8100b",
+                       "sourceFile":  "assets-src/imagegen/FISHING/fishing.prop.rod/r01/raw.png",
+                       "sourceSha256":  "3f7f59d9ddd5030c1ae6162c696ec019cdb35177c795d82d767a36d2a79d7076",
+                       "processedFile":  "app/src/main/res/drawable-nodpi/fishing_rod_v1.png",
+                       "processedSha256":  "b39ed0b5f150caddaf914d446cfb8d99be7281afa3b7bab3b27900a9fc0d8939",
+                       "width":  512,
+                       "height":  512,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.08,
+                                               "y":  0.08,
+                                               "width":  0.84,
+                                               "height":  0.84
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-19",
+                       "revision":  1,
+                       "processingRecipe":  [
+                                                "remove-chroma-key(auto-border-soft-matte-despill)",
+                                                "resize-contain(LANCZOS-512x512)",
+                                                "lossless-format-convert(PNG)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   },
+                   {
+                       "assetId":  "fishing.fx.water-family",
+                       "gameId":  "FISHING",
+                       "styleProfileId":  "fishing-v1",
+                       "styleRevision":  1,
+                       "anchorRevision":  2,
+                       "templateId":  "fx-family-v1",
+                       "promptRecordHash":  "ac59e440e71028bfd2f6ee3a5afdc7d82f998a5b3ce83edc18529c452b62f414",
+                       "sourceFile":  "assets-src/imagegen/FISHING/fishing.fx.water-family/r01/raw.png",
+                       "sourceSha256":  "5f4995c371ad0f0f7068c33c739139877b7e1939a27830dc10eb014028634a81",
+                       "processedFile":  "app/src/main/res/drawable-nodpi/fishing_water_fx_v1.png",
+                       "processedSha256":  "179e0875484763f87634421e1c9fbbea993840c6282bafd181b79d6b891d4eb5",
+                       "width":  1536,
+                       "height":  1024,
+                       "pivotX":  0.5,
+                       "pivotY":  0.5,
+                       "collisionBounds":  {
+                                               "x":  0.0,
+                                               "y":  0.0,
+                                               "width":  1.0,
+                                               "height":  1.0
+                                           },
+                       "provenance":  "OPENAI_IMAGEGEN",
+                       "redistributionReviewStatus":  "PENDING",
+                       "generationDate":  "2026-07-19",
+                       "revision":  1,
+                       "processingRecipe":  [
+                                                "remove-chroma-key(auto-border-soft-matte-despill)",
+                                                "resize-contain(LANCZOS-1536x1024)",
+                                                "lossless-format-convert(PNG)"
+                                            ],
+                       "review":  {
+                                      "status":  "PENDING",
+                                      "reviewer":  "",
+                                      "reviewDate":  null,
+                                      "score":  null,
+                                      "criticalFailures":  [
+
+                                                           ]
+                                  }
+                   }
+               ]
+}

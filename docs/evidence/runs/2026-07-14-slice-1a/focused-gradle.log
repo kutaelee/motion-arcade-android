@@ -1,0 +1,98 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.4.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build
+> Task :game-core:preBuild UP-TO-DATE
+> Task :game-core:preDebugBuild UP-TO-DATE
+> Task :vision:verifyPoseModel
+> Task :vision:preBuild
+> Task :vision:preDebugBuild
+> Task :vision:generateDebugResources
+> Task :game-core:generateDebugResources
+> Task :vision:packageDebugResources
+> Task :game-core:packageDebugResources
+> Task :vision:processDebugNavigationResources
+> Task :game-core:processDebugNavigationResources
+> Task :vision:preDebugUnitTestBuild
+> Task :vision:javaPreCompileDebugUnitTest
+> Task :game-core:javaPreCompileDebug
+> Task :vision:javaPreCompileDebug
+> Task :game-core:checkDebugAarMetadata
+> Task :vision:mergeDebugJniLibFolders
+> Task :game-core:mergeDebugJniLibFolders
+> Task :vision:mergeDebugNativeLibs NO-SOURCE
+> Task :game-core:mergeDebugNativeLibs NO-SOURCE
+> Task :game-core:stripDebugDebugSymbols NO-SOURCE
+> Task :vision:stripDebugDebugSymbols NO-SOURCE
+> Task :game-core:copyDebugJniLibsProjectAndLocalJars
+> Task :vision:copyDebugJniLibsProjectAndLocalJars
+> Task :vision:extractDeepLinksForAarDebug
+> Task :vision:generateDebugAssets UP-TO-DATE
+> Task :game-core:extractDeepLinksForAarDebug
+> Task :game-core:generateDebugAssets UP-TO-DATE
+> Task :game-core:mergeDebugAssets
+> Task :game-core:parseDebugLocalResources
+> Task :vision:parseDebugLocalResources
+> Task :game-core:prepareDebugArtProfile
+> Task :vision:mergeDebugAssets
+> Task :vision:prepareDebugArtProfile
+> Task :game-core:prepareLintJarForPublish
+> Task :vision:prepareLintJarForPublish
+> Task :vision:preDebugAndroidTestBuild
+> Task :game-core:preDebugAndroidTestBuild UP-TO-DATE
+> Task :game-core:writeDebugLintModelMetadata
+> Task :game-core:writeDebugAarMetadata
+> Task :vision:writeDebugLintModelMetadata
+> Task :vision:writeDebugAarMetadata
+> Task :game-core:generateDebugRFile
+> Task :vision:generateDebugRFile
+> Task :game-core:extractProguardFiles
+> Task :game-core:processDebugManifest
+> Task :vision:processDebugManifest
+> Task :vision:checkDebugAarMetadata
+> Task :vision:extractProguardFiles
+> Task :vision:generateDebugUnitTestStubRFile
+> Task :game-core:extractDebugAnnotations
+> Task :game-core:preDebugUnitTestBuild UP-TO-DATE
+> Task :game-core:compileDebugKotlin
+> Task :game-core:compileDebugJavaWithJavac NO-SOURCE
+> Task :game-core:processDebugJavaRes
+> Task :game-core:mergeDebugGeneratedProguardFiles
+> Task :game-core:mergeDebugConsumerProguardFiles
+> Task :game-core:bundleLibRuntimeToJarDebug
+> Task :game-core:bundleLibCompileToJarDebug
+> Task :game-core:createFullJarDebug
+> Task :vision:extractDebugAnnotations
+> Task :game-core:generateDebugLintModel
+> Task :game-core:mergeDebugJavaResource
+> Task :game-core:syncDebugLibJars
+> Task :game-core:bundleDebugLocalLintAar
+> Task :game-core:generateDebugAndroidTestLintModel
+> Task :game-core:generateDebugUnitTestLintModel
+> Task :vision:compileDebugKotlin
+> Task :vision:compileDebugJavaWithJavac NO-SOURCE
+> Task :vision:processDebugJavaRes
+> Task :vision:mergeDebugGeneratedProguardFiles
+> Task :vision:bundleLibRuntimeToJarDebug
+> Task :vision:bundleLibCompileToJarDebug
+> Task :vision:mergeDebugConsumerProguardFiles
+> Task :vision:mergeDebugJavaResource
+> Task :vision:createFullJarDebug
+> Task :vision:syncDebugLibJars
+> Task :vision:bundleDebugLocalLintAar
+> Task :vision:generateDebugLintReportModel
+> Task :vision:generateDebugAndroidTestLintModel
+> Task :vision:generateDebugUnitTestLintModel
+> Task :vision:compileDebugUnitTestKotlin
+> Task :vision:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :vision:processDebugUnitTestJavaRes
+> Task :game-core:lintAnalyzeDebugAndroidTest
+> Task :vision:lintAnalyzeDebugAndroidTest
+> Task :vision:testDebugUnitTest
+> Task :game-core:lintAnalyzeDebugUnitTest
+> Task :vision:lintAnalyzeDebugUnitTest
+> Task :game-core:lintAnalyzeDebug
+> Task :vision:lintAnalyzeDebug
+> Task :vision:lintReportDebug
+> Task :vision:lintDebug
+
+BUILD SUCCESSFUL in 45s
+76 actionable tasks: 76 executed

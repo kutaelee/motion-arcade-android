@@ -1,0 +1,43 @@
+{
+  "artifact": {
+    "bytes": 68351511,
+    "package": "com.motionarcade.app.debug",
+    "path": "artifacts/slice-0a/motion-arcade-slice-0a-58d350e136c50c2b1a407fd887e66a4939ceb8ac6348545a828a69d6c76f665f.apk",
+    "sha256": "58d350e136c50c2b1a407fd887e66a4939ceb8ac6348545a828a69d6c76f665f",
+    "variant": "debug"
+  },
+  "buildCommand": [
+    ".\\gradlew.bat",
+    "--no-daemon",
+    "--no-configuration-cache",
+    "-Pkotlin.incremental=false",
+    "--offline",
+    "--dependency-verification",
+    "strict",
+    "test",
+    "lint",
+    "assembleDebug",
+    ":app:assembleDebugAndroidTest",
+    "--rerun-tasks"
+  ],
+  "buildEnvironment": {
+    "agp": "9.2.1",
+    "buildTools": "36.0.0",
+    "compileSdk": "37",
+    "gradle": "9.4.1",
+    "jdk": "Oracle Corporation 17.0.17+8-LTS-360",
+    "kotlin": "2.4.0",
+    "os": "Microsoft Windows NT 10.0.26100.0",
+    "targetSdk": "37"
+  },
+  "schemaVersion": 1,
+  "sourceCommit": "dadd77d15ee4595fd2ef8d7540e5ecad08cd64cd",
+  "sourceTree": "0c8c299301d09262a6ac1844065ab92bcab2a88b",
+  "validationEvidence": {
+    "api33Instrumentation": "docs/evidence/runs/2026-07-14-slice-0a/androidtest-api33-results.xml",
+    "api37Instrumentation": "docs/evidence/runs/2026-07-14-slice-0a/androidtest-api37-16kb-results.xml",
+    "apkPolicy": "docs/evidence/runs/2026-07-14-slice-0a/apk-policy.txt",
+    "nativeOwnership": "docs/evidence/runs/2026-07-14-slice-0a/native-runtime-inventory.json",
+    "runtimeLicenses": "docs/evidence/runs/2026-07-14-slice-0a/runtime-license-inventory.json"
+  }
+}

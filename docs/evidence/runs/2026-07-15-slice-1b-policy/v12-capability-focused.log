@@ -1,0 +1,42 @@
+test_authority_byte_change_without_manifest_update_is_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_authority_byte_change_without_manifest_update_is_rejected) ... ok
+test_authority_order_mismatch_is_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_authority_order_mismatch_is_rejected) ... ok
+test_candidate_authority_text_cannot_claim_implementation_approval (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_candidate_authority_text_cannot_claim_implementation_approval) ... ok
+test_candidate_denial_and_rejected_history_are_allowed (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_candidate_denial_and_rejected_history_are_allowed) ... ok
+test_candidate_manifest_cannot_authorize_implementation (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_candidate_manifest_cannot_authorize_implementation) ... ok
+test_context_word_appended_after_normative_claim_does_not_evade (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_context_word_appended_after_normative_claim_does_not_evade) ... ok
+test_duplicate_manifest_key_is_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_duplicate_manifest_key_is_rejected) ... ok
+test_every_governed_input_class_uses_one_path_helper (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_every_governed_input_class_uses_one_path_helper) ... ok
+test_governed_actual_windows_ancestor_junction_is_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_governed_actual_windows_ancestor_junction_is_rejected) ... ok
+test_governed_ancestor_directory_symlink_is_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_governed_ancestor_directory_symlink_is_rejected) ... skipped "symlink primitive unavailable: [WinError 1314] 클라이언트가 필요한 권한을 가지고 있지 않습니다: 'C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\tmp13bstvqc\\\\outside' -> 'C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\tmp13bstvqc\\\\root\\\\docs'"
+test_governed_ancestor_symlink_detector_fixture_is_fail_closed (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_governed_ancestor_symlink_detector_fixture_is_fail_closed) ... ok
+test_governed_final_file_symlink_is_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_governed_final_file_symlink_is_rejected) ... skipped "symlink primitive unavailable: [WinError 1314] 클라이언트가 필요한 권한을 가지고 있지 않습니다: 'C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\tmps4u87mzx\\\\outside.md' -> 'C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\tmps4u87mzx\\\\root\\\\docs\\\\input.md'"
+test_governed_final_symlink_detector_fixture_is_fail_closed (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_governed_final_symlink_detector_fixture_is_fail_closed) ... ok
+test_governed_lexical_absolute_and_parent_escape_are_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_governed_lexical_absolute_and_parent_escape_are_rejected) ... ok
+test_governed_missing_and_directory_targets_are_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_governed_missing_and_directory_targets_are_rejected) ... ok
+test_governed_regular_file_is_accepted (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_governed_regular_file_is_accepted) ... ok
+test_governed_reparse_detector_fixture_is_fail_closed (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_governed_reparse_detector_fixture_is_fail_closed) ... ok
+test_governed_resolved_out_of_root_is_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_governed_resolved_out_of_root_is_rejected) ... ok
+test_historical_v10_manifest_missing_is_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_historical_v10_manifest_missing_is_rejected) ... ok
+test_historical_v10_manifest_mutation_is_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_historical_v10_manifest_mutation_is_rejected) ... ok
+test_historical_v11_manifest_hash_is_frozen (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_historical_v11_manifest_hash_is_frozen) ... ok
+test_legacy_current_declaration_is_rejected_even_with_refreshed_hash (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_legacy_current_declaration_is_rejected_even_with_refreshed_hash) ... ok
+test_legacy_governing_declaration_is_rejected_with_refreshed_hash (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_legacy_governing_declaration_is_rejected_with_refreshed_hash) ... ok
+test_local_negation_does_not_hide_a_different_positive_clause (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_local_negation_does_not_hide_a_different_positive_clause) ... ok
+test_manifest_crlf_is_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_manifest_crlf_is_rejected) ... ok
+test_minimum_current_authority_set_passes (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_minimum_current_authority_set_passes) ... ok
+test_missing_review_11_is_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_missing_review_11_is_rejected) ... ok
+test_older_policy_revision_line_is_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_older_policy_revision_line_is_rejected) ... ok
+test_policy_revision_hidden_only_in_comment_is_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_policy_revision_hidden_only_in_comment_is_rejected) ... ok
+test_rejected_v3_marker_must_name_the_exact_current_five (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_rejected_v3_marker_must_name_the_exact_current_five) ... ok
+test_repository_current_policy_references_are_consistent (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_repository_current_policy_references_are_consistent) ... ok
+test_repository_root_reached_through_symlink_ancestor_is_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_repository_root_reached_through_symlink_ancestor_is_rejected) ... skipped "symlink primitive unavailable: [WinError 1314] 클라이언트가 필요한 권한을 가지고 있지 않습니다: 'C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\tmphlryl1vb\\\\actual' -> 'C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\tmphlryl1vb\\\\redirected'"
+test_repository_root_reparse_ancestor_detector_is_fail_closed (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_repository_root_reparse_ancestor_detector_is_fail_closed) ... ok
+test_stale_execution_revision_is_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_stale_execution_revision_is_rejected) ... ok
+test_unexpected_review_is_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_unexpected_review_is_rejected) ... ok
+test_unsafe_post_close_cache_directive_is_rejected (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_unsafe_post_close_cache_directive_is_rejected) ... ok
+test_validator_source_uses_ascii_unicode_escapes (scripts.tests.test_validate_capability_policy.CapabilityPolicyConsistencyTest.test_validator_source_uses_ascii_unicode_escapes) ... ok
+
+----------------------------------------------------------------------
+Ran 37 tests in 6.512s
+
+OK (skipped=3)

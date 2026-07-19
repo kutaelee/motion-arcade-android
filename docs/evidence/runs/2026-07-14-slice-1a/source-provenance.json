@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "slice": "1A",
+  "baselineTag": "slice-1a-start",
+  "sourceCommit": "500ca21df791a034381c22fd1f6d8bb553d69dae",
+  "sourceTree": "75cf093cab5ed34236967ee285ae3d2d3513b239",
+  "initialImplementationCommit": "884fd9d71763f362f62b0a4b43afc6ca531cbdc0",
+  "initialImplementationTree": "5ac45df0e229213ee28e9a7f10c1a215426cd0dc",
+  "branch": "agent/slice-1a-time-coordinate",
+  "commands": {
+    "focused": [
+      ".\\gradlew.bat",
+      "--no-daemon",
+      "--no-configuration-cache",
+      "-Pkotlin.incremental=false",
+      "--offline",
+      "--dependency-verification",
+      "strict",
+      ":vision:testDebugUnitTest",
+      ":vision:lintDebug",
+      "--rerun-tasks"
+    ],
+    "fullRegression": [
+      ".\\gradlew.bat",
+      "--no-daemon",
+      "--no-configuration-cache",
+      "-Pkotlin.incremental=false",
+      "--offline",
+      "--dependency-verification",
+      "strict",
+      "test",
+      "lint",
+      "--rerun-tasks"
+    ],
+    "pythonPolicy": [
+      "python",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "scripts\\tests",
+      "-v"
+    ],
+    "supplyChain": [
+      "python",
+      "-B",
+      "scripts\\validate_supply_chain.py",
+      "--root",
+      "."
+    ],
+    "assetPolicy": [
+      "python",
+      "-B",
+      "scripts\\validate_project_assets.py",
+      "--root",
+      "."
+    ]
+  },
+  "environment": {
+    "os": "Microsoft Windows NT 10.0.26100.0",
+    "jdk": "Oracle Corporation 17.0.17+8-LTS-360",
+    "gradle": "9.4.1",
+    "agp": "9.2.1",
+    "kotlin": "2.4.0",
+    "compileSdk": "37"
+  },
+  "unchangedAcceptedArtifact": {
+    "path": "artifacts/slice-0a/motion-arcade-slice-0a-58d350e136c50c2b1a407fd887e66a4939ceb8ac6348545a828a69d6c76f665f.apk",
+    "sha256": "58d350e136c50c2b1a407fd887e66a4939ceb8ac6348545a828a69d6c76f665f",
+    "packageTaskRunAfterInitialEvidence": true,
+    "acceptedArtifactOverwritten": false
+  },
+  "evidenceBoundary": {
+    "syntheticCoordinateAcceptance": true,
+    "physicalOverlayObserved": false,
+    "cameraBound": false,
+    "poseInferenceExecuted": false,
+    "g2Approved": false
+  }
+}

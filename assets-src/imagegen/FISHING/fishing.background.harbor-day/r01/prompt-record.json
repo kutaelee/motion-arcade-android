@@ -1,0 +1,21 @@
+{
+  "assetId": "fishing.background.harbor-day",
+  "gameId": "FISHING",
+  "generationMethod": "IMAGEGEN_SKILL",
+  "registryPath": "android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0/assets/imagegen-prompt-registry.json",
+  "styleProfileId": "fishing-v1",
+  "styleRevision": 1,
+  "templateId": "side-background-v1",
+  "promptVariables": {
+    "environment": "cheerful small harbor fishing spot in daylight",
+    "camera": "fixed side-view with gentle depth layers",
+    "layers": "sky, distant harbor, water, pier foreground",
+    "safeZones": "top HUD and lower camera inset"
+  },
+  "referenceAssetIds": ["fishing.anchor.style-board"],
+  "anchorRevision": 2,
+  "generationDate": "2026-07-19",
+  "revision": 1,
+  "reviewStatus": "PENDING_HUMAN_BACKGROUND_REVIEW",
+  "resolvedPrompt": "Create fishing.background.harbor-day strictly under locked fishing-v1 revision 1 and fishing anchor revision 2: cheerful small harbor in daylight, fixed side-view with gentle depth, separable sky, distant harbor, water and pier foreground. Exact 16:9 landscape with a wide unobstructed central water play zone and quiet contrast in thin top HUD, narrow side player, and lower camera-inset zones. Contemporary high-resolution three-tone cel texture, never pixel art. No characters, rod, fish, UI, text, sign, logo, watermark, photorealism, copyrighted setting imitation, or external collage."
+}

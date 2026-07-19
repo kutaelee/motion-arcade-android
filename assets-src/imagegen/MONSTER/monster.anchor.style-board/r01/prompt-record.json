@@ -1,0 +1,20 @@
+{
+  "assetId": "monster.anchor.style-board",
+  "gameId": "MONSTER",
+  "generationMethod": "IMAGEGEN_SKILL",
+  "registryPath": "android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0/assets/imagegen-prompt-registry.json",
+  "styleProfileId": "monster-v1",
+  "styleRevision": 1,
+  "templateId": "anchor-board-v1",
+  "promptVariables": {
+    "scopeSummary": "monster co-op mini-game Runestone Expedition",
+    "subjects": "two hero classes, monster silhouettes, three-phase boss, arena, magic and melee effects",
+    "composition": "coherent side-view fantasy arcade style board"
+  },
+  "referenceAssetIds": [],
+  "generationDate": "2026-07-18",
+  "revision": 1,
+  "reviewStatus": "REJECTED_BY_PREPROCESSING_CHECK",
+  "criticalFailure": "Letter-like rune and banner markings violated the registry no-text constraint; revision r02 was requested through ImageGen rather than manually retouched.",
+  "resolvedPrompt": "Create an original 2D mobile arcade cartoon style anchor board for monster co-op mini-game Runestone Expedition. Apply the entire locked style profile monster-v1 without deviation. Show Vanguard and Ranger-Mage hero identities, three common monsters plus one elite silhouette, one boss across three coherent phases, a friendly ancient forest runestone arena, and readable melee, guard, magic, revive, and co-op ultimate visual concepts in one coherent side-view fantasy arcade composition with label-free visual zones. Bright adventurous fantasy expedition with no dark horror; chunky armor and broad weapon silhouettes; dark forest-indigo #182E38 outlines, forest teal #247F72, rune amber #F0A83B, mage violet #7655C6, stone gray #87959A, ember coral #E9604A, mist cream #F2F1D8; upper-left warm rune light, restrained color-family magic glows, three-tone cel shading, fixed side-view arena and 3/4-side characters. No text, letters, numbers, logos, watermarks, copyrighted characters, artist imitation, photorealism, or external asset collage."
+}

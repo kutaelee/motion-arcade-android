@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.motionarcade.vision.frame.ClosingImageProxyAnalyzerTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-07-15T17:17:34.296Z" hostname="DESKTOP-D283RK5" time="0.047">
+  <properties/>
+  <testcase name="outOfOrderFrameIsReportedNotProcessedAndStillClosed" classname="com.motionarcade.vision.frame.ClosingImageProxyAnalyzerTest" time="0.018"/>
+  <testcase name="successPathProcessesTimestampAndClosesExactlyOnce" classname="com.motionarcade.vision.frame.ClosingImageProxyAnalyzerTest" time="0.003"/>
+  <testcase name="closeFailureIsSuppressedBehindPrimaryProcessingFailure" classname="com.motionarcade.vision.frame.ClosingImageProxyAnalyzerTest" time="0.015"/>
+  <testcase name="closeFailureWithoutPrimaryFailureIsPropagated" classname="com.motionarcade.vision.frame.ClosingImageProxyAnalyzerTest" time="0.003"/>
+  <testcase name="processorExceptionStillClosesExactlyOnceAndPropagatesOriginal" classname="com.motionarcade.vision.frame.ClosingImageProxyAnalyzerTest" time="0.002"/>
+  <testcase name="timestampReadExceptionStillClosesExactlyOnce" classname="com.motionarcade.vision.frame.ClosingImageProxyAnalyzerTest" time="0.002"/>
+  <testcase name="rejectionSinkExceptionStillClosesFrame" classname="com.motionarcade.vision.frame.ClosingImageProxyAnalyzerTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

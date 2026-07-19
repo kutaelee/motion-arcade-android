@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "generationMethod": "IMAGEGEN_SKILL",
+  "assets": [
+    {
+      "assetId": "fishing.character.angler",
+      "gameId": "FISHING",
+      "styleProfileId": "fishing-v1",
+      "styleRevision": 1,
+      "anchorRevision": 1,
+      "templateId": "layered-character-v1",
+      "promptRecordHash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "sourceFile": "assets-src/imagegen/FISHING/fishing.character.angler/r01/raw.png",
+      "sourceSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "processedFile": "app/src/main/res/drawable-nodpi/fishing_character_angler.png",
+      "processedSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "width": 1024,
+      "height": 1024,
+      "pivotX": 0.5,
+      "pivotY": 0.88,
+      "collisionBounds": {
+        "x": 0.28,
+        "y": 0.12,
+        "width": 0.44,
+        "height": 0.78
+      },
+      "provenance": "OPENAI_IMAGEGEN",
+      "redistributionReviewStatus": "PENDING",
+      "generationDate": "2026-07-14",
+      "revision": 1,
+      "processingRecipe": [
+        "trim-alpha(threshold=1)",
+        "canvas-normalize(1024x1024)",
+        "convert-colorspace(sRGB)"
+      ],
+      "review": {
+        "status": "PENDING",
+        "reviewer": "",
+        "reviewDate": null,
+        "score": null,
+        "criticalFailures": []
+      }
+    }
+  ]
+}

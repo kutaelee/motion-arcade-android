@@ -1,0 +1,355 @@
+{
+  "apk": {
+    "bytes": 68384279,
+    "nativeBytes": 46134956,
+    "nativeEntryCount": 16,
+    "path": "app/build/outputs/apk/debug/app-debug.apk",
+    "sha256": "4e89a7ed05e56a0b93bb84fcf0e6f27463aef3b2cbcc1bfcd8ae4bce7306336d",
+    "zipEntryCount": 545
+  },
+  "inputs": {
+    "aarArtifactsScanned": 88,
+    "aarCoordinatesScanned": 88,
+    "configuration": "debugRuntimeClasspath",
+    "lockFile": "app/gradle.lockfile",
+    "lockFileSha256": "4e42becb846a8dca89fe0db61df1f7460d13db735f745b827c69d6485bfc079d",
+    "runtimeLockedCoordinateCount": 159,
+    "verificationMetadata": "gradle/verification-metadata.xml",
+    "verificationMetadataSha256": "aaafa56d72110879bd267e2ce6e89780d99a362e18954d4a4b9753c22166195b"
+  },
+  "nativeEntries": [
+    {
+      "abi": "arm64-v8a",
+      "apkPath": "lib/arm64-v8a/libandroidx.graphics.path.so",
+      "bytes": 10096,
+      "filename": "libandroidx.graphics.path.so",
+      "owner": {
+        "artifacts": [
+          {
+            "bytes": 39380,
+            "filename": "graphics-path-1.0.1.aar",
+            "sha256": "8ca4032b6d79b351f0b59ad4b580eddbb9423e1652f7c958830687f1eee2ec03",
+            "sourceEntries": [
+              "jni/arm64-v8a/libandroidx.graphics.path.so"
+            ]
+          }
+        ],
+        "coordinate": "androidx.graphics:graphics-path:1.0.1"
+      },
+      "sha256": "41e9a793c43a0f4fddb19e33f346bace464f30f888ba7b9eaf96294ea115bfb6"
+    },
+    {
+      "abi": "arm64-v8a",
+      "apkPath": "lib/arm64-v8a/libimage_processing_util_jni.so",
+      "bytes": 32528,
+      "filename": "libimage_processing_util_jni.so",
+      "owner": {
+        "artifacts": [
+          {
+            "bytes": 1213213,
+            "filename": "camera-core-1.6.1.aar",
+            "sha256": "a36f1c323851b51215ba476640e1eb4153882b0c368c0376e9fb905e689df84a",
+            "sourceEntries": [
+              "jni/arm64-v8a/libimage_processing_util_jni.so"
+            ]
+          }
+        ],
+        "coordinate": "androidx.camera:camera-core:1.6.1"
+      },
+      "sha256": "0292b063fafccf734472cbb59588e756c2dbca907c72021ba6fbf126385508a2"
+    },
+    {
+      "abi": "arm64-v8a",
+      "apkPath": "lib/arm64-v8a/libmediapipe_tasks_jni.so",
+      "bytes": 10533656,
+      "filename": "libmediapipe_tasks_jni.so",
+      "owner": {
+        "artifacts": [
+          {
+            "bytes": 21342753,
+            "filename": "tasks-core-0.10.35.aar",
+            "sha256": "4edf2f33c840d682c751b3ca951b1ae0465373734776d7fb37dcef936de28ad0",
+            "sourceEntries": [
+              "jni/arm64-v8a/libmediapipe_tasks_jni.so"
+            ]
+          }
+        ],
+        "coordinate": "com.google.mediapipe:tasks-core:0.10.35"
+      },
+      "sha256": "c0497affbe5c60ddbb61b969403d053ae61d209dc6c7063f38427640c62b8f90"
+    },
+    {
+      "abi": "arm64-v8a",
+      "apkPath": "lib/arm64-v8a/libsurface_util_jni.so",
+      "bytes": 4896,
+      "filename": "libsurface_util_jni.so",
+      "owner": {
+        "artifacts": [
+          {
+            "bytes": 1213213,
+            "filename": "camera-core-1.6.1.aar",
+            "sha256": "a36f1c323851b51215ba476640e1eb4153882b0c368c0376e9fb905e689df84a",
+            "sourceEntries": [
+              "jni/arm64-v8a/libsurface_util_jni.so"
+            ]
+          }
+        ],
+        "coordinate": "androidx.camera:camera-core:1.6.1"
+      },
+      "sha256": "a5c9d1928ea92ec7a94dff8cf666e7739cd734198b9f0ae1d4e28ea3c86516ba"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "apkPath": "lib/armeabi-v7a/libandroidx.graphics.path.so",
+      "bytes": 7252,
+      "filename": "libandroidx.graphics.path.so",
+      "owner": {
+        "artifacts": [
+          {
+            "bytes": 39380,
+            "filename": "graphics-path-1.0.1.aar",
+            "sha256": "8ca4032b6d79b351f0b59ad4b580eddbb9423e1652f7c958830687f1eee2ec03",
+            "sourceEntries": [
+              "jni/armeabi-v7a/libandroidx.graphics.path.so"
+            ]
+          }
+        ],
+        "coordinate": "androidx.graphics:graphics-path:1.0.1"
+      },
+      "sha256": "41399eba6fc2a60f6f14642375c1824f3cf25eb8fec7397d753730a3ceda3e2b"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "apkPath": "lib/armeabi-v7a/libimage_processing_util_jni.so",
+      "bytes": 24448,
+      "filename": "libimage_processing_util_jni.so",
+      "owner": {
+        "artifacts": [
+          {
+            "bytes": 1213213,
+            "filename": "camera-core-1.6.1.aar",
+            "sha256": "a36f1c323851b51215ba476640e1eb4153882b0c368c0376e9fb905e689df84a",
+            "sourceEntries": [
+              "jni/armeabi-v7a/libimage_processing_util_jni.so"
+            ]
+          }
+        ],
+        "coordinate": "androidx.camera:camera-core:1.6.1"
+      },
+      "sha256": "05973c0cf8e8dd281c8ec505c41814b78b740461056925bb41120594d7c35dcd"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "apkPath": "lib/armeabi-v7a/libmediapipe_tasks_jni.so",
+      "bytes": 7405024,
+      "filename": "libmediapipe_tasks_jni.so",
+      "owner": {
+        "artifacts": [
+          {
+            "bytes": 21342753,
+            "filename": "tasks-core-0.10.35.aar",
+            "sha256": "4edf2f33c840d682c751b3ca951b1ae0465373734776d7fb37dcef936de28ad0",
+            "sourceEntries": [
+              "jni/armeabi-v7a/libmediapipe_tasks_jni.so"
+            ]
+          }
+        ],
+        "coordinate": "com.google.mediapipe:tasks-core:0.10.35"
+      },
+      "sha256": "13156861846c2ab5924b7c6331bf541dbc9d0918c2c480ede118aca47bf75e2f"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "apkPath": "lib/armeabi-v7a/libsurface_util_jni.so",
+      "bytes": 3460,
+      "filename": "libsurface_util_jni.so",
+      "owner": {
+        "artifacts": [
+          {
+            "bytes": 1213213,
+            "filename": "camera-core-1.6.1.aar",
+            "sha256": "a36f1c323851b51215ba476640e1eb4153882b0c368c0376e9fb905e689df84a",
+            "sourceEntries": [
+              "jni/armeabi-v7a/libsurface_util_jni.so"
+            ]
+          }
+        ],
+        "coordinate": "androidx.camera:camera-core:1.6.1"
+      },
+      "sha256": "78eb0b10e91b819be97cb7daa8c97fb757fa6d07cb80ccb7e92c113b45bda9be"
+    },
+    {
+      "abi": "x86",
+      "apkPath": "lib/x86/libandroidx.graphics.path.so",
+      "bytes": 9284,
+      "filename": "libandroidx.graphics.path.so",
+      "owner": {
+        "artifacts": [
+          {
+            "bytes": 39380,
+            "filename": "graphics-path-1.0.1.aar",
+            "sha256": "8ca4032b6d79b351f0b59ad4b580eddbb9423e1652f7c958830687f1eee2ec03",
+            "sourceEntries": [
+              "jni/x86/libandroidx.graphics.path.so"
+            ]
+          }
+        ],
+        "coordinate": "androidx.graphics:graphics-path:1.0.1"
+      },
+      "sha256": "eb0570b41fd3bff25d8204a967c03bd7550719e768b791f680cc40cbe35f29af"
+    },
+    {
+      "abi": "x86",
+      "apkPath": "lib/x86/libimage_processing_util_jni.so",
+      "bytes": 41276,
+      "filename": "libimage_processing_util_jni.so",
+      "owner": {
+        "artifacts": [
+          {
+            "bytes": 1213213,
+            "filename": "camera-core-1.6.1.aar",
+            "sha256": "a36f1c323851b51215ba476640e1eb4153882b0c368c0376e9fb905e689df84a",
+            "sourceEntries": [
+              "jni/x86/libimage_processing_util_jni.so"
+            ]
+          }
+        ],
+        "coordinate": "androidx.camera:camera-core:1.6.1"
+      },
+      "sha256": "b52f93b57d408b2306071f9de1a4b0b5684c1b86563e34a8711d80a1e6c03f94"
+    },
+    {
+      "abi": "x86",
+      "apkPath": "lib/x86/libmediapipe_tasks_jni.so",
+      "bytes": 14961392,
+      "filename": "libmediapipe_tasks_jni.so",
+      "owner": {
+        "artifacts": [
+          {
+            "bytes": 21342753,
+            "filename": "tasks-core-0.10.35.aar",
+            "sha256": "4edf2f33c840d682c751b3ca951b1ae0465373734776d7fb37dcef936de28ad0",
+            "sourceEntries": [
+              "jni/x86/libmediapipe_tasks_jni.so"
+            ]
+          }
+        ],
+        "coordinate": "com.google.mediapipe:tasks-core:0.10.35"
+      },
+      "sha256": "db2d3d3217e5e16a91014d337bbb922fce7e0a66c0eb1b53b097fee1eec91e38"
+    },
+    {
+      "abi": "x86",
+      "apkPath": "lib/x86/libsurface_util_jni.so",
+      "bytes": 3812,
+      "filename": "libsurface_util_jni.so",
+      "owner": {
+        "artifacts": [
+          {
+            "bytes": 1213213,
+            "filename": "camera-core-1.6.1.aar",
+            "sha256": "a36f1c323851b51215ba476640e1eb4153882b0c368c0376e9fb905e689df84a",
+            "sourceEntries": [
+              "jni/x86/libsurface_util_jni.so"
+            ]
+          }
+        ],
+        "coordinate": "androidx.camera:camera-core:1.6.1"
+      },
+      "sha256": "3048a535d701579c87c4ad91283cd1246d2c85399a164ee4720642037ea31727"
+    },
+    {
+      "abi": "x86_64",
+      "apkPath": "lib/x86_64/libandroidx.graphics.path.so",
+      "bytes": 10760,
+      "filename": "libandroidx.graphics.path.so",
+      "owner": {
+        "artifacts": [
+          {
+            "bytes": 39380,
+            "filename": "graphics-path-1.0.1.aar",
+            "sha256": "8ca4032b6d79b351f0b59ad4b580eddbb9423e1652f7c958830687f1eee2ec03",
+            "sourceEntries": [
+              "jni/x86_64/libandroidx.graphics.path.so"
+            ]
+          }
+        ],
+        "coordinate": "androidx.graphics:graphics-path:1.0.1"
+      },
+      "sha256": "4e56c996f13670e70082658de7880c4020eabf4f25e43387f88ed78a713fc9f0"
+    },
+    {
+      "abi": "x86_64",
+      "apkPath": "lib/x86_64/libimage_processing_util_jni.so",
+      "bytes": 49416,
+      "filename": "libimage_processing_util_jni.so",
+      "owner": {
+        "artifacts": [
+          {
+            "bytes": 1213213,
+            "filename": "camera-core-1.6.1.aar",
+            "sha256": "a36f1c323851b51215ba476640e1eb4153882b0c368c0376e9fb905e689df84a",
+            "sourceEntries": [
+              "jni/x86_64/libimage_processing_util_jni.so"
+            ]
+          }
+        ],
+        "coordinate": "androidx.camera:camera-core:1.6.1"
+      },
+      "sha256": "112703727717651e69e91f3ea2c3c2311737ee5809a909c9d342a811b6c7c069"
+    },
+    {
+      "abi": "x86_64",
+      "apkPath": "lib/x86_64/libmediapipe_tasks_jni.so",
+      "bytes": 13032744,
+      "filename": "libmediapipe_tasks_jni.so",
+      "owner": {
+        "artifacts": [
+          {
+            "bytes": 21342753,
+            "filename": "tasks-core-0.10.35.aar",
+            "sha256": "4edf2f33c840d682c751b3ca951b1ae0465373734776d7fb37dcef936de28ad0",
+            "sourceEntries": [
+              "jni/x86_64/libmediapipe_tasks_jni.so"
+            ]
+          }
+        ],
+        "coordinate": "com.google.mediapipe:tasks-core:0.10.35"
+      },
+      "sha256": "67fe7c45ce672cc65d121996ad3fe2f87c82ab5419fddfcb7210e4771d011ae0"
+    },
+    {
+      "abi": "x86_64",
+      "apkPath": "lib/x86_64/libsurface_util_jni.so",
+      "bytes": 4912,
+      "filename": "libsurface_util_jni.so",
+      "owner": {
+        "artifacts": [
+          {
+            "bytes": 1213213,
+            "filename": "camera-core-1.6.1.aar",
+            "sha256": "a36f1c323851b51215ba476640e1eb4153882b0c368c0376e9fb905e689df84a",
+            "sourceEntries": [
+              "jni/x86_64/libsurface_util_jni.so"
+            ]
+          }
+        ],
+        "coordinate": "androidx.camera:camera-core:1.6.1"
+      },
+      "sha256": "e5311942b4fce0f7f2505d41150cf9921e558a6368929cb73127450f74dd4fe4"
+    }
+  ],
+  "ownerCoordinates": [
+    "androidx.camera:camera-core:1.6.1",
+    "androidx.graphics:graphics-path:1.0.1",
+    "com.google.mediapipe:tasks-core:0.10.35"
+  ],
+  "schemaVersion": 1,
+  "summary": {
+    "ambiguousEntries": 0,
+    "duplicateEntries": 0,
+    "matchedEntries": 16,
+    "unmatchedEntries": 0,
+    "verdict": "PASS"
+  }
+}

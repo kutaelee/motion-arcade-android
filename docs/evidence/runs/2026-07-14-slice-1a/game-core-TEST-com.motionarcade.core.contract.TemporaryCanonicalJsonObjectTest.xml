@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.motionarcade.core.contract.TemporaryCanonicalJsonObjectTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-07-14T16:19:41.978Z" hostname="DESKTOP-D283RK5" time="0.002">
+  <properties/>
+  <testcase name="writerSortsKeysRecursivelyAndPreservesExactIntegers" classname="com.motionarcade.core.contract.TemporaryCanonicalJsonObjectTest" time="0.001"/>
+  <testcase name="unpairedSurrogateIsEscapedWithoutUtf8Replacement" classname="com.motionarcade.core.contract.TemporaryCanonicalJsonObjectTest" time="0.001"/>
+  <testcase name="nonFiniteNumberIsRejectedWithPointerPath" classname="com.motionarcade.core.contract.TemporaryCanonicalJsonObjectTest" time="0.0"/>
+  <testcase name="cyclicHostObjectIsRejectedInsteadOfRecursing" classname="com.motionarcade.core.contract.TemporaryCanonicalJsonObjectTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

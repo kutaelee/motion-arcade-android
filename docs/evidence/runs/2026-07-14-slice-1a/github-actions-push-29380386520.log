@@ -1,0 +1,1198 @@
+android	Set up job	﻿2026-07-15T00:56:47.3115884Z Current runner version: '2.335.1'
+android	Set up job	2026-07-15T00:56:47.3211688Z ##[group]Runner Image Provisioner
+android	Set up job	2026-07-15T00:56:47.3213158Z Hosted Compute Agent
+android	Set up job	2026-07-15T00:56:47.3214143Z Version: 20260624.560
+android	Set up job	2026-07-15T00:56:47.3215187Z Commit: 925d229a51159bc391ae97e54a2dd1fe20af789d
+android	Set up job	2026-07-15T00:56:47.3216561Z Build Date: 2026-06-24T18:26:47Z
+android	Set up job	2026-07-15T00:56:47.3218127Z Worker ID: {65c1a95b-6a15-4feb-a902-a2b3968fbb99}
+android	Set up job	2026-07-15T00:56:47.3219480Z Azure Region: westcentralus
+android	Set up job	2026-07-15T00:56:47.3220553Z ##[endgroup]
+android	Set up job	2026-07-15T00:56:47.3223163Z ##[group]Operating System
+android	Set up job	2026-07-15T00:56:47.3224350Z Ubuntu
+android	Set up job	2026-07-15T00:56:47.3225292Z 24.04.4
+android	Set up job	2026-07-15T00:56:47.3226250Z LTS
+android	Set up job	2026-07-15T00:56:47.3227288Z ##[endgroup]
+android	Set up job	2026-07-15T00:56:47.3248874Z ##[group]Runner Image
+android	Set up job	2026-07-15T00:56:47.3249940Z Image: ubuntu-24.04
+android	Set up job	2026-07-15T00:56:47.3251027Z Version: 20260705.232.1
+android	Set up job	2026-07-15T00:56:47.3252918Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260705.232/images/ubuntu/Ubuntu2404-Readme.md
+android	Set up job	2026-07-15T00:56:47.3256074Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260705.232
+android	Set up job	2026-07-15T00:56:47.3258135Z ##[endgroup]
+android	Set up job	2026-07-15T00:56:47.3260649Z ##[group]GITHUB_TOKEN Permissions
+android	Set up job	2026-07-15T00:56:47.3263479Z Contents: read
+android	Set up job	2026-07-15T00:56:47.3264538Z Metadata: read
+android	Set up job	2026-07-15T00:56:47.3265448Z ##[endgroup]
+android	Set up job	2026-07-15T00:56:47.3289127Z Secret source: Actions
+android	Set up job	2026-07-15T00:56:47.3290657Z Prepare workflow directory
+android	Set up job	2026-07-15T00:56:47.4811988Z Prepare all required actions
+android	Set up job	2026-07-15T00:56:47.4941278Z Getting action download info
+android	Set up job	2026-07-15T00:56:47.8347015Z Download action repository 'actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+android	Set up job	2026-07-15T00:56:48.4644910Z Download action repository 'actions/setup-java@0f481fcb613427c0f801b606911222b5b6f3083a' (SHA:0f481fcb613427c0f801b606911222b5b6f3083a)
+android	Set up job	2026-07-15T00:56:49.3968238Z Download action repository 'actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+android	Set up job	2026-07-15T00:56:49.4753308Z Download action repository 'gradle/actions@3f131e8634966bd73d06cc69884922b02e6faf92' (SHA:3f131e8634966bd73d06cc69884922b02e6faf92)
+android	Set up job	2026-07-15T00:56:51.1325535Z Complete job name: android
+android	Check out repository	﻿2026-07-15T00:56:51.1962557Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+android	Check out repository	2026-07-15T00:56:51.1970361Z ##[group]Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+android	Check out repository	2026-07-15T00:56:51.1970948Z with:
+android	Check out repository	2026-07-15T00:56:51.1971198Z   repository: kutaelee/motion-arcade-android
+android	Check out repository	2026-07-15T00:56:51.1973519Z   token: ***
+android	Check out repository	2026-07-15T00:56:51.1973725Z   ssh-strict: true
+android	Check out repository	2026-07-15T00:56:51.1973924Z   ssh-user: git
+android	Check out repository	2026-07-15T00:56:51.1974129Z   persist-credentials: true
+android	Check out repository	2026-07-15T00:56:51.1974369Z   clean: true
+android	Check out repository	2026-07-15T00:56:51.1974581Z   sparse-checkout-cone-mode: true
+android	Check out repository	2026-07-15T00:56:51.1974845Z   fetch-depth: 1
+android	Check out repository	2026-07-15T00:56:51.1975055Z   fetch-tags: false
+android	Check out repository	2026-07-15T00:56:51.1975256Z   show-progress: true
+android	Check out repository	2026-07-15T00:56:51.1975457Z   lfs: false
+android	Check out repository	2026-07-15T00:56:51.1975669Z   submodules: false
+android	Check out repository	2026-07-15T00:56:51.1975882Z   set-safe-directory: true
+android	Check out repository	2026-07-15T00:56:51.1976309Z ##[endgroup]
+android	Check out repository	2026-07-15T00:56:51.3137101Z Syncing repository: kutaelee/motion-arcade-android
+android	Check out repository	2026-07-15T00:56:51.3140060Z ##[group]Getting Git version info
+android	Check out repository	2026-07-15T00:56:51.3140953Z Working directory is '/home/runner/work/motion-arcade-android/motion-arcade-android'
+android	Check out repository	2026-07-15T00:56:51.3170238Z [command]/usr/bin/git version
+android	Check out repository	2026-07-15T00:56:51.3296596Z git version 2.54.0
+android	Check out repository	2026-07-15T00:56:51.3378839Z ##[endgroup]
+android	Check out repository	2026-07-15T00:56:51.3399302Z Temporarily overriding HOME='/home/runner/work/_temp/a456b1ee-16d1-4cbd-8f25-a0f8e4065ce3' before making global git config changes
+android	Check out repository	2026-07-15T00:56:51.3401280Z Adding repository directory to the temporary git global config as a safe directory
+android	Check out repository	2026-07-15T00:56:51.3403032Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/motion-arcade-android/motion-arcade-android
+android	Check out repository	2026-07-15T00:56:51.3429663Z Deleting the contents of '/home/runner/work/motion-arcade-android/motion-arcade-android'
+android	Check out repository	2026-07-15T00:56:51.3450062Z ##[group]Initializing the repository
+android	Check out repository	2026-07-15T00:56:51.3468553Z [command]/usr/bin/git init /home/runner/work/motion-arcade-android/motion-arcade-android
+android	Check out repository	2026-07-15T00:56:51.3699565Z hint: Using 'master' as the name for the initial branch. This default branch name
+android	Check out repository	2026-07-15T00:56:51.3718422Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+android	Check out repository	2026-07-15T00:56:51.3738388Z hint: to use in all of your new repositories, which will suppress this warning,
+android	Check out repository	2026-07-15T00:56:51.3748101Z hint: call:
+android	Check out repository	2026-07-15T00:56:51.3768414Z hint:
+android	Check out repository	2026-07-15T00:56:51.3801008Z hint: 	git config --global init.defaultBranch <name>
+android	Check out repository	2026-07-15T00:56:51.3817694Z hint:
+android	Check out repository	2026-07-15T00:56:51.3838704Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+android	Check out repository	2026-07-15T00:56:51.3878432Z hint: 'development'. The just-created branch can be renamed via this command:
+android	Check out repository	2026-07-15T00:56:51.3879798Z hint:
+android	Check out repository	2026-07-15T00:56:51.3898323Z hint: 	git branch -m <name>
+android	Check out repository	2026-07-15T00:56:51.3912820Z hint:
+android	Check out repository	2026-07-15T00:56:51.3938285Z hint: Disable this message with "git config set advice.defaultBranchName false"
+android	Check out repository	2026-07-15T00:56:51.3940029Z Initialized empty Git repository in /home/runner/work/motion-arcade-android/motion-arcade-android/.git/
+android	Check out repository	2026-07-15T00:56:51.3988450Z [command]/usr/bin/git remote add origin https://github.com/kutaelee/motion-arcade-android
+android	Check out repository	2026-07-15T00:56:51.4038472Z ##[endgroup]
+android	Check out repository	2026-07-15T00:56:51.4054832Z ##[group]Disabling automatic garbage collection
+android	Check out repository	2026-07-15T00:56:51.4058573Z [command]/usr/bin/git config --local gc.auto 0
+android	Check out repository	2026-07-15T00:56:51.4118343Z ##[endgroup]
+android	Check out repository	2026-07-15T00:56:51.4120487Z ##[group]Setting up auth
+android	Check out repository	2026-07-15T00:56:51.4148413Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+android	Check out repository	2026-07-15T00:56:51.4199660Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+android	Check out repository	2026-07-15T00:56:51.4739105Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+android	Check out repository	2026-07-15T00:56:51.4837031Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+android	Check out repository	2026-07-15T00:56:51.5132157Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+android	Check out repository	2026-07-15T00:56:51.5166125Z ##[endgroup]
+android	Check out repository	2026-07-15T00:56:51.5167904Z ##[group]Fetching the repository
+android	Check out repository	2026-07-15T00:56:51.5178162Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +6c46b1b9be7e417bb08f52fe207b9f4f0daedfb9:refs/remotes/origin/agent/slice-1a-time-coordinate
+android	Check out repository	2026-07-15T00:56:52.6095128Z From https://github.com/kutaelee/motion-arcade-android
+android	Check out repository	2026-07-15T00:56:52.6096959Z  * [new ref]         6c46b1b9be7e417bb08f52fe207b9f4f0daedfb9 -> origin/agent/slice-1a-time-coordinate
+android	Check out repository	2026-07-15T00:56:52.6101190Z ##[endgroup]
+android	Check out repository	2026-07-15T00:56:52.6101800Z ##[group]Determining the checkout info
+android	Check out repository	2026-07-15T00:56:52.6102486Z ##[endgroup]
+android	Check out repository	2026-07-15T00:56:52.6102899Z [command]/usr/bin/git sparse-checkout disable
+android	Check out repository	2026-07-15T00:56:52.6104104Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+android	Check out repository	2026-07-15T00:56:52.6105524Z ##[group]Checking out the ref
+android	Check out repository	2026-07-15T00:56:52.6106589Z [command]/usr/bin/git checkout --progress --force -B agent/slice-1a-time-coordinate refs/remotes/origin/agent/slice-1a-time-coordinate
+android	Check out repository	2026-07-15T00:56:52.6548421Z Switched to a new branch 'agent/slice-1a-time-coordinate'
+android	Check out repository	2026-07-15T00:56:52.6552719Z branch 'agent/slice-1a-time-coordinate' set up to track 'origin/agent/slice-1a-time-coordinate'.
+android	Check out repository	2026-07-15T00:56:52.6569131Z ##[endgroup]
+android	Check out repository	2026-07-15T00:56:52.6611890Z [command]/usr/bin/git log -1 --format=%H
+android	Check out repository	2026-07-15T00:56:52.6648434Z 6c46b1b9be7e417bb08f52fe207b9f4f0daedfb9
+android	Set up Temurin JDK 17	﻿2026-07-15T00:56:52.6920608Z ##[group]Run actions/setup-java@0f481fcb613427c0f801b606911222b5b6f3083a
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.6921072Z with:
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.6921273Z   distribution: temurin
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.6921499Z   java-version: 17.0.19+10
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.6921725Z   java-package: jdk
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.6921950Z   check-latest: false
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.6922142Z   set-default: true
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.6922331Z   verify-signature: false
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.6922534Z   server-id: github
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.6922726Z   server-username: GITHUB_ACTOR
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.6922957Z   server-password: GITHUB_TOKEN
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.6923191Z   overwrite-settings: true
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.6923402Z   job-status: success
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.6925459Z   token: ***
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.6925664Z   show-download-progress: false
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.6925912Z ##[endgroup]
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.8423394Z ##[group]Installed distributions
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.8501733Z Resolved Java 17.0.19+10 from tool-cache
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.8510185Z Setting Java 17.0.19+10 as the default
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.8527034Z Creating toolchains.xml for JDK version 17.0.19+10 from temurin
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.8593434Z Writing to /home/runner/.m2/toolchains.xml
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.8594157Z
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.8594624Z Java configuration:
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.8595394Z   Distribution: temurin
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.8596073Z   Version: 17.0.19+10
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.8596917Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.8597995Z
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.8598758Z ##[endgroup]
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.8641206Z Creating settings.xml with server-id: github
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.8648811Z Writing to /home/runner/.m2/settings.xml
+android	Set up Temurin JDK 17	2026-07-15T00:56:52.8651982Z Configured MAVEN_ARGS to include -ntp to suppress Maven transfer progress logs. Set 'show-download-progress: true' to keep the download progress output.
+android	Set up pinned Python	﻿2026-07-15T00:56:52.8862273Z ##[group]Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+android	Set up pinned Python	2026-07-15T00:56:52.8862959Z with:
+android	Set up pinned Python	2026-07-15T00:56:52.8863273Z   python-version: 3.14.6
+android	Set up pinned Python	2026-07-15T00:56:52.8863650Z   check-latest: false
+android	Set up pinned Python	2026-07-15T00:56:52.8867841Z   token: ***
+android	Set up pinned Python	2026-07-15T00:56:52.8868167Z   update-environment: true
+android	Set up pinned Python	2026-07-15T00:56:52.8868534Z   allow-prereleases: false
+android	Set up pinned Python	2026-07-15T00:56:52.8868880Z   freethreaded: false
+android	Set up pinned Python	2026-07-15T00:56:52.8869183Z env:
+android	Set up pinned Python	2026-07-15T00:56:52.8869620Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+android	Set up pinned Python	2026-07-15T00:56:52.8870385Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+android	Set up pinned Python	2026-07-15T00:56:52.8871005Z   MAVEN_ARGS: -ntp
+android	Set up pinned Python	2026-07-15T00:56:52.8871303Z ##[endgroup]
+android	Set up pinned Python	2026-07-15T00:56:53.0476519Z ##[group]Installed versions
+android	Set up pinned Python	2026-07-15T00:56:53.0567297Z Successfully set up CPython (3.14.6)
+android	Set up pinned Python	2026-07-15T00:56:53.0568587Z ##[endgroup]
+android	Validate wrapper and configure Gradle	﻿2026-07-15T00:56:53.0903847Z ##[group]Run gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0904590Z with:
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0904935Z   cache-provider: enhanced
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0905365Z   cache-disabled: false
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0905774Z   cache-read-only: true
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0906159Z   cache-write-only: false
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0906601Z   cache-overwrite-existing: false
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0907120Z   cache-cleanup: on-success
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0907975Z   gradle-home-cache-includes: caches
+android	Validate wrapper and configure Gradle	notifications
+android	Validate wrapper and configure Gradle
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0908819Z   add-job-summary: always
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0909201Z   add-job-summary-as-pr-comment: never
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0909721Z   dependency-graph: disabled
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0910238Z   dependency-graph-report-dir: dependency-graph-reports
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0910944Z   dependency-graph-continue-on-failure: true
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0911506Z   build-scan-publish: false
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0912308Z   validate-wrappers: true
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0912778Z   allow-snapshot-wrappers: false
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0913326Z   gradle-home-cache-strict-match: false
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0913808Z   workflow-job-context: null
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0918154Z   github-token: ***
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0918505Z env:
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0918990Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0919839Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0920506Z   MAVEN_ARGS: -ntp
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0920989Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.6/x64
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0921733Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.6/x64/lib/pkgconfig
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0922463Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.6/x64
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0923102Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.6/x64
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0923729Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.6/x64
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0924385Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.6/x64/lib
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.0924927Z ##[endgroup]
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.8777878Z Merged default JDK locations into /home/runner/.m2/toolchains.xml
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.8802499Z Enhanced Caching: This build is using the proprietary 'gradle-actions-caching' provider for optimized caching support. See https://github.com/gradle/actions/blob/main/DISTRIBUTION.md for terms of use and opt-out instructions.
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:53.9938751Z ##[group]Restore Gradle state from cache
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:54.2458839Z Cache hit for restore-key: gradle-home-v1|Linux-X64|android[c6ca71c9293cf35bda3dbb21eec59a25]-c0c91aeb72f4c003948571dd06801eb097a57c8e
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:54.7050835Z Received 448 of 448 (100.0%), 0.0 MBs/sec
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:54.7058203Z Cache Size: ~0 MB (448 B)
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:54.7189483Z [command]/usr/bin/tar -xf /home/runner/work/_temp/f9b7c2c1-1c63-4c07-b057-1fe05b4419cc/cache.tzst -P -C /home/runner/work/motion-arcade-android/motion-arcade-android --use-compress-program unzstd
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:54.7218285Z Cache restored successfully
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:54.7480000Z Restored cache entry with key gradle-home-v1|Linux-X64|android[c6ca71c9293cf35bda3dbb21eec59a25]-6c46b1b9be7e417bb08f52fe207b9f4f0daedfb9 to /home/runner/.gradle/caches,/home/runner/.gradle/notifications,/home/runner/.gradle/.setup-gradle in 714ms
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:54.7489540Z ##[endgroup]
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:54.7569314Z ##[group]All Gradle Wrapper jars are valid
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:54.7711722Z ✓ Found known Gradle Wrapper JAR files:
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:54.7720430Z   55243ef57851f12b070ad14f7f5bb8302daceeebc5bce5ece5fa6edb23e1145c gradle/wrapper/gradle-wrapper.jar
+android	Validate wrapper and configure Gradle	2026-07-15T00:56:54.7734147Z ##[endgroup]
+android	Build and test with strict dependency verification	﻿2026-07-15T00:56:54.7789788Z ##[group]Run ./gradlew --no-daemon --dependency-verification strict \
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7790696Z ./gradlew --no-daemon --dependency-verification strict \
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7791493Z   test lint assembleDebug :app:assembleDebugAndroidTest
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7792188Z python -B scripts/validate_apk_policy.py \
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7792832Z   --apk app/build/outputs/apk/debug/app-debug.apk \
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7793475Z   --aapt2 "$ANDROID_HOME/build-tools/36.0.0/aapt2"
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7794098Z python -B scripts/validate_native_runtime.py \
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7794726Z   --apk app/build/outputs/apk/debug/app-debug.apk \
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7795418Z   --output "$RUNNER_TEMP/native-runtime-inventory.json"
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7796082Z python -B scripts/audit_runtime_licenses.py \
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7796740Z   --output "$RUNNER_TEMP/runtime-license-inventory.json"
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7797771Z cmp "$RUNNER_TEMP/runtime-license-inventory.json" \
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7798655Z   docs/evidence/runs/2026-07-14-slice-0a/runtime-license-inventory.json
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7799603Z git diff --exit-code -- gradle/verification-metadata.xml '*gradle.lockfile'
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7986273Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7986853Z env:
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7987358Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7988484Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7989159Z   MAVEN_ARGS: -ntp
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7989608Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.6/x64
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7990313Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.6/x64/lib/pkgconfig
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7991019Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.6/x64
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7991659Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.6/x64
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7992309Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.6/x64
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7992945Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.6/x64/lib
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7993543Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7994074Z   GRADLE_USER_HOME: /home/runner/.gradle
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7994559Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7995332Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7996167Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7996719Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+android	Build and test with strict dependency verification	2026-07-15T00:56:54.7997170Z ##[endgroup]
+android	Build and test with strict dependency verification	2026-07-15T00:56:55.3188928Z Downloading https://services.gradle.org/distributions/gradle-9.4.1-bin.zip
+android	Build and test with strict dependency verification	2026-07-15T00:56:58.9408891Z .............10%.............20%.............30%.............40%.............50%.............60%..............70%.............80%.............90%.............100%
+android	Build and test with strict dependency verification	2026-07-15T00:57:00.6658069Z
+android	Build and test with strict dependency verification	2026-07-15T00:57:00.6670528Z Welcome to Gradle 9.4.1!
+android	Build and test with strict dependency verification	2026-07-15T00:57:00.6676864Z
+android	Build and test with strict dependency verification	2026-07-15T00:57:00.6677768Z Here are the highlights of this release:
+android	Build and test with strict dependency verification	2026-07-15T00:57:00.6687111Z  - Java 26 support
+android	Build and test with strict dependency verification	2026-07-15T00:57:00.6688148Z  - Non-class-based JVM tests
+android	Build and test with strict dependency verification	2026-07-15T00:57:00.6688876Z  - Enhanced console progress bar
+android	Build and test with strict dependency verification	2026-07-15T00:57:00.6689542Z
+android	Build and test with strict dependency verification	2026-07-15T00:57:00.6690206Z For more details see https://docs.gradle.org/9.4.1/release-notes.html
+android	Build and test with strict dependency verification	2026-07-15T00:57:00.6705124Z
+android	Build and test with strict dependency verification	2026-07-15T00:57:00.7654863Z To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.4.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+android	Build and test with strict dependency verification	2026-07-15T00:57:02.3644469Z Daemon will be stopped at the end of the build
+android	Build and test with strict dependency verification	2026-07-15T00:57:04.1669180Z Calculating task graph as no cached configuration is available for tasks: test lint assembleDebug :app:assembleDebugAndroidTest
+android	Build and test with strict dependency verification	2026-07-15T00:59:36.1668507Z > Task :game-core:preBuild UP-TO-DATE
+android	Build and test with strict dependency verification	2026-07-15T00:59:36.1670033Z > Task :app:preBuild UP-TO-DATE
+android	Build and test with strict dependency verification	2026-07-15T00:59:36.1688577Z > Task :app:preDebugBuild UP-TO-DATE
+android	Build and test with strict dependency verification	2026-07-15T00:59:36.2675824Z > Task :app:generateDebugResources
+android	Build and test with strict dependency verification	2026-07-15T00:59:36.2722489Z > Task :app:generateDebugBuildConfig
+android	Build and test with strict dependency verification	2026-07-15T00:59:36.2731112Z > Task :game-core:preDebugBuild UP-TO-DATE
+android	Build and test with strict dependency verification	2026-07-15T00:59:36.2765184Z > Task :game-core:processDebugNavigationResources
+android	Build and test with strict dependency verification	2026-07-15T00:59:36.2798266Z > Task :games:preBuild UP-TO-DATE
+android	Build and test with strict dependency verification	2026-07-15T00:59:36.2808034Z > Task :games:preDebugBuild UP-TO-DATE
+android	Build and test with strict dependency verification	2026-07-15T00:59:36.3698469Z > Task :games:processDebugNavigationResources FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T00:59:36.3717999Z > Task :vision:verifyPoseModel
+android	Build and test with strict dependency verification	2026-07-15T00:59:36.3718734Z > Task :vision:preBuild
+android	Build and test with strict dependency verification	2026-07-15T00:59:36.3738086Z > Task :vision:preDebugBuild
+android	Build and test with strict dependency verification	2026-07-15T00:59:36.3756167Z > Task :vision:processDebugNavigationResources FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T00:59:36.4660772Z > Task :app:packageDebugResources
+android	Build and test with strict dependency verification	2026-07-15T00:59:36.4677895Z > Task :game-core:generateDebugResources
+android	Build and test with strict dependency verification	2026-07-15T00:59:36.5660156Z > Task :game-core:packageDebugResources
+android	Build and test with strict dependency verification	2026-07-15T00:59:39.6640319Z > Task :game-core:parseDebugLocalResources
+android	Build and test with strict dependency verification	2026-07-15T00:59:39.7650212Z > Task :game-core:generateDebugRFile
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.1640189Z > Task :app:processDebugNavigationResources
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.2640195Z > Task :app:parseDebugLocalResources
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.2668070Z > Task :app:generateDebugRFile
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.3688252Z > Task :game-core:javaPreCompileDebug
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.3689198Z > Task :games:generateDebugResources FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.3707923Z > Task :games:packageDebugResources
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.3728111Z > Task :games:parseDebugLocalResources FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.3728961Z > Task :games:generateDebugRFile
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.3748116Z > Task :games:javaPreCompileDebug FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.4678471Z > Task :vision:generateDebugResources FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.4687313Z > Task :vision:packageDebugResources
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.4688302Z > Task :vision:parseDebugLocalResources FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.4688950Z > Task :vision:generateDebugRFile
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.4689519Z > Task :vision:javaPreCompileDebug FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.4690119Z > Task :app:javaPreCompileDebug FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.5658469Z > Task :game-core:writeDebugAarMetadata
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.5690713Z > Task :games:writeDebugAarMetadata
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.5707963Z > Task :vision:writeDebugAarMetadata
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.8640658Z > Task :app:checkDebugAarMetadata
+android	Build and test with strict dependency verification	2026-07-15T00:59:40.9650321Z > Task :app:mapDebugSourceSetPaths
+android	Build and test with strict dependency verification	2026-07-15T00:59:41.1642046Z > Task :app:compileDebugNavigationResources
+android	Build and test with strict dependency verification	2026-07-15T00:59:47.3658519Z > Task :app:mergeDebugResources
+android	Build and test with strict dependency verification	2026-07-15T00:59:47.3698119Z > Task :app:createDebugCompatibleScreenManifests
+android	Build and test with strict dependency verification	2026-07-15T00:59:47.3708071Z > Task :app:extractDeepLinksDebug
+android	Build and test with strict dependency verification	2026-07-15T00:59:47.3757945Z > Task :game-core:extractDeepLinksDebug
+android	Build and test with strict dependency verification	2026-07-15T00:59:47.5648834Z > Task :game-core:processDebugManifest
+android	Build and test with strict dependency verification	2026-07-15T00:59:47.5688348Z > Task :games:extractDeepLinksDebug FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T00:59:47.5717989Z > Task :games:processDebugManifest
+android	Build and test with strict dependency verification	2026-07-15T00:59:47.5738180Z > Task :vision:extractDeepLinksDebug FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T00:59:47.5738801Z > Task :vision:processDebugManifest
+android	Build and test with strict dependency verification	2026-07-15T00:59:48.1644769Z
+android	Build and test with strict dependency verification	2026-07-15T00:59:48.1658545Z > Task :app:processDebugMainManifest
+android	Build and test with strict dependency verification	2026-07-15T00:59:48.1678546Z /home/runner/work/motion-arcade-android/motion-arcade-android/app/src/main/AndroidManifest.xml:9:5-11:31 Warning:
+android	Build and test with strict dependency verification	2026-07-15T00:59:48.1698672Z 	uses-permission#android.permission.INTERNET was tagged at AndroidManifest.xml:9 to remove other declarations but no other declaration present
+android	Build and test with strict dependency verification	2026-07-15T00:59:48.3647637Z
+android	Build and test with strict dependency verification	2026-07-15T00:59:48.3658447Z > Task :app:processDebugManifest
+android	Build and test with strict dependency verification	2026-07-15T00:59:48.4648891Z > Task :app:processDebugManifestForPackage
+android	Build and test with strict dependency verification	2026-07-15T00:59:48.4668099Z > Task :game-core:mapDebugSourceSetPaths
+android	Build and test with strict dependency verification	2026-07-15T00:59:48.4669009Z > Task :game-core:compileDebugLibraryResources
+android	Build and test with strict dependency verification	2026-07-15T00:59:48.4688210Z > Task :games:mapDebugSourceSetPaths
+android	Build and test with strict dependency verification	2026-07-15T00:59:48.4710314Z > Task :games:compileDebugLibraryResources FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T00:59:48.4728025Z > Task :vision:mapDebugSourceSetPaths
+android	Build and test with strict dependency verification	2026-07-15T00:59:48.4748369Z > Task :vision:compileDebugLibraryResources FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T00:59:51.9661104Z > Task :app:processDebugResources
+android	Build and test with strict dependency verification	2026-07-15T00:59:51.9698379Z > Task :app:preDebugUnitTestBuild UP-TO-DATE
+android	Build and test with strict dependency verification	2026-07-15T00:59:51.9738171Z > Task :app:javaPreCompileDebugUnitTest FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T00:59:51.9739578Z > Task :app:generateDebugAssets UP-TO-DATE
+android	Build and test with strict dependency verification	2026-07-15T00:59:51.9798159Z > Task :game-core:generateDebugAssets UP-TO-DATE
+android	Build and test with strict dependency verification	2026-07-15T00:59:52.0669999Z > Task :game-core:mergeDebugAssets
+android	Build and test with strict dependency verification	2026-07-15T00:59:52.0703044Z > Task :games:generateDebugAssets UP-TO-DATE
+android	Build and test with strict dependency verification	2026-07-15T00:59:52.0728543Z > Task :games:mergeDebugAssets
+android	Build and test with strict dependency verification	2026-07-15T00:59:52.0783469Z > Task :vision:generateDebugAssets UP-TO-DATE
+android	Build and test with strict dependency verification	2026-07-15T00:59:52.1650500Z > Task :vision:mergeDebugAssets
+android	Build and test with strict dependency verification	2026-07-15T00:59:52.4658524Z > Task :app:mergeDebugAssets
+android	Build and test with strict dependency verification	2026-07-15T00:59:52.8640754Z > Task :app:packageDebugUnitTestForUnitTest
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.1687904Z
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.1748394Z > Task :app:processDebugUnitTestManifest
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.1791877Z /home/runner/work/motion-arcade-android/motion-arcade-android/app/src/main/AndroidManifest.xml:6:5-8:31 Warning:
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.1800936Z 	uses-permission#android.permission.ACCESS_NETWORK_STATE was tagged at AndroidManifest.xml:6 to remove other declarations but no other declaration present
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.1832474Z /home/runner/work/motion-arcade-android/motion-arcade-android/app/src/main/AndroidManifest.xml:9:5-11:31 Warning:
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.1878919Z 	uses-permission#android.permission.INTERNET was tagged at AndroidManifest.xml:9 to remove other declarations but no other declaration present
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.1919904Z /home/runner/work/motion-arcade-android/motion-arcade-android/app/build/intermediates/tmp/manifest/test/debug/tempFile2ProcessTestManifest12552403140197053565.xml:14:5-16:31 Warning:
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.1958732Z 	uses-permission#android.permission.INTERNET was tagged at tempFile2ProcessTestManifest12552403140197053565.xml:14 to remove other declarations but no other declaration present
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.1998257Z
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.2042586Z > Task :app:generateDebugUnitTestConfig
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.2058471Z > Task :game-core:preDebugUnitTestBuild UP-TO-DATE
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.2090890Z > Task :game-core:generateDebugUnitTestStubRFile
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.2123263Z > Task :game-core:javaPreCompileDebugUnitTest FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.2148054Z > Task :games:preDebugUnitTestBuild UP-TO-DATE
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.2643303Z > Task :games:generateDebugUnitTestStubRFile
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.2688217Z > Task :games:javaPreCompileDebugUnitTest FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.2748220Z > Task :vision:preDebugUnitTestBuild
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.7668690Z > Task :vision:generateDebugUnitTestStubRFile
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.7670839Z > Task :vision:javaPreCompileDebugUnitTest FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.8651552Z > Task :vision:checkDebugAarMetadata
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.9657004Z > Task :vision:mergeDebugJniLibFolders
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.9698518Z > Task :vision:mergeDebugNativeLibs NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.9718185Z > Task :vision:stripDebugDebugSymbols NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.9739211Z > Task :vision:copyDebugJniLibsProjectAndLocalJars
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.9837729Z > Task :vision:extractDeepLinksForAarDebug
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.9868520Z > Task :vision:prepareDebugArtProfile
+android	Build and test with strict dependency verification	2026-07-15T00:59:53.9898024Z > Task :vision:prepareLintJarForPublish
+android	Build and test with strict dependency verification	2026-07-15T00:59:54.0658688Z > Task :game-core:checkDebugAarMetadata
+android	Build and test with strict dependency verification	2026-07-15T00:59:54.0668272Z > Task :game-core:mergeDebugJniLibFolders
+android	Build and test with strict dependency verification	2026-07-15T00:59:54.0709097Z > Task :game-core:mergeDebugNativeLibs NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T00:59:54.0748149Z > Task :game-core:stripDebugDebugSymbols NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T00:59:54.0808111Z > Task :game-core:copyDebugJniLibsProjectAndLocalJars
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.0688873Z > Task :game-core:extractDebugAnnotations
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.0729698Z > Task :game-core:extractDeepLinksForAarDebug FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.0748066Z > Task :game-core:prepareDebugArtProfile
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.0783451Z > Task :game-core:prepareLintJarForPublish
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.0818084Z > Task :games:checkDebugAarMetadata
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.0838495Z > Task :games:mergeDebugJniLibFolders
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.0878259Z > Task :games:mergeDebugNativeLibs NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.0898259Z > Task :games:stripDebugDebugSymbols NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.0938175Z > Task :games:copyDebugJniLibsProjectAndLocalJars
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.0978216Z > Task :games:extractDeepLinksForAarDebug FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.0998341Z > Task :games:prepareDebugArtProfile
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.1038190Z > Task :games:prepareLintJarForPublish
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.1058142Z > Task :app:preDebugAndroidTestBuild SKIPPED
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.1078199Z > Task :game-core:writeDebugLintModelMetadata
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.1120598Z > Task :games:writeDebugLintModelMetadata
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.1158067Z > Task :vision:writeDebugLintModelMetadata
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.1178077Z > Task :app:extractProguardFiles
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.1653506Z > Task :game-core:extractProguardFiles
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.1698095Z > Task :games:extractProguardFiles
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.1699282Z > Task :vision:extractProguardFiles
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.1699865Z > Task :game-core:preDebugAndroidTestBuild UP-TO-DATE
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.1700515Z > Task :games:preDebugAndroidTestBuild UP-TO-DATE
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.1701083Z > Task :vision:preDebugAndroidTestBuild
+android	Build and test with strict dependency verification	2026-07-15T01:00:03.1701650Z > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T01:00:04.0668896Z > Task :app:compressDebugAssets
+android	Build and test with strict dependency verification	2026-07-15T01:00:09.7649091Z > Task :game-core:compileDebugKotlin
+android	Build and test with strict dependency verification	2026-07-15T01:00:10.7640515Z > Task :app:generateDebugGlobalSynthetics
+android	Build and test with strict dependency verification	2026-07-15T01:00:15.0654152Z > Task :app:checkDebugDuplicateClasses
+android	Build and test with strict dependency verification	2026-07-15T01:00:15.0705251Z > Task :app:desugarDebugFileDependencies
+android	Build and test with strict dependency verification	2026-07-15T01:00:17.1658567Z > Task :game-core:compileDebugJavaWithJavac NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T01:00:45.0640479Z > Task :app:mergeExtDexDebug
+android	Build and test with strict dependency verification	2026-07-15T01:00:47.1658522Z > Task :game-core:bundleLibCompileToJarDebug
+android	Build and test with strict dependency verification	2026-07-15T01:01:59.5649633Z > Task :games:compileDebugKotlin
+android	Build and test with strict dependency verification	2026-07-15T01:01:59.5666593Z > Task :games:compileDebugJavaWithJavac NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T01:02:08.1659206Z > Task :games:bundleLibCompileToJarDebug
+android	Build and test with strict dependency verification	2026-07-15T01:02:12.4658433Z > Task :game-core:bundleLibRuntimeToJarDebug
+android	Build and test with strict dependency verification	2026-07-15T01:02:12.4677995Z > Task :games:bundleLibRuntimeToJarDebug
+android	Build and test with strict dependency verification	2026-07-15T01:02:12.5688445Z > Task :game-core:processDebugJavaRes
+android	Build and test with strict dependency verification	2026-07-15T01:02:12.6728291Z > Task :games:processDebugJavaRes
+android	Build and test with strict dependency verification	2026-07-15T01:02:15.2639886Z > Task :vision:compileDebugKotlin
+android	Build and test with strict dependency verification	2026-07-15T01:02:15.2686504Z > Task :vision:compileDebugJavaWithJavac NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T01:02:15.2727992Z > Task :vision:bundleLibCompileToJarDebug
+android	Build and test with strict dependency verification	2026-07-15T01:02:16.8642406Z > Task :game-core:compileDebugUnitTestKotlin
+android	Build and test with strict dependency verification	2026-07-15T01:02:16.8706163Z > Task :vision:bundleLibRuntimeToJarDebug
+android	Build and test with strict dependency verification	2026-07-15T01:02:16.8722703Z > Task :vision:processDebugJavaRes
+android	Build and test with strict dependency verification	2026-07-15T01:02:16.8739259Z > Task :game-core:compileDebugUnitTestJavaWithJavac NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T01:02:16.9639648Z > Task :game-core:processDebugUnitTestJavaRes
+android	Build and test with strict dependency verification	2026-07-15T01:02:23.6648661Z > Task :game-core:testDebugUnitTest
+android	Build and test with strict dependency verification	2026-07-15T01:02:23.6691416Z > Task :game-core:test
+android	Build and test with strict dependency verification	2026-07-15T01:02:23.6740339Z > Task :games:compileDebugUnitTestKotlin NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T01:02:23.6761527Z > Task :games:compileDebugUnitTestJavaWithJavac NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T01:02:23.6798131Z > Task :games:processDebugUnitTestJavaRes NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T01:02:23.6818198Z > Task :games:testDebugUnitTest NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T01:02:23.6859472Z > Task :games:test UP-TO-DATE
+android	Build and test with strict dependency verification	2026-07-15T01:02:25.8668482Z > Task :app:compileDebugKotlin
+android	Build and test with strict dependency verification	2026-07-15T01:02:34.5654817Z > Task :vision:compileDebugUnitTestKotlin
+android	Build and test with strict dependency verification	2026-07-15T01:02:34.5686359Z > Task :app:processDebugJavaRes
+android	Build and test with strict dependency verification	2026-07-15T01:02:34.5718382Z > Task :vision:compileDebugUnitTestJavaWithJavac NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T01:02:34.6129125Z > Task :vision:processDebugUnitTestJavaRes
+android	Build and test with strict dependency verification	2026-07-15T01:02:34.9859518Z > Task :app:compileDebugJavaWithJavac
+android	Build and test with strict dependency verification	2026-07-15T01:02:35.2808426Z > Task :app:transformDebugClassesWithAsm
+android	Build and test with strict dependency verification	2026-07-15T01:02:35.2818380Z > Task :app:bundleDebugClassesToRuntimeJar
+android	Build and test with strict dependency verification	2026-07-15T01:02:35.3009632Z > Task :app:bundleDebugClassesToCompileJar
+android	Build and test with strict dependency verification	2026-07-15T01:02:35.3017977Z > Task :app:compileDebugUnitTestKotlin NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T01:02:35.3211616Z > Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T01:02:35.3218358Z > Task :app:processDebugUnitTestJavaRes NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T01:02:35.3448412Z > Task :app:testDebugUnitTest NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T01:02:35.3449380Z > Task :app:test UP-TO-DATE
+android	Build and test with strict dependency verification	2026-07-15T01:02:35.8885164Z > Task :vision:extractDebugAnnotations
+android	Build and test with strict dependency verification	2026-07-15T01:02:35.8897962Z > Task :vision:mergeDebugGeneratedProguardFiles
+android	Build and test with strict dependency verification	2026-07-15T01:02:35.8958114Z > Task :vision:mergeDebugConsumerProguardFiles
+android	Build and test with strict dependency verification	2026-07-15T01:02:36.0668374Z > Task :vision:mergeDebugJavaResource
+android	Build and test with strict dependency verification	2026-07-15T01:02:36.1639514Z > Task :vision:syncDebugLibJars
+android	Build and test with strict dependency verification	2026-07-15T01:02:36.1667911Z > Task :vision:bundleDebugLocalLintAar
+android	Build and test with strict dependency verification	2026-07-15T01:02:36.2644826Z > Task :game-core:mergeDebugGeneratedProguardFiles
+android	Build and test with strict dependency verification	2026-07-15T01:02:36.2675530Z > Task :game-core:mergeDebugConsumerProguardFiles
+android	Build and test with strict dependency verification	2026-07-15T01:02:36.2701998Z > Task :game-core:mergeDebugJavaResource
+android	Build and test with strict dependency verification	2026-07-15T01:02:36.3652879Z > Task :game-core:syncDebugLibJars
+android	Build and test with strict dependency verification	2026-07-15T01:02:36.3670216Z > Task :game-core:bundleDebugLocalLintAar
+android	Build and test with strict dependency verification	2026-07-15T01:02:36.3687924Z > Task :games:extractDebugAnnotations
+android	Build and test with strict dependency verification	2026-07-15T01:02:36.3694421Z > Task :games:mergeDebugGeneratedProguardFiles
+android	Build and test with strict dependency verification	2026-07-15T01:02:36.3718133Z > Task :games:mergeDebugConsumerProguardFiles
+android	Build and test with strict dependency verification	2026-07-15T01:02:36.4649828Z > Task :games:mergeDebugJavaResource
+android	Build and test with strict dependency verification	2026-07-15T01:02:36.4677956Z > Task :games:syncDebugLibJars
+android	Build and test with strict dependency verification	2026-07-15T01:02:36.4678685Z > Task :games:bundleDebugLocalLintAar
+android	Build and test with strict dependency verification	2026-07-15T01:02:36.4697951Z > Task :game-core:createFullJarDebug
+android	Build and test with strict dependency verification	2026-07-15T01:02:36.4717910Z > Task :games:createFullJarDebug
+android	Build and test with strict dependency verification	2026-07-15T01:02:36.4718735Z > Task :vision:createFullJarDebug
+android	Build and test with strict dependency verification	2026-07-15T01:02:39.2688615Z > Task :app:generateDebugAndroidTestLintModel
+android	Build and test with strict dependency verification	2026-07-15T01:02:39.2708149Z > Task :game-core:generateDebugLintModel
+android	Build and test with strict dependency verification	2026-07-15T01:02:39.2715120Z > Task :games:generateDebugLintModel
+android	Build and test with strict dependency verification	2026-07-15T01:02:40.5649177Z > Task :vision:testDebugUnitTest
+android	Build and test with strict dependency verification	2026-07-15T01:02:40.5660232Z > Task :vision:test
+android	Build and test with strict dependency verification	2026-07-15T01:02:40.6678541Z > Task :vision:generateDebugLintModel
+android	Build and test with strict dependency verification	2026-07-15T01:02:41.0640061Z > Task :app:generateDebugLintReportModel
+android	Build and test with strict dependency verification	2026-07-15T01:02:41.0641582Z > Task :app:generateDebugUnitTestLintModel
+android	Build and test with strict dependency verification	2026-07-15T01:02:53.9639910Z > Task :app:lintAnalyzeDebugAndroidTest
+android	Build and test with strict dependency verification	2026-07-15T01:02:54.3658574Z > Task :app:lintAnalyzeDebugUnitTest
+android	Build and test with strict dependency verification	2026-07-15T01:02:54.3688313Z > Task :game-core:generateDebugAndroidTestLintModel
+android	Build and test with strict dependency verification	2026-07-15T01:02:54.3708083Z > Task :game-core:generateDebugUnitTestLintModel
+android	Build and test with strict dependency verification	2026-07-15T01:02:54.8668634Z > Task :game-core:lintAnalyzeDebugAndroidTest
+android	Build and test with strict dependency verification	2026-07-15T01:03:01.9646879Z > Task :game-core:lintAnalyzeDebugUnitTest
+android	Build and test with strict dependency verification	2026-07-15T01:03:01.9679744Z > Task :games:generateDebugAndroidTestLintModel
+android	Build and test with strict dependency verification	2026-07-15T01:03:01.9708075Z > Task :games:generateDebugUnitTestLintModel
+android	Build and test with strict dependency verification	2026-07-15T01:03:02.0642116Z > Task :games:lintAnalyzeDebugAndroidTest
+android	Build and test with strict dependency verification	2026-07-15T01:03:02.1658539Z > Task :games:lintAnalyzeDebugUnitTest
+android	Build and test with strict dependency verification	2026-07-15T01:03:02.2668451Z > Task :vision:generateDebugAndroidTestLintModel
+android	Build and test with strict dependency verification	2026-07-15T01:03:02.2669363Z > Task :vision:generateDebugUnitTestLintModel
+android	Build and test with strict dependency verification	2026-07-15T01:03:02.4648543Z > Task :vision:lintAnalyzeDebugAndroidTest
+android	Build and test with strict dependency verification	2026-07-15T01:03:08.9658694Z > Task :vision:lintAnalyzeDebugUnitTest
+android	Build and test with strict dependency verification	2026-07-15T01:03:09.0678485Z > Task :game-core:generateDebugLintReportModel
+android	Build and test with strict dependency verification	2026-07-15T01:03:09.0692086Z > Task :games:generateDebugLintReportModel
+android	Build and test with strict dependency verification	2026-07-15T01:03:09.0708215Z > Task :vision:generateDebugLintReportModel
+android	Build and test with strict dependency verification	2026-07-15T01:03:11.0648342Z > Task :game-core:lintAnalyzeDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:11.2658625Z > Task :app:mergeDebugJavaResource
+android	Build and test with strict dependency verification	2026-07-15T01:03:13.1118931Z > Task :app:mergeLibDexDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:13.9678347Z > Task :app:dexBuilderDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:14.1658636Z > Task :app:mergeProjectDexDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:14.2683099Z > Task :app:mergeDebugJniLibFolders
+android	Build and test with strict dependency verification	2026-07-15T01:03:14.2718313Z > Task :game-core:copyDebugJniLibsProjectOnly
+android	Build and test with strict dependency verification	2026-07-15T01:03:14.2748021Z > Task :games:copyDebugJniLibsProjectOnly
+android	Build and test with strict dependency verification	2026-07-15T01:03:14.2788678Z > Task :vision:copyDebugJniLibsProjectOnly
+android	Build and test with strict dependency verification	2026-07-15T01:03:14.9678499Z > Task :app:mergeDebugNativeLibs
+android	Build and test with strict dependency verification	2026-07-15T01:03:15.2639891Z > Task :app:stripDebugDebugSymbols
+android	Build and test with strict dependency verification	2026-07-15T01:03:16.9640491Z > Task :app:validateSigningDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:16.9658028Z > Task :app:writeDebugAppMetadata
+android	Build and test with strict dependency verification	2026-07-15T01:03:16.9678057Z > Task :app:writeDebugSigningConfigVersions
+android	Build and test with strict dependency verification	2026-07-15T01:03:19.1639918Z > Task :app:packageDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:19.2650953Z > Task :app:createDebugApkListingFileRedirect
+android	Build and test with strict dependency verification	2026-07-15T01:03:19.2664368Z > Task :app:assembleDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:19.2678112Z > Task :game-core:bundleDebugAar
+android	Build and test with strict dependency verification	2026-07-15T01:03:19.2698233Z > Task :game-core:assembleDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:19.2717873Z > Task :games:bundleDebugAar
+android	Build and test with strict dependency verification	2026-07-15T01:03:19.2718762Z > Task :games:assembleDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:19.7643415Z > Task :vision:bundleDebugAar
+android	Build and test with strict dependency verification	2026-07-15T01:03:19.7668732Z > Task :vision:assembleDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:19.8688816Z > Task :app:processDebugAndroidTestManifest
+android	Build and test with strict dependency verification	2026-07-15T01:03:19.8704313Z > Task :app:generateDebugAndroidTestBuildConfig
+android	Build and test with strict dependency verification	2026-07-15T01:03:19.8748645Z > Task :app:generateDebugAndroidTestResources FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T01:03:19.8750874Z > Task :app:packageDebugAndroidTestResources
+android	Build and test with strict dependency verification	2026-07-15T01:03:19.8768703Z > Task :app:processDebugAndroidTestNavigationResources FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T01:03:19.8808160Z > Task :app:parseDebugAndroidTestLocalResources FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T01:03:19.9641827Z > Task :app:generateDebugAndroidTestRFile
+android	Build and test with strict dependency verification	2026-07-15T01:03:22.3643712Z > Task :app:compileDebugAndroidTestKotlin
+android	Build and test with strict dependency verification	2026-07-15T01:03:22.3644912Z > Task :app:javaPreCompileDebugAndroidTest FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T01:03:23.8640474Z > Task :app:compileDebugAndroidTestJavaWithJavac
+android	Build and test with strict dependency verification	2026-07-15T01:03:23.8641863Z > Task :app:generateDebugAndroidTestAssets UP-TO-DATE
+android	Build and test with strict dependency verification	2026-07-15T01:03:23.9838856Z > Task :app:mergeDebugAndroidTestAssets
+android	Build and test with strict dependency verification	2026-07-15T01:03:23.9878045Z > Task :app:compressDebugAndroidTestAssets
+android	Build and test with strict dependency verification	2026-07-15T01:03:24.0058700Z > Task :app:generateDebugAndroidTestGlobalSynthetics FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T01:03:24.0078007Z > Task :app:processDebugAndroidTestJavaRes
+android	Build and test with strict dependency verification	2026-07-15T01:03:24.1899753Z > Task :app:mergeDebugAndroidTestJavaResource
+android	Build and test with strict dependency verification	2026-07-15T01:03:24.4700619Z > Task :app:checkDebugAndroidTestDuplicateClasses
+android	Build and test with strict dependency verification	2026-07-15T01:03:24.4718010Z > Task :app:desugarDebugAndroidTestFileDependencies FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T01:03:28.4639574Z > Task :games:lintAnalyzeDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:34.7639993Z > Task :app:mergeExtDexDebugAndroidTest
+android	Build and test with strict dependency verification	2026-07-15T01:03:34.8642125Z > Task :game-core:lintReportDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:34.8656237Z > Task :game-core:lintDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:34.8678114Z > Task :game-core:lint
+android	Build and test with strict dependency verification	2026-07-15T01:03:35.0651656Z > Task :games:lintReportDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:35.0680532Z > Task :games:lintDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:35.0727895Z > Task :games:lint
+android	Build and test with strict dependency verification	2026-07-15T01:03:35.0788292Z > Task :games:bundleLibRuntimeToDirDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:35.1650616Z > Task :vision:bundleLibRuntimeToDirDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:35.6640161Z > Task :game-core:bundleLibRuntimeToDirDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:36.3650282Z > Task :app:mergeLibDexDebugAndroidTest
+android	Build and test with strict dependency verification	2026-07-15T01:03:36.4639683Z > Task :app:checkDebugAndroidTestAarMetadata
+android	Build and test with strict dependency verification	2026-07-15T01:03:36.4658211Z > Task :app:mapDebugAndroidTestSourceSetPaths
+android	Build and test with strict dependency verification	2026-07-15T01:03:36.4678296Z > Task :app:compileDebugAndroidTestNavigationResources FROM-CACHE
+android	Build and test with strict dependency verification	2026-07-15T01:03:37.3843196Z > Task :vision:lintAnalyzeDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:37.4042554Z > Task :app:mergeDebugAndroidTestResources
+android	Build and test with strict dependency verification	2026-07-15T01:03:37.4932196Z > Task :vision:lintReportDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:37.4954169Z > Task :vision:lintDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:37.5338408Z > Task :vision:lint
+android	Build and test with strict dependency verification	2026-07-15T01:03:37.8024941Z > Task :app:processDebugAndroidTestResources
+android	Build and test with strict dependency verification	2026-07-15T01:03:37.8988743Z > Task :app:dexBuilderDebugAndroidTest
+android	Build and test with strict dependency verification	2026-07-15T01:03:37.9986685Z > Task :app:mergeProjectDexDebugAndroidTest
+android	Build and test with strict dependency verification	2026-07-15T01:03:38.0100611Z > Task :app:mergeDebugAndroidTestJniLibFolders
+android	Build and test with strict dependency verification	2026-07-15T01:03:38.0769364Z > Task :app:mergeDebugAndroidTestNativeLibs NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T01:03:38.0770602Z > Task :app:stripDebugAndroidTestDebugSymbols NO-SOURCE
+android	Build and test with strict dependency verification	2026-07-15T01:03:38.0778345Z > Task :app:validateSigningDebugAndroidTest
+android	Build and test with strict dependency verification	2026-07-15T01:03:38.0779399Z > Task :app:writeDebugAndroidTestSigningConfigVersions
+android	Build and test with strict dependency verification	2026-07-15T01:03:38.1829014Z > Task :app:packageDebugAndroidTest
+android	Build and test with strict dependency verification	2026-07-15T01:03:38.1848108Z > Task :app:createDebugAndroidTestApkListingFileRedirect
+android	Build and test with strict dependency verification	2026-07-15T01:03:38.2068778Z > Task :app:assembleDebugAndroidTest
+android	Build and test with strict dependency verification	2026-07-15T01:03:46.4648450Z > Task :app:lintAnalyzeDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:46.6648150Z
+android	Build and test with strict dependency verification	2026-07-15T01:03:46.6658521Z > Task :app:lintReportDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:46.6659710Z Wrote HTML report to file:///home/runner/work/motion-arcade-android/motion-arcade-android/app/build/reports/lint-results-debug.html
+android	Build and test with strict dependency verification	2026-07-15T01:03:46.6660688Z
+android	Build and test with strict dependency verification	2026-07-15T01:03:46.6661042Z > Task :app:lintDebug
+android	Build and test with strict dependency verification	2026-07-15T01:03:46.6661561Z > Task :app:lint
+android	Build and test with strict dependency verification	2026-07-15T01:03:46.6662416Z gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1784077029602.json
+android	Build and test with strict dependency verification	2026-07-15T01:03:46.7648013Z
+android	Build and test with strict dependency verification	2026-07-15T01:03:46.7656015Z BUILD SUCCESSFUL in 6m 51s
+android	Build and test with strict dependency verification	2026-07-15T01:03:46.7657245Z 227 actionable tasks: 201 executed, 26 from cache
+android	Build and test with strict dependency verification	2026-07-15T01:03:46.7658291Z Configuration cache entry stored.
+android	Build and test with strict dependency verification	2026-07-15T01:03:47.5855020Z APK_POLICY=PASS package=com.motionarcade.app.debug permissions=android.permission.CAMERA,com.motionarcade.app.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION modelSha256=59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a
+android	Build and test with strict dependency verification	2026-07-15T01:03:48.1005453Z NATIVE_RUNTIME=PASS apkSha256=72b52419d019d5903c3b312e800d96e2f0ffa7276b2ef822c252eca97122a958 nativeEntries=16 owners=3
+android	Build and test with strict dependency verification	2026-07-15T01:03:48.3286653Z RUNTIME_LICENSE_AUDIT=PASS configuration=releaseRuntimeClasspath coordinates=159 errors=0
+android	Require hardware acceleration	﻿2026-07-15T01:03:48.3502387Z ##[group]Run test -e /dev/kvm
+android	Require hardware acceleration	2026-07-15T01:03:48.3502806Z test -e /dev/kvm
+android	Require hardware acceleration	2026-07-15T01:03:48.3503110Z sudo chmod 666 /dev/kvm
+android	Require hardware acceleration	2026-07-15T01:03:48.3557132Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+android	Require hardware acceleration	2026-07-15T01:03:48.3558037Z env:
+android	Require hardware acceleration	2026-07-15T01:03:48.3558467Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+android	Require hardware acceleration	2026-07-15T01:03:48.3559062Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+android	Require hardware acceleration	2026-07-15T01:03:48.3559660Z   MAVEN_ARGS: -ntp
+android	Require hardware acceleration	2026-07-15T01:03:48.3560022Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.6/x64
+android	Require hardware acceleration	2026-07-15T01:03:48.3560565Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.6/x64/lib/pkgconfig
+android	Require hardware acceleration	2026-07-15T01:03:48.3561133Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.6/x64
+android	Require hardware acceleration	2026-07-15T01:03:48.3561584Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.6/x64
+android	Require hardware acceleration	2026-07-15T01:03:48.3572763Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.6/x64
+android	Require hardware acceleration	2026-07-15T01:03:48.3573468Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.6/x64/lib
+android	Require hardware acceleration	2026-07-15T01:03:48.3574141Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+android	Require hardware acceleration	2026-07-15T01:03:48.3574664Z   GRADLE_USER_HOME: /home/runner/.gradle
+android	Require hardware acceleration	2026-07-15T01:03:48.3575179Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+android	Require hardware acceleration	2026-07-15T01:03:48.3575724Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+android	Require hardware acceleration	2026-07-15T01:03:48.3576225Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+android	Require hardware acceleration	2026-07-15T01:03:48.3576560Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+android	Require hardware acceleration	2026-07-15T01:03:48.3576842Z ##[endgroup]
+android	Test packaged runtime on Android 17 16 KB pages	﻿2026-07-15T01:03:48.3750204Z ##[group]Run ./gradlew --no-daemon --no-configuration-cache \
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3750700Z ./gradlew --no-daemon --no-configuration-cache \
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3751083Z   --dependency-verification strict \
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3751422Z   :app:pixel6Api37DebugAndroidTest
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3781673Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3782028Z env:
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3782342Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3782873Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3783268Z   MAVEN_ARGS: -ntp
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3783547Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.6/x64
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3783976Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.6/x64/lib/pkgconfig
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3784415Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.6/x64
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3784804Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.6/x64
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3785207Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.6/x64
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3785579Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.6/x64/lib
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3785944Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3786256Z   GRADLE_USER_HOME: /home/runner/.gradle
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3786541Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3786973Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3787749Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3788101Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:48.3788554Z ##[endgroup]
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:49.9642073Z To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.4.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:03:51.3599409Z Daemon will be stopped at the end of the build
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:04.8678620Z > Task :game-core:preBuild UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:04.8693929Z > Task :game-core:preDebugBuild UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.0619132Z > Task :game-core:processDebugNavigationResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.0646283Z > Task :games:preBuild UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.0659936Z > Task :games:preDebugBuild UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.0712461Z > Task :games:processDebugNavigationResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.0738229Z > Task :vision:verifyPoseModel
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.0760504Z > Task :vision:preBuild
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.0794472Z > Task :vision:preDebugBuild
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.0816807Z > Task :vision:processDebugNavigationResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.0828743Z > Task :game-core:generateDebugResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.1615993Z > Task :game-core:packageDebugResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.2618659Z > Task :game-core:parseDebugLocalResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.2628948Z > Task :game-core:generateDebugRFile UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.3601253Z > Task :app:preBuild UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.3625037Z > Task :app:preDebugBuild UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.3644133Z > Task :app:generateDebugBuildConfig UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.4608489Z > Task :app:generateDebugResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.4609523Z > Task :app:packageDebugResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.8658259Z > Task :game-core:compileDebugKotlin UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.8659173Z > Task :app:processDebugNavigationResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.8666861Z > Task :game-core:javaPreCompileDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.8708113Z > Task :game-core:compileDebugJavaWithJavac NO-SOURCE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.8719389Z > Task :game-core:bundleLibCompileToJarDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.8720219Z > Task :app:parseDebugLocalResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.8728700Z > Task :games:generateDebugResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.8738918Z > Task :app:generateDebugRFile UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.8748716Z > Task :games:packageDebugResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.8870064Z > Task :vision:generateDebugResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.8873732Z > Task :games:parseDebugLocalResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.8881236Z > Task :vision:packageDebugResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.8881850Z > Task :games:generateDebugRFile UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.8882460Z > Task :vision:parseDebugLocalResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:05.9671924Z > Task :vision:generateDebugRFile UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.0850648Z > Task :games:compileDebugKotlin UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.1123862Z > Task :games:javaPreCompileDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.1139818Z > Task :games:compileDebugJavaWithJavac NO-SOURCE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.1354144Z > Task :games:bundleLibCompileToJarDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.1378047Z > Task :app:javaPreCompileDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.1643057Z > Task :game-core:writeDebugAarMetadata UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.1643774Z > Task :games:writeDebugAarMetadata UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.1644381Z > Task :app:mapDebugSourceSetPaths UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.1682171Z > Task :app:compileDebugNavigationResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.2836850Z > Task :app:mergeDebugResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.2838396Z > Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.3178767Z > Task :app:extractDeepLinksDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.3193630Z > Task :game-core:extractDeepLinksDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.3263635Z > Task :game-core:processDebugManifest UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.3264554Z > Task :games:extractDeepLinksDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.3266225Z > Task :games:processDebugManifest UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.4028480Z > Task :game-core:mapDebugSourceSetPaths UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.4404467Z > Task :game-core:compileDebugLibraryResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.4750560Z > Task :vision:compileDebugKotlin UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.4770298Z > Task :games:mapDebugSourceSetPaths UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.4999079Z > Task :vision:javaPreCompileDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5010313Z > Task :games:compileDebugLibraryResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5298412Z > Task :app:preDebugAndroidTestBuild SKIPPED
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5299468Z > Task :vision:compileDebugJavaWithJavac NO-SOURCE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5528550Z > Task :app:generateDebugAndroidTestResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5548393Z > Task :vision:bundleLibCompileToJarDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5576113Z > Task :app:packageDebugAndroidTestResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5576920Z > Task :vision:writeDebugAarMetadata UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5655438Z > Task :vision:extractDeepLinksDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5658423Z > Task :vision:processDebugManifest UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5659059Z > Task :vision:mapDebugSourceSetPaths UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5659685Z > Task :vision:compileDebugLibraryResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5660320Z > Task :game-core:generateDebugAssets UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5660895Z > Task :game-core:mergeDebugAssets UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5661449Z > Task :games:generateDebugAssets UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5661972Z > Task :games:mergeDebugAssets UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5662510Z > Task :vision:generateDebugAssets UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5663069Z > Task :vision:mergeDebugAssets UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5663628Z > Task :game-core:processDebugJavaRes UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5664206Z > Task :games:processDebugJavaRes UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5664761Z > Task :vision:processDebugJavaRes UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5665364Z > Task :games:bundleLibRuntimeToJarDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5666011Z > Task :game-core:bundleLibRuntimeToJarDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5666664Z > Task :vision:bundleLibRuntimeToJarDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5667294Z > Task :game-core:mergeDebugJniLibFolders UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5668132Z > Task :game-core:mergeDebugNativeLibs NO-SOURCE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5670699Z > Task :game-core:copyDebugJniLibsProjectOnly UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5671374Z > Task :games:mergeDebugJniLibFolders UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5672001Z > Task :games:mergeDebugNativeLibs NO-SOURCE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5672592Z > Task :games:copyDebugJniLibsProjectOnly UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5673248Z > Task :vision:mergeDebugJniLibFolders UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5673832Z > Task :vision:mergeDebugNativeLibs NO-SOURCE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5674452Z > Task :vision:copyDebugJniLibsProjectOnly UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5675100Z > Task :games:bundleLibRuntimeToDirDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5675745Z > Task :vision:bundleLibRuntimeToDirDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.5676413Z > Task :game-core:bundleLibRuntimeToDirDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.7824341Z > Task :app:compileDebugKotlin UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.7826110Z > Task :app:compileDebugJavaWithJavac UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:06.8587192Z > Task :app:checkDebugAarMetadata UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.0609490Z > Task :app:processDebugMainManifest UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.0610642Z > Task :app:processDebugManifest UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.0629211Z > Task :app:processDebugManifestForPackage UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.2598633Z > Task :app:processDebugResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.2620300Z > Task :app:bundleDebugClassesToCompileJar UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.4588385Z > Task :app:processDebugAndroidTestManifest UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.4619594Z > Task :app:generateDebugAndroidTestBuildConfig UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.4623164Z > Task :app:processDebugAndroidTestNavigationResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.4663458Z > Task :app:parseDebugAndroidTestLocalResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.4681242Z > Task :app:generateDebugAndroidTestRFile UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.5589078Z > Task :app:compileDebugAndroidTestKotlin UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.5610902Z > Task :app:javaPreCompileDebugAndroidTest UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.5628113Z > Task :app:compileDebugAndroidTestJavaWithJavac UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.5648754Z > Task :app:generateDebugAssets UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.6608608Z > Task :app:mergeDebugAssets UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.6628124Z > Task :app:compressDebugAssets UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.6668129Z > Task :app:generateDebugGlobalSynthetics UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.6708052Z > Task :app:processDebugJavaRes UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.7599008Z > Task :app:mergeDebugJavaResource UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.9599772Z > Task :app:checkDebugDuplicateClasses UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:07.9648511Z > Task :app:desugarDebugFileDependencies UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.3598557Z > Task :app:mergeExtDexDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.3615359Z > Task :app:mergeLibDexDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.3637205Z > Task :app:transformDebugClassesWithAsm UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.3658095Z > Task :app:dexBuilderDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.3663636Z > Task :app:mergeProjectDexDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.3680509Z > Task :app:mergeDebugJniLibFolders UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.5799537Z > Task :app:mergeDebugNativeLibs UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.5809674Z > Task :app:stripDebugDebugSymbols UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.5918500Z > Task :app:validateSigningDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.5921251Z > Task :app:writeDebugAppMetadata UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.5921887Z > Task :app:writeDebugSigningConfigVersions UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.5922460Z > Task :app:packageDebug UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.5923014Z > Task :app:createDebugApkListingFileRedirect UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.5923641Z > Task :app:generateDebugAndroidTestAssets UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.5924230Z > Task :app:mergeDebugAndroidTestAssets UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.5924784Z > Task :app:compressDebugAndroidTestAssets UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.5925415Z > Task :app:generateDebugAndroidTestGlobalSynthetics UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.5926077Z > Task :app:processDebugAndroidTestJavaRes UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.6820826Z > Task :app:mergeDebugAndroidTestJavaResource UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.6848146Z > Task :app:checkDebugAndroidTestDuplicateClasses UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.7028425Z > Task :app:desugarDebugAndroidTestFileDependencies UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.7821293Z > Task :app:mergeExtDexDebugAndroidTest UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.8065306Z > Task :app:mergeLibDexDebugAndroidTest UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.8316044Z > Task :app:checkDebugAndroidTestAarMetadata UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.8317252Z > Task :app:mapDebugAndroidTestSourceSetPaths UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.8319426Z > Task :app:compileDebugAndroidTestNavigationResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.8707136Z > Task :app:mergeDebugAndroidTestResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.8715808Z > Task :app:processDebugAndroidTestResources UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.8717690Z > Task :app:dexBuilderDebugAndroidTest UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.8734113Z > Task :app:mergeProjectDexDebugAndroidTest UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.8734919Z > Task :app:mergeDebugAndroidTestJniLibFolders UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.8735580Z > Task :app:mergeDebugAndroidTestNativeLibs NO-SOURCE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.8736235Z > Task :app:stripDebugAndroidTestDebugSymbols NO-SOURCE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.8736868Z > Task :app:validateSigningDebugAndroidTest UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.8737906Z > Task :app:writeDebugAndroidTestSigningConfigVersions UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.8738627Z > Task :app:packageDebugAndroidTest UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:08.8739341Z > Task :app:createDebugAndroidTestApkListingFileRedirect UP-TO-DATE
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:10.8598085Z
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:10.8598848Z > Task :app:pixel6Api37Setup
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:10.8638474Z The device "pixel6Api37" does not specify a "testedAbi".
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:10.8678451Z This currently defaults to "x86_64", but will change to "arm64-v8a" in AGP 10.0.
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:10.8698971Z
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:10.8725827Z In AGP 10.0, this device will rely on NDK translation to run tests.
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:10.8738173Z To keep the current behavior (avoiding NDK translation),
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:10.8757988Z explicitly set the ABI: testedAbi = "x86_64"
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:11.5585301Z Checking the license for package Android Emulator in /usr/local/lib/android/sdk/licenses
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:11.5586481Z License for package Android Emulator accepted.
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:11.5587291Z Preparing "Install Android Emulator v.36.6.11".
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:17.4584570Z "Install Android Emulator v.36.6.11" ready.
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:17.4585388Z Installing Android Emulator in /usr/local/lib/android/sdk/emulator
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:17.6584850Z "Install Android Emulator v.36.6.11" complete.
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:18.0586106Z "Install Android Emulator v.36.6.11" finished.
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:18.0588935Z Checking the license for package 16 KB Page Size Google APIs Intel x86_64 Atom System Image in /usr/local/lib/android/sdk/licenses
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:18.0590490Z License for package 16 KB Page Size Google APIs Intel x86_64 Atom System Image accepted.
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:04:18.0591885Z Preparing "Install 16 KB Page Size Google APIs Intel x86_64 Atom System Image API 37.0 (revision 6)".
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:05:23.3598835Z "Install 16 KB Page Size Google APIs Intel x86_64 Atom System Image API 37.0 (revision 6)" ready.
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:05:23.3628823Z Installing 16 KB Page Size Google APIs Intel x86_64 Atom System Image in /usr/local/lib/android/sdk/system-images/android-37.0/google_apis_ps16k/x86_64
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:05:23.3648327Z "Install 16 KB Page Size Google APIs Intel x86_64 Atom System Image API 37.0 (revision 6)" complete.
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:05:23.3668332Z "Install 16 KB Page Size Google APIs Intel x86_64 Atom System Image API 37.0 (revision 6)" finished.
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:08:36.8982070Z
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:08:36.8988879Z > Task :app:pixel6Api37DebugAndroidTest
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:09:46.7593352Z
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:09:46.7612846Z Starting 2 tests on pixel6Api37
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:09:49.1594498Z Finished 2 tests on pixel6Api37
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:09:50.1587287Z
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:09:50.1590929Z > Task :app:mergeDebugAndroidTestTestResultProtos
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:09:50.1594755Z Test execution completed. See the report at: file:///home/runner/work/motion-arcade-android/motion-arcade-android/app/build/reports/androidTests/managedDevice/debug/allDevices/index.html
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:09:50.2614609Z gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_3-1784077434180.json
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:09:50.2637926Z
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:09:50.2639884Z BUILD SUCCESSFUL in 6m 1s
+android	Test packaged runtime on Android 17 16 KB pages	2026-07-15T01:09:50.2696005Z 132 actionable tasks: 4 executed, 128 up-to-date
+android	Post Validate wrapper and configure Gradle	﻿2026-07-15T01:09:51.1030620Z Post job cleanup.
+android	Post Validate wrapper and configure Gradle	2026-07-15T01:09:51.6824622Z In post-action step
+android	Post Validate wrapper and configure Gradle	2026-07-15T01:09:51.6832839Z Enhanced Caching: This build is using the proprietary 'gradle-actions-caching' provider for optimized caching support. See https://github.com/gradle/actions/blob/main/DISTRIBUTION.md for terms of use and opt-out instructions.
+android	Post Validate wrapper and configure Gradle	2026-07-15T01:09:51.7628049Z Cache is read-only: will not save state for use in subsequent builds.
+android	Post Validate wrapper and configure Gradle	2026-07-15T01:09:51.7638822Z Generating Job Summary
+android	Post Validate wrapper and configure Gradle	2026-07-15T01:09:51.7690000Z Completed post-action step
+android	Post Set up pinned Python	﻿2026-07-15T01:09:51.7845254Z Post job cleanup.
+android	Post Set up Temurin JDK 17	﻿2026-07-15T01:09:51.9902015Z Post job cleanup.
+android	Post Check out repository	﻿2026-07-15T01:09:52.1818581Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+android	Post Check out repository	2026-07-15T01:09:52.1821185Z Post job cleanup.
+android	Post Check out repository	2026-07-15T01:09:52.2991603Z [command]/usr/bin/git version
+android	Post Check out repository	2026-07-15T01:09:52.3118225Z git version 2.54.0
+android	Post Check out repository	2026-07-15T01:09:52.3167369Z Temporarily overriding HOME='/home/runner/work/_temp/819aed7f-1288-4f0c-85c9-063c1b2171d2' before making global git config changes
+android	Post Check out repository	2026-07-15T01:09:52.3185385Z Adding repository directory to the temporary git global config as a safe directory
+android	Post Check out repository	2026-07-15T01:09:52.3201003Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/motion-arcade-android/motion-arcade-android
+android	Post Check out repository	2026-07-15T01:09:52.3304581Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+android	Post Check out repository	2026-07-15T01:09:52.3439099Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+android	Post Check out repository	2026-07-15T01:09:52.3997265Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+android	Post Check out repository	2026-07-15T01:09:52.4086699Z http.https://github.com/.extraheader
+android	Post Check out repository	2026-07-15T01:09:52.4108667Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+android	Post Check out repository	2026-07-15T01:09:52.4208013Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+android	Complete job	﻿2026-07-15T01:09:52.4922048Z Cleaning up orphan processes
+android	Complete job	2026-07-15T01:09:52.5524566Z Terminate orphan process: pid (3030) (adb)
+android	Complete job	2026-07-15T01:09:52.5569862Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+ssot	Set up job	﻿2026-07-15T00:56:45.8565861Z Current runner version: '2.335.1'
+ssot	Set up job	2026-07-15T00:56:45.8634961Z ##[group]Runner Image Provisioner
+ssot	Set up job	2026-07-15T00:56:45.8636659Z Hosted Compute Agent
+ssot	Set up job	2026-07-15T00:56:45.8637578Z Version: 20260624.560
+ssot	Set up job	2026-07-15T00:56:45.8638593Z Commit: 925d229a51159bc391ae97e54a2dd1fe20af789d
+ssot	Set up job	2026-07-15T00:56:45.8639878Z Build Date: 2026-06-24T18:26:47Z
+ssot	Set up job	2026-07-15T00:56:45.8640955Z Worker ID: {2ebc3d1a-6b67-4ad2-99c0-7714ca57a117}
+ssot	Set up job	2026-07-15T00:56:45.8642276Z Azure Region: eastus
+ssot	Set up job	2026-07-15T00:56:45.8643189Z ##[endgroup]
+ssot	Set up job	2026-07-15T00:56:45.8666101Z ##[group]Operating System
+ssot	Set up job	2026-07-15T00:56:45.8667205Z Ubuntu
+ssot	Set up job	2026-07-15T00:56:45.8668045Z 24.04.4
+ssot	Set up job	2026-07-15T00:56:45.8668896Z LTS
+ssot	Set up job	2026-07-15T00:56:45.8669714Z ##[endgroup]
+ssot	Set up job	2026-07-15T00:56:45.8671208Z ##[group]Runner Image
+ssot	Set up job	2026-07-15T00:56:45.8672241Z Image: ubuntu-24.04
+ssot	Set up job	2026-07-15T00:56:45.8673132Z Version: 20260705.232.1
+ssot	Set up job	2026-07-15T00:56:45.8675003Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260705.232/images/ubuntu/Ubuntu2404-Readme.md
+ssot	Set up job	2026-07-15T00:56:45.8678306Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260705.232
+ssot	Set up job	2026-07-15T00:56:45.8680032Z ##[endgroup]
+ssot	Set up job	2026-07-15T00:56:45.8681909Z ##[group]GITHUB_TOKEN Permissions
+ssot	Set up job	2026-07-15T00:56:45.8684465Z Contents: read
+ssot	Set up job	2026-07-15T00:56:45.8690551Z Metadata: read
+ssot	Set up job	2026-07-15T00:56:45.8691654Z ##[endgroup]
+ssot	Set up job	2026-07-15T00:56:45.8694674Z Secret source: Actions
+ssot	Set up job	2026-07-15T00:56:45.8696351Z Prepare workflow directory
+ssot	Set up job	2026-07-15T00:56:45.9582720Z Prepare all required actions
+ssot	Set up job	2026-07-15T00:56:45.9640395Z Getting action download info
+ssot	Set up job	2026-07-15T00:56:46.1684808Z Download action repository 'actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+ssot	Set up job	2026-07-15T00:56:46.2787951Z Download action repository 'actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+ssot	Set up job	2026-07-15T00:56:46.4979368Z Complete job name: ssot
+ssot	Check out repository	﻿2026-07-15T00:56:46.5710214Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+ssot	Check out repository	2026-07-15T00:56:46.5719587Z ##[group]Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+ssot	Check out repository	2026-07-15T00:56:46.5720531Z with:
+ssot	Check out repository	2026-07-15T00:56:46.5721007Z   repository: kutaelee/motion-arcade-android
+ssot	Check out repository	2026-07-15T00:56:46.5724882Z   token: ***
+ssot	Check out repository	2026-07-15T00:56:46.5725309Z   ssh-strict: true
+ssot	Check out repository	2026-07-15T00:56:46.5725996Z   ssh-user: git
+ssot	Check out repository	2026-07-15T00:56:46.5726437Z   persist-credentials: true
+ssot	Check out repository	2026-07-15T00:56:46.5726932Z   clean: true
+ssot	Check out repository	2026-07-15T00:56:46.5727371Z   sparse-checkout-cone-mode: true
+ssot	Check out repository	2026-07-15T00:56:46.5727886Z   fetch-depth: 1
+ssot	Check out repository	2026-07-15T00:56:46.5728307Z   fetch-tags: false
+ssot	Check out repository	2026-07-15T00:56:46.5728744Z   show-progress: true
+ssot	Check out repository	2026-07-15T00:56:46.5729173Z   lfs: false
+ssot	Check out repository	2026-07-15T00:56:46.5729621Z   submodules: false
+ssot	Check out repository	2026-07-15T00:56:46.5730064Z   set-safe-directory: true
+ssot	Check out repository	2026-07-15T00:56:46.5730811Z ##[endgroup]
+ssot	Check out repository	2026-07-15T00:56:46.6948084Z Syncing repository: kutaelee/motion-arcade-android
+ssot	Check out repository	2026-07-15T00:56:46.6951621Z ##[group]Getting Git version info
+ssot	Check out repository	2026-07-15T00:56:46.6953912Z Working directory is '/home/runner/work/motion-arcade-android/motion-arcade-android'
+ssot	Check out repository	2026-07-15T00:56:46.6957330Z [command]/usr/bin/git version
+ssot	Check out repository	2026-07-15T00:56:46.7009908Z git version 2.54.0
+ssot	Check out repository	2026-07-15T00:56:46.7045072Z ##[endgroup]
+ssot	Check out repository	2026-07-15T00:56:46.7106746Z Temporarily overriding HOME='/home/runner/work/_temp/9829e599-6509-466e-b819-e917befcf58a' before making global git config changes
+ssot	Check out repository	2026-07-15T00:56:46.7109385Z Adding repository directory to the temporary git global config as a safe directory
+ssot	Check out repository	2026-07-15T00:56:46.7112819Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/motion-arcade-android/motion-arcade-android
+ssot	Check out repository	2026-07-15T00:56:46.7159003Z Deleting the contents of '/home/runner/work/motion-arcade-android/motion-arcade-android'
+ssot	Check out repository	2026-07-15T00:56:46.7161729Z ##[group]Initializing the repository
+ssot	Check out repository	2026-07-15T00:56:46.7163827Z [command]/usr/bin/git init /home/runner/work/motion-arcade-android/motion-arcade-android
+ssot	Check out repository	2026-07-15T00:56:46.7316414Z hint: Using 'master' as the name for the initial branch. This default branch name
+ssot	Check out repository	2026-07-15T00:56:46.7328111Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+ssot	Check out repository	2026-07-15T00:56:46.7330144Z hint: to use in all of your new repositories, which will suppress this warning,
+ssot	Check out repository	2026-07-15T00:56:46.7331563Z hint: call:
+ssot	Check out repository	2026-07-15T00:56:46.7332389Z hint:
+ssot	Check out repository	2026-07-15T00:56:46.7333420Z hint: 	git config --global init.defaultBranch <name>
+ssot	Check out repository	2026-07-15T00:56:46.7334697Z hint:
+ssot	Check out repository	2026-07-15T00:56:46.7336199Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+ssot	Check out repository	2026-07-15T00:56:46.7347569Z hint: 'development'. The just-created branch can be renamed via this command:
+ssot	Check out repository	2026-07-15T00:56:46.7349129Z hint:
+ssot	Check out repository	2026-07-15T00:56:46.7350017Z hint: 	git branch -m <name>
+ssot	Check out repository	2026-07-15T00:56:46.7350973Z hint:
+ssot	Check out repository	2026-07-15T00:56:46.7352287Z hint: Disable this message with "git config set advice.defaultBranchName false"
+ssot	Check out repository	2026-07-15T00:56:46.7354547Z Initialized empty Git repository in /home/runner/work/motion-arcade-android/motion-arcade-android/.git/
+ssot	Check out repository	2026-07-15T00:56:46.7358588Z [command]/usr/bin/git remote add origin https://github.com/kutaelee/motion-arcade-android
+ssot	Check out repository	2026-07-15T00:56:46.7429664Z ##[endgroup]
+ssot	Check out repository	2026-07-15T00:56:46.7431260Z ##[group]Disabling automatic garbage collection
+ssot	Check out repository	2026-07-15T00:56:46.7432622Z [command]/usr/bin/git config --local gc.auto 0
+ssot	Check out repository	2026-07-15T00:56:46.7488060Z ##[endgroup]
+ssot	Check out repository	2026-07-15T00:56:46.7489527Z ##[group]Setting up auth
+ssot	Check out repository	2026-07-15T00:56:46.7490887Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+ssot	Check out repository	2026-07-15T00:56:46.7560753Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+ssot	Check out repository	2026-07-15T00:56:46.8837411Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+ssot	Check out repository	2026-07-15T00:56:46.8842550Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+ssot	Check out repository	2026-07-15T00:56:46.8912796Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+ssot	Check out repository	2026-07-15T00:56:46.8953142Z ##[endgroup]
+ssot	Check out repository	2026-07-15T00:56:46.8954829Z ##[group]Fetching the repository
+ssot	Check out repository	2026-07-15T00:56:46.8966009Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +6c46b1b9be7e417bb08f52fe207b9f4f0daedfb9:refs/remotes/origin/agent/slice-1a-time-coordinate
+ssot	Check out repository	2026-07-15T00:56:47.2481637Z From https://github.com/kutaelee/motion-arcade-android
+ssot	Check out repository	2026-07-15T00:56:47.2484599Z  * [new ref]         6c46b1b9be7e417bb08f52fe207b9f4f0daedfb9 -> origin/agent/slice-1a-time-coordinate
+ssot	Check out repository	2026-07-15T00:56:47.2491365Z ##[endgroup]
+ssot	Check out repository	2026-07-15T00:56:47.2493119Z ##[group]Determining the checkout info
+ssot	Check out repository	2026-07-15T00:56:47.2495359Z ##[endgroup]
+ssot	Check out repository	2026-07-15T00:56:47.2497188Z [command]/usr/bin/git sparse-checkout disable
+ssot	Check out repository	2026-07-15T00:56:47.2500312Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+ssot	Check out repository	2026-07-15T00:56:47.2507409Z ##[group]Checking out the ref
+ssot	Check out repository	2026-07-15T00:56:47.2510151Z [command]/usr/bin/git checkout --progress --force -B agent/slice-1a-time-coordinate refs/remotes/origin/agent/slice-1a-time-coordinate
+ssot	Check out repository	2026-07-15T00:56:47.3194748Z Switched to a new branch 'agent/slice-1a-time-coordinate'
+ssot	Check out repository	2026-07-15T00:56:47.3197263Z branch 'agent/slice-1a-time-coordinate' set up to track 'origin/agent/slice-1a-time-coordinate'.
+ssot	Check out repository	2026-07-15T00:56:47.3201042Z ##[endgroup]
+ssot	Check out repository	2026-07-15T00:56:47.3203459Z [command]/usr/bin/git log -1 --format=%H
+ssot	Check out repository	2026-07-15T00:56:47.3204631Z 6c46b1b9be7e417bb08f52fe207b9f4f0daedfb9
+ssot	Set up pinned Python	﻿2026-07-15T00:56:47.3459734Z ##[group]Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+ssot	Set up pinned Python	2026-07-15T00:56:47.3460857Z with:
+ssot	Set up pinned Python	2026-07-15T00:56:47.3461313Z   python-version: 3.14.6
+ssot	Set up pinned Python	2026-07-15T00:56:47.3461823Z   check-latest: false
+ssot	Set up pinned Python	2026-07-15T00:56:47.3466188Z   token: ***
+ssot	Set up pinned Python	2026-07-15T00:56:47.3466722Z   update-environment: true
+ssot	Set up pinned Python	2026-07-15T00:56:47.3467267Z   allow-prereleases: false
+ssot	Set up pinned Python	2026-07-15T00:56:47.3467782Z   freethreaded: false
+ssot	Set up pinned Python	2026-07-15T00:56:47.3468265Z ##[endgroup]
+ssot	Set up pinned Python	2026-07-15T00:56:47.4878394Z ##[group]Installed versions
+ssot	Set up pinned Python	2026-07-15T00:56:47.4903103Z Successfully set up CPython (3.14.6)
+ssot	Set up pinned Python	2026-07-15T00:56:47.4953348Z ##[endgroup]
+ssot	Install hashed validator environment	﻿2026-07-15T00:56:47.5156870Z ##[group]Run python -m venv "$RUNNER_TEMP/ssot-venv"
+ssot	Install hashed validator environment	2026-07-15T00:56:47.5158257Z python -m venv "$RUNNER_TEMP/ssot-venv"
+ssot	Install hashed validator environment	2026-07-15T00:56:47.5159532Z "$RUNNER_TEMP/ssot-venv/bin/python" -m pip install \
+ssot	Install hashed validator environment	2026-07-15T00:56:47.5160763Z   --disable-pip-version-check \
+ssot	Install hashed validator environment	2026-07-15T00:56:47.5161778Z   --require-hashes \
+ssot	Install hashed validator environment	2026-07-15T00:56:47.5162652Z   --only-binary=:all: \
+ssot	Install hashed validator environment	2026-07-15T00:56:47.5163571Z   --no-deps \
+ssot	Install hashed validator environment	2026-07-15T00:56:47.5164524Z   -r requirements/validation-linux-cp314.lock
+ssot	Install hashed validator environment	2026-07-15T00:56:47.5166117Z "$RUNNER_TEMP/ssot-venv/bin/python" -m pip check
+ssot	Install hashed validator environment	2026-07-15T00:56:47.5470131Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+ssot	Install hashed validator environment	2026-07-15T00:56:47.5470969Z env:
+ssot	Install hashed validator environment	2026-07-15T00:56:47.5471537Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.6/x64
+ssot	Install hashed validator environment	2026-07-15T00:56:47.5472409Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.6/x64/lib/pkgconfig
+ssot	Install hashed validator environment	2026-07-15T00:56:47.5473270Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.6/x64
+ssot	Install hashed validator environment	2026-07-15T00:56:47.5474129Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.6/x64
+ssot	Install hashed validator environment	2026-07-15T00:56:47.5474922Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.6/x64
+ssot	Install hashed validator environment	2026-07-15T00:56:47.5476159Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.6/x64/lib
+ssot	Install hashed validator environment	2026-07-15T00:56:47.5476902Z ##[endgroup]
+ssot	Install hashed validator environment	2026-07-15T00:56:54.0315227Z Collecting attrs==26.1.0 (from -r requirements/validation-linux-cp314.lock (line 1))
+ssot	Install hashed validator environment	2026-07-15T00:56:54.0838489Z   Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+ssot	Install hashed validator environment	2026-07-15T00:56:54.1281918Z Collecting jsonschema==4.26.0 (from -r requirements/validation-linux-cp314.lock (line 3))
+ssot	Install hashed validator environment	2026-07-15T00:56:54.1340593Z   Downloading jsonschema-4.26.0-py3-none-any.whl (90 kB)
+ssot	Install hashed validator environment	2026-07-15T00:56:54.1503001Z Collecting jsonschema-specifications==2025.9.1 (from -r requirements/validation-linux-cp314.lock (line 5))
+ssot	Install hashed validator environment	2026-07-15T00:56:54.1541460Z   Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+ssot	Install hashed validator environment	2026-07-15T00:56:54.1755947Z Collecting referencing==0.37.0 (from -r requirements/validation-linux-cp314.lock (line 7))
+ssot	Install hashed validator environment	2026-07-15T00:56:54.1792140Z   Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
+ssot	Install hashed validator environment	2026-07-15T00:56:54.4404627Z Collecting rpds-py==2026.6.3 (from -r requirements/validation-linux-cp314.lock (line 9))
+ssot	Install hashed validator environment	2026-07-15T00:56:54.4451760Z   Downloading rpds_py-2026.6.3-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (367 kB)
+ssot	Install hashed validator environment	2026-07-15T00:56:54.4576345Z Installing collected packages: rpds-py, referencing, jsonschema-specifications, jsonschema, attrs
+ssot	Install hashed validator environment	2026-07-15T00:56:54.6656242Z
+ssot	Install hashed validator environment	2026-07-15T00:56:54.6697053Z Successfully installed attrs-26.1.0 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 referencing-0.37.0 rpds-py-2026.6.3
+ssot	Install hashed validator environment	2026-07-15T00:56:54.9812043Z No broken requirements found.
+ssot	Validate immutable design source	﻿2026-07-15T00:56:55.0423084Z ##[group]Run printf '%s  %s\n' \
+ssot	Validate immutable design source	2026-07-15T00:56:55.0423486Z printf '%s  %s\n' \
+ssot	Validate immutable design source	2026-07-15T00:56:55.0423875Z   'c998b9eb5f102f231bb626f50864c881e7d0e83e9adee5868e363d4ff8094330' \
+ssot	Validate immutable design source	2026-07-15T00:56:55.0424444Z   'android-motion-games-design-augmented-v1.0.zip' | sha256sum --check
+ssot	Validate immutable design source	2026-07-15T00:56:55.0424989Z unzip -t android-motion-games-design-augmented-v1.0.zip
+ssot	Validate immutable design source	2026-07-15T00:56:55.0425959Z unzip -q android-motion-games-design-augmented-v1.0.zip -d "$RUNNER_TEMP/ssot"
+ssot	Validate immutable design source	2026-07-15T00:56:55.0426471Z export PYTHONDONTWRITEBYTECODE=1
+ssot	Validate immutable design source	2026-07-15T00:56:55.0427083Z "$RUNNER_TEMP/ssot-venv/bin/python" -I -B \
+ssot	Validate immutable design source	2026-07-15T00:56:55.0427616Z   "$RUNNER_TEMP/ssot/android-motion-games-design-augmented-v1.0/scripts/validate_package.py"
+ssot	Validate immutable design source	2026-07-15T00:56:55.0428114Z diff -qr \
+ssot	Validate immutable design source	2026-07-15T00:56:55.0428460Z   "$RUNNER_TEMP/ssot/android-motion-games-design-augmented-v1.0" \
+ssot	Validate immutable design source	2026-07-15T00:56:55.0429073Z   android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0
+ssot	Validate immutable design source	2026-07-15T00:56:55.0429706Z "$RUNNER_TEMP/ssot-venv/bin/python" -B -m unittest discover \
+ssot	Validate immutable design source	2026-07-15T00:56:55.0430099Z   -s scripts/tests -v
+ssot	Validate immutable design source	2026-07-15T00:56:55.0430475Z "$RUNNER_TEMP/ssot-venv/bin/python" -B scripts/validate_project_assets.py
+ssot	Validate immutable design source	2026-07-15T00:56:55.0431031Z "$RUNNER_TEMP/ssot-venv/bin/python" -B scripts/validate_supply_chain.py
+ssot	Validate immutable design source	2026-07-15T00:56:55.0431438Z git diff --exit-code
+ssot	Validate immutable design source	2026-07-15T00:56:55.0466012Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+ssot	Validate immutable design source	2026-07-15T00:56:55.0466380Z env:
+ssot	Validate immutable design source	2026-07-15T00:56:55.0466644Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.6/x64
+ssot	Validate immutable design source	2026-07-15T00:56:55.0467090Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.6/x64/lib/pkgconfig
+ssot	Validate immutable design source	2026-07-15T00:56:55.0467512Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.6/x64
+ssot	Validate immutable design source	2026-07-15T00:56:55.0467890Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.6/x64
+ssot	Validate immutable design source	2026-07-15T00:56:55.0468280Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.6/x64
+ssot	Validate immutable design source	2026-07-15T00:56:55.0468672Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.6/x64/lib
+ssot	Validate immutable design source	2026-07-15T00:56:55.0468995Z ##[endgroup]
+ssot	Validate immutable design source	2026-07-15T00:56:55.0556824Z android-motion-games-design-augmented-v1.0.zip: OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0744324Z Archive:  android-motion-games-design-augmented-v1.0.zip
+ssot	Validate immutable design source	2026-07-15T00:56:55.0746014Z     testing: android-motion-games-design-augmented-v1.0/   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0747272Z     testing: android-motion-games-design-augmented-v1.0/source/   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0748696Z     testing: android-motion-games-design-augmented-v1.0/source/ORIGINAL_SPEC.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0750038Z     testing: android-motion-games-design-augmented-v1.0/README.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0751225Z     testing: android-motion-games-design-augmented-v1.0/DESIGN_SSOT.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0752679Z     testing: android-motion-games-design-augmented-v1.0/IMPLEMENTATION_EXECUTION_CONTRACT.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0754110Z     testing: android-motion-games-design-augmented-v1.0/RISK_REGISTER.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0755384Z     testing: android-motion-games-design-augmented-v1.0/TRACEABILITY_MATRIX.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0756820Z     testing: android-motion-games-design-augmented-v1.0/docs/   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0758024Z     testing: android-motion-games-design-augmented-v1.0/docs/00-gap-analysis.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0759502Z     testing: android-motion-games-design-augmented-v1.0/docs/01-system-boundaries-and-invariants.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0761187Z     testing: android-motion-games-design-augmented-v1.0/docs/02-runtime-architecture-and-concurrency.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0762871Z     testing: android-motion-games-design-augmented-v1.0/docs/03-camera-coordinate-contract.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0764433Z     testing: android-motion-games-design-augmented-v1.0/docs/04-pose-motion-recognition-tacit-guide.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0766256Z     testing: android-motion-games-design-augmented-v1.0/docs/05-two-player-tracking-and-fairness.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0768385Z     testing: android-motion-games-design-augmented-v1.0/docs/06-lifecycle-state-persistence.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0770000Z     testing: android-motion-games-design-augmented-v1.0/docs/07-device-capability-thermal-degradation.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0771703Z     testing: android-motion-games-design-augmented-v1.0/docs/08-gameplay-safety-recovery-balance.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0773378Z     testing: android-motion-games-design-augmented-v1.0/docs/09-privacy-security-threat-model.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0775961Z     testing: android-motion-games-design-augmented-v1.0/docs/10-observability-offline-support.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0777506Z     testing: android-motion-games-design-augmented-v1.0/docs/11-eval-release-gates.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0779087Z     testing: android-motion-games-design-augmented-v1.0/docs/12-build-supply-chain-release.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0780738Z     testing: android-motion-games-design-augmented-v1.0/docs/runbook/   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0782268Z     testing: android-motion-games-design-augmented-v1.0/docs/runbook/rear-camera-usability.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0783975Z     testing: android-motion-games-design-augmented-v1.0/docs/runbook/camera-pose-debug.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0785987Z     testing: android-motion-games-design-augmented-v1.0/docs/runbook/motion-threshold-tuning.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0787636Z     testing: android-motion-games-design-augmented-v1.0/docs/runbook/two-player-identity-loss.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0789238Z     testing: android-motion-games-design-augmented-v1.0/docs/runbook/thermal-and-performance.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0790731Z     testing: android-motion-games-design-augmented-v1.0/docs/adr/   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0792219Z     testing: android-motion-games-design-augmented-v1.0/docs/adr/ADR-004-imagegen-asset-ssot.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0794005Z     testing: android-motion-games-design-augmented-v1.0/docs/adr/ADR-005-event-time-and-input-idempotency.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0795876Z     testing: android-motion-games-design-augmented-v1.0/docs/adr/ADR-006-rear-camera-release-policy.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0797553Z     testing: android-motion-games-design-augmented-v1.0/docs/adr/ADR-007-device-quality-tiers.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0799273Z     testing: android-motion-games-design-augmented-v1.0/docs/adr/ADR-008-session-save-and-replay.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0800772Z     testing: android-motion-games-design-augmented-v1.0/docs/evidence/   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0802319Z     testing: android-motion-games-design-augmented-v1.0/docs/evidence/package-validation-report.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0803884Z     testing: android-motion-games-design-augmented-v1.0/contracts/   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0805352Z     testing: android-motion-games-design-augmented-v1.0/contracts/motion-event.schema.json   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0807370Z     testing: android-motion-games-design-augmented-v1.0/contracts/pose-frame.schema.json   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0809044Z     testing: android-motion-games-design-augmented-v1.0/contracts/calibration-profile.schema.json   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0810760Z     testing: android-motion-games-design-augmented-v1.0/contracts/session-snapshot.schema.json   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0812483Z     testing: android-motion-games-design-augmented-v1.0/contracts/diagnostic-bundle.schema.json   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0814132Z     testing: android-motion-games-design-augmented-v1.0/contracts/contract-notes.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0815850Z     testing: android-motion-games-design-augmented-v1.0/assets/   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0817316Z     testing: android-motion-games-design-augmented-v1.0/assets/README_IMAGEGEN_SSOT.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0818933Z     testing: android-motion-games-design-augmented-v1.0/assets/global-art-direction.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0820470Z     testing: android-motion-games-design-augmented-v1.0/assets/style-profiles/   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0822069Z     testing: android-motion-games-design-augmented-v1.0/assets/style-profiles/common-hub-v1.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0823982Z     testing: android-motion-games-design-augmented-v1.0/assets/style-profiles/fishing-v1.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0825854Z     testing: android-motion-games-design-augmented-v1.0/assets/style-profiles/boxing-v1.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0827554Z     testing: android-motion-games-design-augmented-v1.0/assets/style-profiles/monster-v1.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0829229Z     testing: android-motion-games-design-augmented-v1.0/assets/asset-production-runbook.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0831332Z     testing: android-motion-games-design-augmented-v1.0/assets/asset-review-gate.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0833069Z     testing: android-motion-games-design-augmented-v1.0/assets/imagegen-prompt-registry.json   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0834788Z     testing: android-motion-games-design-augmented-v1.0/assets/asset-manifest.schema.json   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0837079Z     testing: android-motion-games-design-augmented-v1.0/assets/asset-manifest.example.json   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0838747Z     testing: android-motion-games-design-augmented-v1.0/assets/reference-board-specs/   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0840554Z     testing: android-motion-games-design-augmented-v1.0/assets/reference-board-specs/common-hub-anchor-board.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0842627Z     testing: android-motion-games-design-augmented-v1.0/assets/reference-board-specs/fishing-anchor-board.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0844533Z     testing: android-motion-games-design-augmented-v1.0/assets/reference-board-specs/boxing-anchor-board.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0846496Z     testing: android-motion-games-design-augmented-v1.0/assets/reference-board-specs/monster-anchor-board.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0848054Z     testing: android-motion-games-design-augmented-v1.0/assets/generated/   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0849469Z     testing: android-motion-games-design-augmented-v1.0/assets/generated/README.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0850858Z     testing: android-motion-games-design-augmented-v1.0/skills/   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0852305Z     testing: android-motion-games-design-augmented-v1.0/skills/imagegen-asset-production/   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0854128Z     testing: android-motion-games-design-augmented-v1.0/skills/imagegen-asset-production/SKILL.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0856285Z     testing: android-motion-games-design-augmented-v1.0/eval/   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0857707Z     testing: android-motion-games-design-augmented-v1.0/eval/motion-eval-contract.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0859314Z     testing: android-motion-games-design-augmented-v1.0/eval/asset-consistency-eval.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0860934Z     testing: android-motion-games-design-augmented-v1.0/eval/release-gate-checklist.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0862610Z     testing: android-motion-games-design-augmented-v1.0/eval/device-test-matrix-template.csv   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0864371Z     testing: android-motion-games-design-augmented-v1.0/eval/gesture-confusion-matrix-template.csv   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0866078Z     testing: android-motion-games-design-augmented-v1.0/scripts/   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0867425Z     testing: android-motion-games-design-augmented-v1.0/scripts/README.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0868952Z     testing: android-motion-games-design-augmented-v1.0/scripts/validate_json_schemas.py   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0870502Z     testing: android-motion-games-design-augmented-v1.0/scripts/validate_asset_ssot.py   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0871991Z     testing: android-motion-games-design-augmented-v1.0/scripts/validate_package.py   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0873452Z     testing: android-motion-games-design-augmented-v1.0/scripts/validate_sha256s.py   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0874771Z     testing: android-motion-games-design-augmented-v1.0/manifest/   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0876521Z     testing: android-motion-games-design-augmented-v1.0/manifest/package-manifest.json   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0878439Z     testing: android-motion-games-design-augmented-v1.0/EVIDENCE_INDEX.md   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0879931Z     testing: android-motion-games-design-augmented-v1.0/SHA256SUMS   OK
+ssot	Validate immutable design source	2026-07-15T00:56:55.0881216Z No errors detected in compressed data of android-motion-games-design-augmented-v1.0.zip.
+ssot	Validate immutable design source	2026-07-15T00:56:55.3846709Z OK required: README.md
+ssot	Validate immutable design source	2026-07-15T00:56:55.3847550Z OK required: DESIGN_SSOT.md
+ssot	Validate immutable design source	2026-07-15T00:56:55.3848163Z OK required: EVIDENCE_INDEX.md
+ssot	Validate immutable design source	2026-07-15T00:56:55.3848738Z OK required: source/ORIGINAL_SPEC.md
+ssot	Validate immutable design source	2026-07-15T00:56:55.3849390Z OK required: docs/00-gap-analysis.md
+ssot	Validate immutable design source	2026-07-15T00:56:55.3850045Z OK required: docs/11-eval-release-gates.md
+ssot	Validate immutable design source	2026-07-15T00:56:55.3850789Z OK required: docs/evidence/package-validation-report.md
+ssot	Validate immutable design source	2026-07-15T00:56:55.3851921Z OK required: assets/README_IMAGEGEN_SSOT.md
+ssot	Validate immutable design source	2026-07-15T00:56:55.3852642Z OK required: assets/imagegen-prompt-registry.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3853409Z OK required: assets/asset-manifest.schema.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3854259Z OK required: skills/imagegen-asset-production/SKILL.md
+ssot	Validate immutable design source	2026-07-15T00:56:55.3855115Z OK required: scripts/validate_asset_ssot.py
+ssot	Validate immutable design source	2026-07-15T00:56:55.3856200Z OK required: scripts/validate_json_schemas.py
+ssot	Validate immutable design source	2026-07-15T00:56:55.3856912Z OK required: scripts/validate_sha256s.py
+ssot	Validate immutable design source	2026-07-15T00:56:55.3857641Z OK required: manifest/package-manifest.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3858308Z OK required: SHA256SUMS
+ssot	Validate immutable design source	2026-07-15T00:56:55.3858941Z OK json: assets/asset-manifest.example.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3859662Z OK json: assets/asset-manifest.schema.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3860386Z OK json: assets/imagegen-prompt-registry.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3861105Z OK json: contracts/calibration-profile.schema.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3862003Z OK json: contracts/diagnostic-bundle.schema.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3862771Z OK json: contracts/motion-event.schema.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3863526Z OK json: contracts/pose-frame.schema.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3864280Z OK json: contracts/session-snapshot.schema.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3865072Z OK json: manifest/package-manifest.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3866319Z OK source SHA256: 78a95f1f52c51d39da7630acab8ce494137c98a9704e69d85383569d833dec5a
+ssot	Validate immutable design source	2026-07-15T00:56:55.3867312Z OK package file count: 66
+ssot	Validate immutable design source	2026-07-15T00:56:55.3867927Z OK schema: contracts/motion-event.schema.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3868697Z OK schema: contracts/pose-frame.schema.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3869485Z OK schema: contracts/calibration-profile.schema.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3870292Z OK schema: contracts/session-snapshot.schema.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3871063Z OK schema: contracts/diagnostic-bundle.schema.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3871859Z OK schema: assets/asset-manifest.schema.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3872622Z OK example: assets/asset-manifest.example.json
+ssot	Validate immutable design source	2026-07-15T00:56:55.3873542Z OK ImageGen SSOT: 44 planned assets, 6 templates, 4 style profiles
+ssot	Validate immutable design source	2026-07-15T00:56:55.3874288Z OK SHA256SUMS: 65 files verified
+ssot	Validate immutable design source	2026-07-15T00:56:55.3874888Z PACKAGE VALIDATION PASSED
+ssot	Validate immutable design source	2026-07-15T00:56:56.2647287Z test_duplicate_canonical_id_rules_are_rejected (test_audit_runtime_licenses.LockAndPolicyParsingTest.test_duplicate_canonical_id_rules_are_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.2652960Z test_exception_missing_required_review_evidence_is_rejected (test_audit_runtime_licenses.LockAndPolicyParsingTest.test_exception_missing_required_review_evidence_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.2660633Z test_legacy_policy_schema_is_rejected (test_audit_runtime_licenses.LockAndPolicyParsingTest.test_legacy_policy_schema_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.2664980Z test_lock_parser_selects_exact_configuration (test_audit_runtime_licenses.LockAndPolicyParsingTest.test_lock_parser_selects_exact_configuration) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.2697049Z test_malformed_or_empty_target_lock_is_rejected (test_audit_runtime_licenses.LockAndPolicyParsingTest.test_malformed_or_empty_target_lock_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.2716706Z test_path_like_lock_and_parent_coordinates_are_rejected (test_audit_runtime_licenses.LockAndPolicyParsingTest.test_path_like_lock_and_parent_coordinates_are_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.2723343Z test_policy_cannot_drift_to_a_non_release_configuration (test_audit_runtime_licenses.LockAndPolicyParsingTest.test_policy_cannot_drift_to_a_non_release_configuration) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.2734050Z test_wildcard_exception_coordinate_is_rejected (test_audit_runtime_licenses.LockAndPolicyParsingTest.test_wildcard_exception_coordinate_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.2770214Z test_bound_pom_and_jar_hash_field_mutations_fail (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_bound_pom_and_jar_hash_field_mutations_fail) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.2774218Z test_checked_in_technical_exception_is_exactly_pinned (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_checked_in_technical_exception_is_exactly_pinned) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.2805994Z test_class_count_field_and_required_flags_mutations_fail (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_class_count_field_and_required_flags_mutations_fail) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.2826304Z test_disallowed_license_rule_fails_closed (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_disallowed_license_rule_fails_closed) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.2860979Z test_duplicate_license_containers_and_fields_are_invalid (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_duplicate_license_containers_and_fields_are_invalid) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.2876271Z test_exception_declaration_and_coordinate_drift_fail_at_policy_load (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_exception_declaration_and_coordinate_drift_fail_at_policy_load) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.2900535Z test_explicit_empty_licenses_fail_without_inferred_inheritance (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_explicit_empty_licenses_fail_without_inferred_inheritance) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.2953054Z test_foreign_namespace_root_and_license_fields_are_invalid (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_foreign_namespace_root_and_license_fields_are_invalid) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.2970498Z test_gpl_classpath_in_multiple_declarations_requires_manual_review (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_gpl_classpath_in_multiple_declarations_requires_manual_review) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.2990648Z test_happy_path (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_happy_path) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3019737Z test_inventory_is_sorted_by_coordinate_and_license (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_inventory_is_sorted_by_coordinate_and_license) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3122709Z test_jar_class_count_and_annotation_flag_drift_fail (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_jar_class_count_and_annotation_flag_drift_fail) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3163452Z test_jar_hash_and_class_parse_use_the_same_byte_snapshot (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_jar_hash_and_class_parse_use_the_same_byte_snapshot) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3190894Z test_joint_policy_artifact_count_and_source_drift_is_rejected (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_joint_policy_artifact_count_and_source_drift_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3205013Z test_legal_approval_narrative_and_status_drift_are_rejected (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_legal_approval_narrative_and_status_drift_are_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3301154Z test_malformed_and_unknown_classfiles_fail (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_malformed_and_unknown_classfiles_fail) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3382717Z test_missing_and_ambiguous_main_jar_artifacts_fail (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_missing_and_ambiguous_main_jar_artifacts_fail) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3477195Z test_missing_and_mutated_pinned_source_file_fail (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_missing_and_mutated_pinned_source_file_fail) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3496852Z test_missing_license_and_parent_is_undeclared (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_missing_license_and_parent_is_undeclared) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3508259Z test_missing_pom_fails_closed (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_missing_pom_fails_closed) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3529852Z test_multiple_cached_pom_candidates_are_ambiguous (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_multiple_cached_pom_candidates_are_ambiguous) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3574563Z test_nested_markup_in_scalar_license_fields_is_invalid (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_nested_markup_in_scalar_license_fields_is_invalid) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3617605Z test_parent_license_inheritance_is_recursive_and_evidenced (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_parent_license_inheritance_is_recursive_and_evidenced) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3637110Z test_partial_license_declaration_is_ambiguous (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_partial_license_declaration_is_ambiguous) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3671755Z test_source_path_escape_and_missing_or_ambiguous_source_records_fail (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_source_path_escape_and_missing_or_ambiguous_source_records_fail) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3710716Z test_source_path_hash_url_and_url_hash_mutations_fail (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_source_path_hash_url_and_url_hash_mutations_fail) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3731298Z test_unqualified_legacy_pom_is_explicitly_supported (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_unqualified_legacy_pom_is_explicitly_supported) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3750855Z test_utf16_doctype_and_internal_entities_are_rejected (test_audit_runtime_licenses.RuntimeLicenseAuditTest.test_utf16_doctype_and_internal_entities_are_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3754609Z test_camera_and_custom_receiver_permission_parse (test_validate_apk_policy.ApkPermissionParserTest.test_camera_and_custom_receiver_permission_parse) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3757425Z test_internet_permission_is_observable (test_validate_apk_policy.ApkPermissionParserTest.test_internet_permission_is_observable) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3794882Z test_artifact_drift_is_rejected (test_validate_evidence_bundle.EvidenceBundleValidatorTest.test_artifact_drift_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3837072Z test_artifact_filename_without_digest_is_rejected (test_validate_evidence_bundle.EvidenceBundleValidatorTest.test_artifact_filename_without_digest_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3873877Z test_duplicate_manifest_path_is_rejected_case_insensitively (test_validate_evidence_bundle.EvidenceBundleValidatorTest.test_duplicate_manifest_path_is_rejected_case_insensitively) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3909281Z test_manifest_path_escape_is_rejected (test_validate_evidence_bundle.EvidenceBundleValidatorTest.test_manifest_path_escape_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3954387Z test_mutable_build_artifact_path_is_rejected (test_validate_evidence_bundle.EvidenceBundleValidatorTest.test_mutable_build_artifact_path_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.3988862Z test_source_tree_mismatch_is_rejected (test_validate_evidence_bundle.EvidenceBundleValidatorTest.test_source_tree_mismatch_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4028353Z test_unknown_provenance_field_is_rejected (test_validate_evidence_bundle.EvidenceBundleValidatorTest.test_unknown_provenance_field_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4064725Z test_unlisted_validation_evidence_is_rejected (test_validate_evidence_bundle.EvidenceBundleValidatorTest.test_unlisted_validation_evidence_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4100170Z test_valid_content_addressed_bundle_passes (test_validate_evidence_bundle.EvidenceBundleValidatorTest.test_valid_content_addressed_bundle_passes) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4131802Z test_ambiguous_runtime_aar_owners_are_rejected (test_validate_native_runtime.NativeRuntimeValidationTest.test_ambiguous_runtime_aar_owners_are_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4151601Z test_cached_aar_hash_not_in_verification_metadata_is_rejected (test_validate_native_runtime.NativeRuntimeValidationTest.test_cached_aar_hash_not_in_verification_metadata_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4172766Z test_duplicate_apk_native_paths_are_rejected (test_validate_native_runtime.NativeRuntimeValidationTest.test_duplicate_apk_native_paths_are_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4206460Z test_expected_inventory_apk_hash_mismatch_is_rejected (test_validate_native_runtime.NativeRuntimeValidationTest.test_expected_inventory_apk_hash_mismatch_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4231564Z test_pass_maps_every_apk_native_entry_to_verified_runtime_aar (test_validate_native_runtime.NativeRuntimeValidationTest.test_pass_maps_every_apk_native_entry_to_verified_runtime_aar) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4257979Z test_two_artifacts_for_same_coordinate_are_ambiguous (test_validate_native_runtime.NativeRuntimeValidationTest.test_two_artifacts_for_same_coordinate_are_ambiguous) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4277751Z test_unmatched_apk_native_entry_is_rejected (test_validate_native_runtime.NativeRuntimeValidationTest.test_unmatched_apk_native_entry_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4295272Z test_jpeg_in_app_drawable_is_rejected (test_validate_project_assets.ProjectAssetValidatorTest.test_jpeg_in_app_drawable_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4334699Z test_mixed_generation_method_is_rejected (test_validate_project_assets.ProjectAssetValidatorTest.test_mixed_generation_method_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4344415Z test_no_assets_is_explicitly_not_g6 (test_validate_project_assets.ProjectAssetValidatorTest.test_no_assets_is_explicitly_not_g6) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4381735Z test_path_traversal_is_rejected (test_validate_project_assets.ProjectAssetValidatorTest.test_path_traversal_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4399572Z test_raster_in_games_module_is_rejected (test_validate_project_assets.ProjectAssetValidatorTest.test_raster_in_games_module_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4432999Z test_registry_external_asset_is_rejected (test_validate_project_assets.ProjectAssetValidatorTest.test_registry_external_asset_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4470222Z test_valid_synthetic_lineage (test_validate_project_assets.ProjectAssetValidatorTest.test_valid_synthetic_lineage) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4487438Z test_vector_drawable_is_rejected (test_validate_project_assets.ProjectAssetValidatorTest.test_vector_drawable_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4504135Z test_visual_in_android_assets_is_rejected (test_validate_project_assets.ProjectAssetValidatorTest.test_visual_in_android_assets_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4541232Z test_wrong_hash_is_rejected (test_validate_project_assets.ProjectAssetValidatorTest.test_wrong_hash_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4543148Z test_exact_versions_are_allowed (test_validate_supply_chain.DynamicVersionTest.test_exact_versions_are_allowed) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4545761Z test_gradle_plus_versions_are_rejected (test_validate_supply_chain.DynamicVersionTest.test_gradle_plus_versions_are_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4547969Z test_latest_and_snapshot_are_rejected (test_validate_supply_chain.DynamicVersionTest.test_latest_and_snapshot_are_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4550073Z test_maven_ranges_are_rejected (test_validate_supply_chain.DynamicVersionTest.test_maven_ranges_are_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4577332Z test_approved_project_edges_have_no_edge_error (test_validate_supply_chain.RepositoryPolicyTest.test_approved_project_edges_have_no_edge_error) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4590932Z test_debug_runtime_drift_from_audited_release_runtime_is_rejected (test_validate_supply_chain.RepositoryPolicyTest.test_debug_runtime_drift_from_audited_release_runtime_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4606428Z test_forbidden_project_edge_is_rejected (test_validate_supply_chain.RepositoryPolicyTest.test_forbidden_project_edge_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4622133Z test_named_project_edge_cannot_bypass_policy (test_validate_supply_chain.RepositoryPolicyTest.test_named_project_edge_cannot_bypass_policy) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4632575Z test_required_lockfile_deletion_is_rejected (test_validate_supply_chain.RepositoryPolicyTest.test_required_lockfile_deletion_is_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4653389Z test_unpinned_action_and_permission_are_rejected (test_validate_supply_chain.RepositoryPolicyTest.test_unpinned_action_and_permission_are_rejected) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4667437Z test_unrecognized_project_call_fails_closed (test_validate_supply_chain.RepositoryPolicyTest.test_unrecognized_project_call_fails_closed) ... ok
+ssot	Validate immutable design source	2026-07-15T00:56:56.4668698Z
+ssot	Validate immutable design source	2026-07-15T00:56:56.4669138Z ----------------------------------------------------------------------
+ssot	Validate immutable design source	2026-07-15T00:56:56.4672501Z Ran 75 tests in 0.203s
+ssot	Validate immutable design source	2026-07-15T00:56:56.4673317Z
+ssot	Validate immutable design source	2026-07-15T00:56:56.4673648Z OK
+ssot	Validate immutable design source	2026-07-15T00:56:56.5538121Z PROJECT_ASSET_STATUS=NO_DEPLOYED_VISUAL_ASSETS deployed=0 manifest=0
+ssot	Validate immutable design source	2026-07-15T00:56:56.5539200Z G6 is not approved: no deployed visual assets were evaluated.
+ssot	Validate immutable design source	2026-07-15T00:56:56.6490949Z SUPPLY_CHAIN_STATIC_POLICY=PASS
+ssot	Post Set up pinned Python	﻿2026-07-15T00:56:56.6956556Z Post job cleanup.
+ssot	Post Check out repository	﻿2026-07-15T00:56:56.8598328Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+ssot	Post Check out repository	2026-07-15T00:56:56.8600548Z Post job cleanup.
+ssot	Post Check out repository	2026-07-15T00:56:56.9656166Z [command]/usr/bin/git version
+ssot	Post Check out repository	2026-07-15T00:56:56.9756836Z git version 2.54.0
+ssot	Post Check out repository	2026-07-15T00:56:56.9801241Z Temporarily overriding HOME='/home/runner/work/_temp/860aaac5-5023-46e0-b8a6-6a84319a764f' before making global git config changes
+ssot	Post Check out repository	2026-07-15T00:56:56.9802942Z Adding repository directory to the temporary git global config as a safe directory
+ssot	Post Check out repository	2026-07-15T00:56:56.9811446Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/motion-arcade-android/motion-arcade-android
+ssot	Post Check out repository	2026-07-15T00:56:56.9936530Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+ssot	Post Check out repository	2026-07-15T00:56:57.0023120Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+ssot	Post Check out repository	2026-07-15T00:56:57.0387201Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+ssot	Post Check out repository	2026-07-15T00:56:57.0406228Z http.https://github.com/.extraheader
+ssot	Post Check out repository	2026-07-15T00:56:57.0476419Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+ssot	Post Check out repository	2026-07-15T00:56:57.0539903Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+ssot	Complete job	﻿2026-07-15T00:56:57.1536836Z Cleaning up orphan processes
+ssot	Complete job	2026-07-15T00:56:57.1896226Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

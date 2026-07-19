@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "source": "gh run view and representative Push log query",
+  "validatedCandidateCommit": "8b53d41c6c50ae0da134f21d541229e538b6d35b",
+  "validatedCandidateTree": "d82ac415139753f0198b9cb9db001c7d25aff012",
+  "runs": {
+    "push": {
+      "id": 29382457489,
+      "event": "push",
+      "headSha": "8b53d41c6c50ae0da134f21d541229e538b6d35b",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/kutaelee/motion-arcade-android/actions/runs/29382457489",
+      "createdAt": "2026-07-15T01:46:26Z",
+      "updatedAt": "2026-07-15T02:00:03Z",
+      "jobs": {
+        "ssot": {
+          "conclusion": "success",
+          "startedAt": "2026-07-15T01:46:28Z",
+          "completedAt": "2026-07-15T01:46:44Z"
+        },
+        "android": {
+          "conclusion": "success",
+          "startedAt": "2026-07-15T01:46:28Z",
+          "completedAt": "2026-07-15T02:00:03Z",
+          "strictBuildStep": "success",
+          "kvmStep": "success",
+          "api37Page16KbStep": "success"
+        }
+      }
+    },
+    "pullRequest": {
+      "id": 29382458906,
+      "event": "pull_request",
+      "headSha": "8b53d41c6c50ae0da134f21d541229e538b6d35b",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/kutaelee/motion-arcade-android/actions/runs/29382458906",
+      "createdAt": "2026-07-15T01:46:28Z",
+      "updatedAt": "2026-07-15T01:59:12Z",
+      "jobs": {
+        "ssot": {
+          "conclusion": "success",
+          "startedAt": "2026-07-15T01:46:30Z",
+          "completedAt": "2026-07-15T01:46:42Z"
+        },
+        "android": {
+          "conclusion": "success",
+          "startedAt": "2026-07-15T01:46:30Z",
+          "completedAt": "2026-07-15T01:59:11Z",
+          "strictBuildStep": "success",
+          "kvmStep": "success",
+          "api37Page16KbStep": "success"
+        }
+      }
+    }
+  },
+  "representativePushLogMarkers": {
+    "packageValidation": "PASS",
+    "pythonPolicyTests": 75,
+    "projectAssetStatus": "NO_DEPLOYED_VISUAL_ASSETS",
+    "deployedVisualAssets": 0,
+    "g6Approved": false,
+    "supplyChainStaticPolicy": "PASS",
+    "strictGradleBuild": "BUILD SUCCESSFUL in 6m 54s",
+    "apkPolicy": "PASS",
+    "apkPermissions": [
+      "android.permission.CAMERA",
+      "com.motionarcade.app.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "poseModelSha256": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a",
+    "nativeRuntime": "PASS",
+    "ciDebugApkSha256": "0ac877e4131c605e6121bfda1ceac86ff8bb9329d6a101e2a30c9199171c0929",
+    "nativeEntries": 16,
+    "nativeOwners": 3,
+    "runtimeLicenseAudit": "PASS",
+    "releaseRuntimeCoordinates": 159,
+    "runtimeLicenseErrors": 0,
+    "kvmRequired": true,
+    "managedDevice": "pixel6Api37",
+    "managedDeviceApi": 37,
+    "managedDevicePageSize": "16KB",
+    "managedDeviceTestsStarted": 2,
+    "managedDeviceTestsFinished": 2,
+    "managedDeviceBuild": "BUILD SUCCESSFUL in 6m 27s"
+  },
+  "evidenceBoundary": {
+    "exactReviewedCandidateCiPassed": true,
+    "finalEvidenceCommitCiPending": true,
+    "acceptanceTagCreated": false,
+    "physicalCameraObserved": false,
+    "physicalOverlayObserved": false,
+    "g2Approved": false,
+    "g9Approved": false
+  }
+}

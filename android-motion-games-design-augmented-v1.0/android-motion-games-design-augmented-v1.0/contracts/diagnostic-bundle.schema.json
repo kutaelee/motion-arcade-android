@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/contracts/diagnostic-bundle.schema.json",
+  "title": "RedactedDiagnosticBundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "appVersion",
+    "device",
+    "session",
+    "metrics",
+    "events",
+    "containsRawImages",
+    "containsPoseCoordinates"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "appVersion": {
+      "type": "string"
+    },
+    "device": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model",
+        "osVersion",
+        "memoryClassMb"
+      ],
+      "properties": {
+        "model": {
+          "type": "string"
+        },
+        "osVersion": {
+          "type": "string"
+        },
+        "memoryClassMb": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "session": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "gameId",
+        "mode",
+        "lensFacing",
+        "orientation",
+        "qualityTier"
+      ]
+    },
+    "metrics": {
+      "type": "object"
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "containsRawImages": {
+      "const": false
+    },
+    "containsPoseCoordinates": {
+      "type": "boolean"
+    },
+    "userConsentedToPoseExport": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "containsPoseCoordinates": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "userConsentedToPoseExport": {
+            "const": true
+          }
+        },
+        "required": [
+          "userConsentedToPoseExport"
+        ]
+      }
+    }
+  ]
+}

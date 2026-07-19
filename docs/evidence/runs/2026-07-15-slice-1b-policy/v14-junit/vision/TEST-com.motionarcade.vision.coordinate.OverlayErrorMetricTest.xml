@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.motionarcade.vision.coordinate.OverlayErrorMetricTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-07-15T17:17:34.271Z" hostname="DESKTOP-D283RK5" time="0.017">
+  <properties/>
+  <testcase name="fixedThresholdsDistinguishReviewReleaseBlockAndDevelopmentStop" classname="com.motionarcade.vision.coordinate.OverlayErrorMetricTest" time="0.014"/>
+  <testcase name="emptyNonFiniteOrInvalidPreviewMeasurementsFailClosed" classname="com.motionarcade.vision.coordinate.OverlayErrorMetricTest" time="0.001"/>
+  <testcase name="reportsRmsMaximumAndTargetVerdictAgainstPreviewShortEdge" classname="com.motionarcade.vision.coordinate.OverlayErrorMetricTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

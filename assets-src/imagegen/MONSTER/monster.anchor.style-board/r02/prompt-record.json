@@ -1,0 +1,20 @@
+{
+  "assetId": "monster.anchor.style-board",
+  "gameId": "MONSTER",
+  "generationMethod": "IMAGEGEN_SKILL",
+  "registryPath": "android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0/assets/imagegen-prompt-registry.json",
+  "styleProfileId": "monster-v1",
+  "styleRevision": 1,
+  "templateId": "anchor-board-v1",
+  "promptVariables": {
+    "scopeSummary": "monster co-op mini-game Runestone Expedition",
+    "subjects": "two hero classes, monster silhouettes, three-phase boss, arena, magic and melee effects",
+    "composition": "coherent side-view fantasy arcade style board"
+  },
+  "referenceAssetIds": [],
+  "generationDate": "2026-07-18",
+  "revision": 2,
+  "supersedes": "assets-src/imagegen/MONSTER/monster.anchor.style-board/r01/raw.png",
+  "reviewStatus": "PENDING_HUMAN_ANCHOR_REVIEW",
+  "resolvedPrompt": "Revise the supplied Runestone Expedition anchor board only to remove every letter-like rune, written mark, banner marking, UI glyph, number, logo, and watermark. Replace those areas with plain non-symbolic stone facets, abstract unmarked banners, or simple non-linguistic glow shapes. Preserve the original-character composition, Vanguard and Ranger-Mage identities, boss-three-phase identity continuity, friendly forest runestone arena, monster silhouettes, and action-effect families. Keep the locked monster-v1 visual DNA unchanged: bright adventurous fantasy, no horror/gore, chunky readable armor, dark forest-indigo outline, teal/amber/violet/stone/coral/cream palette, upper-left warm rune-like light with no actual glyphs, three-tone cel shading, fixed side-view arena and 3/4-side characters. No text, letters, numbers, glyphs that resemble writing, logos, watermarks, copyrighted franchise resemblance, artist imitation, photorealism, or external asset collage. Do not add new subjects or alter the pose-guide-safe coverage."
+}

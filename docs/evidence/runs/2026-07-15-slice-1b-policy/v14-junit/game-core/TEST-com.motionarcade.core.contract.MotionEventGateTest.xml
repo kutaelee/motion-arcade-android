@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.motionarcade.core.contract.MotionEventGateTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-07-15T17:17:31.787Z" hostname="DESKTOP-D283RK5" time="0.043">
+  <properties/>
+  <testcase name="rewindIsRejectedPerPlayerAndNonDeterministicIdFailsContract" classname="com.motionarcade.core.contract.MotionEventGateTest" time="0.019"/>
+  <testcase name="equalTimestampP1AndP2EventsAreBothPreservedInArrivalOrder" classname="com.motionarcade.core.contract.MotionEventGateTest" time="0.001"/>
+  <testcase name="calibrationAdvanceRequiresStrictIncreaseAndRejectsOldEvents" classname="com.motionarcade.core.contract.MotionEventGateTest" time="0.008"/>
+  <testcase name="invalidContractIsRejectedBeforeStateRecording" classname="com.motionarcade.core.contract.MotionEventGateTest" time="0.002"/>
+  <testcase name="staleAndFutureCalibrationRevisionsAreRejectedWithoutPoisoningSequence" classname="com.motionarcade.core.contract.MotionEventGateTest" time="0.007"/>
+  <testcase name="deterministicId_isStableDistinctAndWithinSchemaMaximum" classname="com.motionarcade.core.contract.MotionEventGateTest" time="0.001"/>
+  <testcase name="duplicateEventId_isRejectedExactlyOnce" classname="com.motionarcade.core.contract.MotionEventGateTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

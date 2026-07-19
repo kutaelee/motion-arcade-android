@@ -1,0 +1,36 @@
+{
+    "sourceCommit":  "dadd77d15ee4595fd2ef8d7540e5ecad08cd64cd",
+    "task":  ":game-core:testDebugUnitTest",
+    "suites":  [
+                   {
+                       "name":  "com.motionarcade.core.contract.ContractJsonBoundaryTest",
+                       "tests":  14,
+                       "failures":  0,
+                       "errors":  0,
+                       "skipped":  0,
+                       "timeSeconds":  0.103
+                   },
+                   {
+                       "name":  "com.motionarcade.core.contract.MotionEventGateTest",
+                       "tests":  7,
+                       "failures":  0,
+                       "errors":  0,
+                       "skipped":  0,
+                       "timeSeconds":  0.017
+                   },
+                   {
+                       "name":  "com.motionarcade.core.contract.TemporaryCanonicalJsonObjectTest",
+                       "tests":  4,
+                       "failures":  0,
+                       "errors":  0,
+                       "skipped":  0,
+                       "timeSeconds":  0.003
+                   }
+               ],
+    "summary":  {
+                    "tests":  25,
+                    "failures":  0,
+                    "errors":  0,
+                    "skipped":  0
+                }
+}

@@ -1,0 +1,21 @@
+{
+  "assetId": "monster.fx.action-family",
+  "gameId": "MONSTER",
+  "generationMethod": "IMAGEGEN_SKILL",
+  "registryPath": "android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0/assets/imagegen-prompt-registry.json",
+  "styleProfileId": "monster-v1",
+  "styleRevision": 1,
+  "templateId": "fx-family-v1",
+  "promptVariables": {
+    "effectFamily": "melee slash, shield guard, magic charge, projectile, revive, co-op ultimate",
+    "frames": "four to eight or separable layers",
+    "coverageLimit": "35 percent of game field",
+    "colorRules": "amber for Vanguard, violet for Mage, coral for danger, cream for revive"
+  },
+  "referenceAssetIds": ["monster.anchor.style-board"],
+  "anchorRevision": 3,
+  "generationDate": "2026-07-19",
+  "revision": 1,
+  "reviewStatus": "PENDING_HUMAN_FX_REVIEW",
+  "resolvedPrompt": "Create monster.fx.action-family under locked monster-v1 revision 1 and monster anchor revision 3 with separable melee slash, shield guard, magic charge, projectile, revive, and co-op ultimate layers. Use amber for Vanguard, violet for Mage, coral for danger, cream for revive; keep opaque coverage below 35 percent and preserve central pose and edge HUD safe zones. Contemporary high-resolution three-tone cel effect texture on a chroma-key canvas. No text, plus sign, cross, letter-like rune, arrow, logo, watermark, photorealism, or external collage."
+}

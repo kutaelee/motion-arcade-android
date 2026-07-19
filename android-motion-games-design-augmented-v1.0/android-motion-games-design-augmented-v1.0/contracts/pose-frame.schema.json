@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/contracts/pose-frame.schema.json",
+  "title": "NormalizedPoseFrame",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "frameId",
+    "sourceTimestampNs",
+    "calibrationRevision",
+    "poses"
+  ],
+  "properties": {
+    "frameId": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "sourceTimestampNs": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "calibrationRevision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "poses": {
+      "type": "array",
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "trackId",
+          "trackState",
+          "landmarks",
+          "scaleConfidence"
+        ],
+        "properties": {
+          "trackId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "trackState": {
+            "enum": [
+              "TENTATIVE",
+              "ACTIVE",
+              "OCCLUDED",
+              "AMBIGUOUS",
+              "LOST",
+              "REARM"
+            ]
+          },
+          "scaleConfidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "landmarks": {
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "x",
+                "y",
+                "z",
+                "visibility"
+              ],
+              "properties": {
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "z": {
+                  "type": "number"
+                },
+                "visibility": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

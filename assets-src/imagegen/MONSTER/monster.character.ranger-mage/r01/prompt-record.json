@@ -1,0 +1,21 @@
+{
+  "assetId": "monster.character.ranger-mage",
+  "gameId": "MONSTER",
+  "generationMethod": "IMAGEGEN_SKILL",
+  "registryPath": "android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0/assets/imagegen-prompt-registry.json",
+  "styleProfileId": "monster-v1",
+  "styleRevision": 1,
+  "templateId": "layered-character-v1",
+  "promptVariables": {
+    "characterName": "Ranger Mage hero",
+    "identityTraits": "violet rune focus, short cape, slim bow-staff hybrid, readable V-pose arms",
+    "view": "3/4 side facing arena center",
+    "parts": "head, torso, upper arms, forearms, hands, weapon, cape or shield, legs"
+  },
+  "referenceAssetIds": ["monster.anchor.style-board"],
+  "anchorRevision": 3,
+  "generationDate": "2026-07-19",
+  "revision": 1,
+  "reviewStatus": "PENDING_HUMAN_CHARACTER_REVIEW",
+  "resolvedPrompt": "Create monster.character.ranger-mage as the original Ranger Mage hero under locked monster-v1 revision 1 and monster anchor revision 3. Preserve violet circular focus light, short cape, slim bow-staff hybrid, and readable V-pose arms in a 3/4-side arena-facing pose. Provide cleanly separable head, torso, upper arms, forearms, hands, weapon, cape, and legs with physically plausible overlap for runtime pivot animation. Use contemporary high-resolution three-tone cel animation texture and dark forest-indigo outlines on a square chroma-key canvas. No text, letter-like rune, logo, watermark, extra limb, photorealism, copyrighted resemblance, artist imitation, gore, or external collage."
+}

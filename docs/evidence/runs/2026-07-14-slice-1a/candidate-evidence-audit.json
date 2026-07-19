@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "auditedAtUtc": "2026-07-14T17:06:25Z",
+  "scope": "docs/evidence/runs/2026-07-14-slice-1a",
+  "structuredData": {
+    "jsonFilesParsed": 8,
+    "junitXmlFilesParsed": 8,
+    "visionTests": 27,
+    "gameCoreTests": 25,
+    "totalTests": 52,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "bundle": {
+    "expectedEntriesExcludingManifest": 28,
+    "hashFailures": 0,
+    "unlistedFiles": 0,
+    "staleEntries": 0
+  },
+  "credentialPatternScan": {
+    "sensitivePatternFindings": 0,
+    "maskedAuthorizationLines": 2,
+    "gitleaksAvailable": false,
+    "patterns": [
+      "GitHub classic PAT",
+      "GitHub fine-grained PAT",
+      "AWS access key",
+      "private-key header",
+      "Bearer token",
+      "JWT",
+      "unmasked Authorization header"
+    ],
+    "boundary": "Bounded deterministic pattern scan; not a claim that every possible secret format is detectable."
+  },
+  "textNormalization": {
+    "encoding": "UTF-8 without BOM",
+    "lineEnding": "LF",
+    "ansiControlSequencesInLogs": 0,
+    "trailingWhitespaceLinesInLogs": 0
+  },
+  "verdict": "PASS"
+}

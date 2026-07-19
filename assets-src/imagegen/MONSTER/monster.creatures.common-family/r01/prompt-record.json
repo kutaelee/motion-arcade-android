@@ -1,0 +1,21 @@
+{
+  "assetId": "monster.creatures.common-family",
+  "gameId": "MONSTER",
+  "generationMethod": "IMAGEGEN_SKILL",
+  "registryPath": "android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0/assets/imagegen-prompt-registry.json",
+  "styleProfileId": "monster-v1",
+  "styleRevision": 1,
+  "templateId": "creature-family-v1",
+  "promptVariables": {
+    "family": "three common monsters and one elite",
+    "members": "horned hopper, stone-shell crawler, winged ember imp, elite rune brute",
+    "sharedTraits": "chunky playful fantasy anatomy and dark forest-indigo outline",
+    "distinctTraits": "silhouette, movement part, accent color, weak-point shape"
+  },
+  "referenceAssetIds": ["monster.anchor.style-board"],
+  "anchorRevision": 3,
+  "generationDate": "2026-07-19",
+  "revision": 1,
+  "reviewStatus": "PENDING_HUMAN_CREATURE_REVIEW",
+  "resolvedPrompt": "Create the coherent original monster.creatures.common-family under locked monster-v1 revision 1 and monster anchor revision 3: horned hopper, stone-shell crawler, winged ember imp, and elite brute. Share chunky playful fantasy anatomy and dark forest-indigo outlines; distinguish silhouette, movement part, accent color, and non-symbolic weak-point material shape. Use contemporary high-resolution three-tone cel animation texture, consistent side-view projection and lighting, on a chroma-key background. No text, letter-like rune, logo, watermark, realistic gore, copyrighted resemblance, artist imitation, or external collage."
+}

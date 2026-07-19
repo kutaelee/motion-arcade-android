@@ -1,0 +1,21 @@
+{
+  "assetId": "fishing.fx.water-family",
+  "gameId": "FISHING",
+  "generationMethod": "IMAGEGEN_SKILL",
+  "registryPath": "android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0/assets/imagegen-prompt-registry.json",
+  "styleProfileId": "fishing-v1",
+  "styleRevision": 1,
+  "templateId": "fx-family-v1",
+  "promptVariables": {
+    "effectFamily": "water ripple, splash, catch burst",
+    "frames": "four to six",
+    "coverageLimit": "30 percent of game field",
+    "colorRules": "sea teal, foam, limited coral accent"
+  },
+  "referenceAssetIds": ["fishing.anchor.style-board"],
+  "anchorRevision": 2,
+  "generationDate": "2026-07-19",
+  "revision": 1,
+  "reviewStatus": "PENDING_HUMAN_FX_REVIEW",
+  "resolvedPrompt": "Create fishing.fx.water-family strictly under locked fishing-v1 revision 1 and fishing anchor revision 2 with six separated effects: two ripples, two splashes, one hooked-fish burst, one catch burst. Sea teal and foam with limited coral accent, each below 30 percent field coverage, 3 by 2 chroma-green sheet. Contemporary high-resolution three-tone cel texture. No text, arrows, logo, watermark, photorealism, copyrighted imitation, or external collage."
+}

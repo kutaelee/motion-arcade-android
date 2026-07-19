@@ -1,0 +1,42 @@
+ .gitattributes                                     |   4 +
+ .../eval/device-test-matrix-template.csv           | Bin 261 -> 262 bytes
+ .../eval/gesture-confusion-matrix-template.csv     | Bin 184 -> 185 bytes
+ .../source/ORIGINAL_SPEC.md                        | Bin 36122 -> 37556 bytes
+ app/build.gradle.kts                               |   6 +
+ .../ADR-010-camera-coordinate-and-frame-time.md    |  80 ++++
+ docs/evidence/EVIDENCE_INDEX.md                    |   8 +-
+ .../2026-07-14-slice-1a/EVIDENCE_BUNDLE.sha256     |  18 +
+ .../runs/2026-07-14-slice-1a/asset-policy.txt      |   2 +
+ .../runs/2026-07-14-slice-1a/changed-files.txt     |  13 +
+ .../runs/2026-07-14-slice-1a/focused-gradle.log    |  98 ++++
+ .../2026-07-14-slice-1a/full-regression-gradle.log | 237 ++++++++++
+ ...cade.core.contract.ContractJsonBoundaryTest.xml |  20 +
+ ...ionarcade.core.contract.MotionEventGateTest.xml |  13 +
+ ...e.contract.TemporaryCanonicalJsonObjectTest.xml |  10 +
+ .../2026-07-14-slice-1a/python-policy-tests.log    |  80 ++++
+ .../runs/2026-07-14-slice-1a/source-diff-stat.txt  |  14 +
+ .../2026-07-14-slice-1a/source-provenance.json     |  78 ++++
+ .../2026-07-14-slice-1a/supply-chain-policy.txt    |   1 +
+ .../runs/2026-07-14-slice-1a/test-summary.json     |  53 +++
+ .../runs/2026-07-14-slice-1a/validation-summary.md |  93 ++++
+ ...ade.vision.coordinate.AffineTransform2DTest.xml |   7 +
+ ...ision.coordinate.CameraCoordinateMapperTest.xml |  18 +
+ ...de.vision.coordinate.OverlayErrorMetricTest.xml |   9 +
+ ....vision.frame.ClosingImageProxyAnalyzerTest.xml |  13 +
+ ...de.vision.frame.MonotonicFrameSequencerTest.xml |   9 +
+ docs/execution/slice-1a-contract.md                | 140 ++++++
+ docs/execution/slice-status.md                     |   6 +-
+ gradle/verification-metadata.xml                   |  16 +
+ gradlew                                            |   0
+ .../vision/coordinate/AffineTransform2D.kt         | 142 ++++++
+ .../vision/coordinate/CameraCoordinateMapper.kt    | 196 ++++++++
+ .../vision/coordinate/CoordinateTypes.kt           | 138 ++++++
+ .../vision/coordinate/OverlayErrorMetric.kt        |  86 ++++
+ .../vision/frame/ClosingImageProxyAnalyzer.kt      |  47 ++
+ .../vision/frame/MonotonicFrameSequencer.kt        |  69 +++
+ .../vision/coordinate/AffineTransform2DTest.kt     |  15 +
+ .../coordinate/CameraCoordinateMapperTest.kt       | 515 +++++++++++++++++++++
+ .../vision/coordinate/OverlayErrorMetricTest.kt    |  65 +++
+ .../vision/frame/ClosingImageProxyAnalyzerTest.kt  | 198 ++++++++
+ .../vision/frame/MonotonicFrameSequencerTest.kt    |  58 +++
+ 41 files changed, 2573 insertions(+), 2 deletions(-)

@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/contracts/motion-event.schema.json",
+  "title": "MotionEventEnvelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eventId",
+    "sessionId",
+    "playerId",
+    "sequenceNumber",
+    "type",
+    "quality",
+    "confidence",
+    "eventTimestampNs",
+    "calibrationRevision",
+    "source",
+    "metadata"
+  ],
+  "properties": {
+    "eventId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "sessionId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "playerId": {
+      "enum": [
+        "P1",
+        "P2",
+        "AI"
+      ]
+    },
+    "sequenceNumber": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "type": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]{1,63}$"
+    },
+    "quality": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "eventTimestampNs": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "calibrationRevision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "source": {
+      "enum": [
+        "MOTION",
+        "TOUCH",
+        "FIXTURE"
+      ]
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      },
+      "maxProperties": 32
+    }
+  }
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.motionarcade.vision.coordinate.AffineTransform2DTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-07-14T16:19:44.985Z" hostname="DESKTOP-D283RK5" time="0.006">
+  <properties/>
+  <testcase name="zeroAndNonFiniteDeterminantsHaveNoInverse" classname="com.motionarcade.vision.coordinate.AffineTransform2DTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

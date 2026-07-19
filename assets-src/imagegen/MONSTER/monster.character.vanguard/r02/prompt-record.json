@@ -1,0 +1,23 @@
+{
+  "assetId": "monster.character.vanguard",
+  "gameId": "MONSTER",
+  "generationMethod": "IMAGEGEN_SKILL",
+  "registryPath": "android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0/assets/imagegen-prompt-registry.json",
+  "styleProfilePath": "android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0/assets/style-profiles/monster-v1.md",
+  "styleProfileId": "monster-v1",
+  "styleRevision": 1,
+  "templateId": "layered-character-v1",
+  "promptVariables": {
+    "characterName": "Vanguard hero",
+    "identityTraits": "chunky shield, amber rune, forest-teal armor, broad silhouette",
+    "view": "3/4 side facing arena center",
+    "parts": "head, torso, upper arms, forearms, hands, weapon, cape or shield, legs"
+  },
+  "referenceAssetIds": ["monster.anchor.style-board"],
+  "anchorRevision": 3,
+  "generationDate": "2026-07-19",
+  "revision": 2,
+  "supersedes": "assets-src/imagegen/MONSTER/monster.character.vanguard/r01/raw.png",
+  "reviewStatus": "PENDING_HUMAN_ACTION_CONTINUITY_REVIEW",
+  "resolvedPrompt": "Edit the supplied original Vanguard hero into one exact 4 by 4 production animation contact sheet under locked monster-v1 revision 1 and the registered monster.character.vanguard identity. Keep the identical face, spiky brown hair, forest-teal and gold armor, amber circular shield light, sword, shield, body proportions, 3/4 side-view direction, dark forest-indigo outline, three-tone cel texture, and upper-left warm lighting in all sixteen cells. Row 1 is four-frame idle breathing with subtle hair and cape follow-through. Row 2 is four-frame sword slash: anticipation, contact, overshoot, return-to-guard, with natural armor, hair, cape and sword overlap. Row 3 is four-frame shield guard impact: raise, brace, impact compression, recovery, with shield always attached correctly. Row 4 is four-frame revive reach toward the teammate: prepare, both arms extend sideways, sustained reach, safe recovery, with no physical contact. Use equal 512 by 512 cells on a perfectly uniform solid #00FF00 chroma-key background, complete full body inside every cell, consistent ground line and scale, no gutters containing art, no labels, text, letters, numbers, glyphs, logos, watermarks, UI, extra limbs, detached equipment, identity drift, photorealism, gore, franchise resemblance, artist imitation, or external collage."
+}

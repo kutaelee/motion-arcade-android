@@ -1,0 +1,13 @@
+{
+    "apkSha256":  "58D350E136C50C2B1A407FD887E66A4939CEB8AC6348545A828A69D6C76F665F",
+    "serial":  "emulator-5554",
+    "markerCounts":  {
+                         "fatalException":  0,
+                         "androidRuntime":  5,
+                         "remoteLogger":  0,
+                         "cctBackend":  0,
+                         "dataTransport":  0,
+                         "processCrash":  0
+                     },
+    "verdict":  "PASS"
+}

@@ -1,0 +1,20 @@
+{
+  "assetId": "boxing.anchor.style-board",
+  "gameId": "BOXING",
+  "generationMethod": "IMAGEGEN_SKILL",
+  "registryPath": "android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0/assets/imagegen-prompt-registry.json",
+  "styleProfileId": "boxing-v1",
+  "styleRevision": 1,
+  "templateId": "anchor-board-v1",
+  "promptVariables": {
+    "scopeSummary": "boxing mini-game Neon Gym Punch",
+    "subjects": "four boxer proportions, ring, gloves, jab hook guard effects",
+    "composition": "coherent sports arcade style board"
+  },
+  "referenceAssetIds": [],
+  "generationDate": "2026-07-19",
+  "revision": 2,
+  "supersedes": "assets-src/imagegen/BOXING/boxing.anchor.style-board/r01/raw.png",
+  "reviewStatus": "PENDING_HUMAN_ANCHOR_REVIEW",
+  "resolvedPrompt": "Create an original 2D mobile arcade cartoon style anchor board for the boxing mini-game Neon Gym Punch. Apply the entire locked style profile boxing-v1 revision 1 without deviation. Show four distinct boxer proportions, a bright safe boxing ring, oversized glove color variants, and jab, hook, guard, dodge, counter, hit, and victory effect concepts in one coherent reference board with label-free visual zones. Use polished contemporary 2026 mobile-game key art and production-reference rendering, crisp high-resolution three-tone cel shading, never pixel art or retro 8-bit. Preserve near-black plum #24152D angular outlines; burgundy #7A284B, electric cyan #25C7D9, warm yellow #F4C84A, cream #FFF3D6, deep indigo #292C58; upper-left arena key light with restrained cyan rim light. Use 3/4-front camera-facing athletes and fixed ring-side perspective, head-to-body about 1:5.2, gloves 20 percent oversized, stable athletic stances, and physically plausible motion-ready hair, clothing, laces, gloves, and accessories. Show punch anticipation, extension, impact, return; guard; torso dodge; and short hit effects clear of HUD zones. Keep silhouette, outline weight, palette, lighting, proportions, projection, and material language consistent. No text, letters, numbers, logos, watermarks, copyrighted characters, real famous boxer likenesses, artist imitation, photorealism, blood, bruising, comic halftone, or external asset collage."
+}

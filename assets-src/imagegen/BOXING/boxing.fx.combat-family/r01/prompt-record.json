@@ -1,0 +1,21 @@
+{
+  "assetId": "boxing.fx.combat-family",
+  "gameId": "BOXING",
+  "generationMethod": "IMAGEGEN_SKILL",
+  "registryPath": "android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0/assets/imagegen-prompt-registry.json",
+  "styleProfileId": "boxing-v1",
+  "styleRevision": 1,
+  "templateId": "fx-family-v1",
+  "promptVariables": {
+    "effectFamily": "jab streak, hook arc, guard shield, dodge cue, victory burst",
+    "frames": "four to six or separable layers",
+    "coverageLimit": "25 percent of game field",
+    "colorRules": "cyan/yellow/coral accents on plum outline"
+  },
+  "referenceAssetIds": ["boxing.anchor.style-board"],
+  "anchorRevision": 2,
+  "generationDate": "2026-07-19",
+  "revision": 1,
+  "reviewStatus": "PENDING_HUMAN_ANIMATION_REVIEW",
+  "resolvedPrompt": "Create boxing.fx.combat-family as an original coherent effect sheet under locked boxing-v1 revision 1 and approved boxing anchor revision 2. Provide clearly separated jab streak, hook arc, guard shield, dodge cue, counter spark, impact starburst, and victory burst as four-to-six key-frame concepts or separable layers. Use cyan, yellow, coral, and cream accents on plum outlines, keep each effect below 25 percent game-field coverage, and preserve pose-guide and HUD-safe zones. Use contemporary crisp high-resolution cel FX on a removable flat chroma-key field. No characters, text, letters, numbers, logo, watermark, photorealism, external collage, or copyrighted symbols."
+}

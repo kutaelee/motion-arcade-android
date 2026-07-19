@@ -1,0 +1,220 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/assets/asset-manifest.schema.json",
+  "title": "ImageGen Asset Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "generationMethod",
+    "assets"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "generationMethod": {
+      "const": "IMAGEGEN_SKILL"
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "assetId",
+          "gameId",
+          "styleProfileId",
+          "styleRevision",
+          "anchorRevision",
+          "templateId",
+          "promptRecordHash",
+          "sourceFile",
+          "sourceSha256",
+          "processedFile",
+          "processedSha256",
+          "width",
+          "height",
+          "pivotX",
+          "pivotY",
+          "collisionBounds",
+          "provenance",
+          "redistributionReviewStatus",
+          "generationDate",
+          "revision",
+          "processingRecipe",
+          "review"
+        ],
+        "properties": {
+          "assetId": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._-]+$"
+          },
+          "gameId": {
+            "enum": [
+              "COMMON",
+              "FISHING",
+              "BOXING",
+              "MONSTER"
+            ]
+          },
+          "styleProfileId": {
+            "enum": [
+              "common-hub-v1",
+              "fishing-v1",
+              "boxing-v1",
+              "monster-v1"
+            ]
+          },
+          "styleRevision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "anchorRevision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "templateId": {
+            "type": "string"
+          },
+          "promptRecordHash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "sourceFile": {
+            "type": "string"
+          },
+          "sourceSha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "processedFile": {
+            "type": "string"
+          },
+          "processedSha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "width": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "height": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "pivotX": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "pivotY": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "collisionBounds": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "x",
+              "y",
+              "width",
+              "height"
+            ],
+            "properties": {
+              "x": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "y": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "width": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 1
+              },
+              "height": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 1
+              }
+            }
+          },
+          "provenance": {
+            "const": "OPENAI_IMAGEGEN"
+          },
+          "redistributionReviewStatus": {
+            "enum": [
+              "PENDING",
+              "APPROVED",
+              "REJECTED"
+            ]
+          },
+          "generationDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "processingRecipe": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "review": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "status",
+              "reviewer",
+              "reviewDate",
+              "score",
+              "criticalFailures"
+            ],
+            "properties": {
+              "status": {
+                "enum": [
+                  "PENDING",
+                  "APPROVED",
+                  "REJECTED"
+                ]
+              },
+              "reviewer": {
+                "type": "string"
+              },
+              "reviewDate": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date"
+              },
+              "score": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 20
+              },
+              "criticalFailures": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

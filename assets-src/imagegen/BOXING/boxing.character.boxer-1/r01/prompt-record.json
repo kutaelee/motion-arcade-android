@@ -1,0 +1,21 @@
+{
+  "assetId": "boxing.character.boxer-1",
+  "gameId": "BOXING",
+  "generationMethod": "IMAGEGEN_SKILL",
+  "registryPath": "android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0/assets/imagegen-prompt-registry.json",
+  "styleProfileId": "boxing-v1",
+  "styleRevision": 1,
+  "templateId": "layered-character-v1",
+  "promptVariables": {
+    "characterName": "boxer 1",
+    "identityTraits": "compact agile boxer, cyan gloves, short rounded hair",
+    "view": "3/4 front camera-facing stance",
+    "parts": "head, torso, upper arms, forearms, oversized gloves, hips, legs"
+  },
+  "referenceAssetIds": ["boxing.anchor.style-board"],
+  "anchorRevision": 2,
+  "generationDate": "2026-07-19",
+  "revision": 1,
+  "reviewStatus": "PENDING_HUMAN_CHARACTER_REVIEW",
+  "resolvedPrompt": "Create boxing.character.boxer-1 as an original compact agile boxer with cyan gloves and short rounded hair under locked boxing-v1 revision 1 and approved boxing anchor revision 2. Use a full-body 3/4-front neutral guard stance, contemporary high-resolution three-tone cel art, plum outlines, the locked palette and lighting, head-to-body about 1:5.2, gloves 20 percent oversized, and visually separable head, torso, upper arms, forearms, gloves, hips, and legs with physically plausible overlap. Center the complete body on a square chroma-key canvas with clear padding. No text, logo, watermark, famous likeness, injury, extra limbs, photorealism, or external collage."
+}

@@ -1,0 +1,21 @@
+{
+  "assetId": "fishing.creatures.fish-family",
+  "gameId": "FISHING",
+  "generationMethod": "IMAGEGEN_SKILL",
+  "registryPath": "android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0/assets/imagegen-prompt-registry.json",
+  "styleProfileId": "fishing-v1",
+  "styleRevision": 1,
+  "templateId": "creature-family-v1",
+  "promptVariables": {
+    "family": "seven catchable fish",
+    "members": "four common, two rare, one boss fish",
+    "sharedTraits": "rounded readable bodies, Harbor Pop eyes and fins",
+    "distinctTraits": "body silhouette, fin shape, stripe pattern, rarity accent"
+  },
+  "referenceAssetIds": ["fishing.anchor.style-board"],
+  "anchorRevision": 2,
+  "generationDate": "2026-07-19",
+  "revision": 1,
+  "reviewStatus": "PENDING_HUMAN_CREATURE_REVIEW",
+  "resolvedPrompt": "Create fishing.creatures.fish-family strictly under locked fishing-v1 revision 1 and fishing anchor revision 2 with exactly seven side-view catchable fish: four common, two rare, one boss. Share rounded readable bodies and friendly Harbor Pop eyes and fins; distinguish silhouette, fin shape, stripe pattern and rarity accent. Arrange four top and three bottom with generous crop padding on chroma green. Contemporary high-resolution three-tone cel texture. No overlap, text, labels, logo, watermark, realistic anatomy, copyrighted resemblance, artist imitation, or external collage."
+}

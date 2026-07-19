@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "500ca21df791a034381c22fd1f6d8bb553d69dae",
+  "sourceTree": "75cf093cab5ed34236967ee285ae3d2d3513b239",
+  "transformMatrix": {
+    "rotations": 4,
+    "lenses": 2,
+    "aspectFamilies": 3,
+    "previewScaleModes": 2,
+    "cropVariants": 2,
+    "evaluatedCombinations": 96,
+    "junitCase": "all96RotationLensAspectScaleCropCombinationsMatchIndependentOracle",
+    "verdict": "PASS"
+  },
+  "validationPrecedence": {
+    "junitCase": "invalidFrameMetadataOutranksUnresolvedOrMissingViewportBasis",
+    "combinedFixtures": 7,
+    "preFixTargetedResult": "1 test, 1 failure",
+    "postFixTargetedResult": "1 test, 0 failures",
+    "verdict": "PASS"
+  },
+  "junit": {
+    "vision": {
+      "suites": 5,
+      "tests": 27,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "gameCoreRegression": {
+      "suites": 3,
+      "tests": 25,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "totalTests": 52
+  },
+  "pythonPolicyTests": {
+    "tests": 75,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "focusedGradle": {
+    "exitCode": 0,
+    "executedTasks": 76,
+    "verdict": "BUILD SUCCESSFUL"
+  },
+  "fullRegressionGradle": {
+    "exitCode": 0,
+    "executedTasks": 170,
+    "verdict": "BUILD SUCCESSFUL"
+  },
+  "policy": {
+    "supplyChain": "PASS",
+    "deployedVisualAssets": 0,
+    "g6Approved": false
+  }
+}

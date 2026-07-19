@@ -1,0 +1,19 @@
+{
+  "assetId": "fishing.anchor.style-board",
+  "gameId": "FISHING",
+  "generationMethod": "IMAGEGEN_SKILL",
+  "registryPath": "android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0/assets/imagegen-prompt-registry.json",
+  "styleProfileId": "fishing-v1",
+  "styleRevision": 1,
+  "templateId": "anchor-board-v1",
+  "promptVariables": {
+    "scopeSummary": "fishing mini-game Harbor Pop",
+    "subjects": "angler, harbor, rod, net, seven fish silhouettes, splash effects",
+    "composition": "coherent style board with side-view gameplay references"
+  },
+  "referenceAssetIds": [],
+  "generationDate": "2026-07-18",
+  "revision": 1,
+  "reviewStatus": "PENDING_HUMAN_ANCHOR_REVIEW",
+  "resolvedPrompt": "Create an original 2D mobile arcade cartoon style anchor board for fishing mini-game Harbor Pop. Apply the entire locked style profile fishing-v1 without deviation. Show one coherent angler in front and 3/4-side silhouettes, rod and net props, seven distinct standard fish silhouettes including common, rare, and boss scale, a daylight harbor crop, and ripple, splash, and catch effect concepts in a cohesive side-view gameplay composition with label-free visual zones and plain unlabeled palette swatch blocks. Bright lively harbor adventure with deep blue #14364A rounded outlines, sea teal #2BA9A1, deep water #176B87, foam #EAF9F4, coral #F47B61, sand #E9C77C, rare violet #7656C9, upper-left warm daylight, three-tone cel shading, side-view entities and 3/4-side props. No realistic fish scales or eyes, horror sea creature, thin fishing line baked into the character sprite, monster-like violet magic, text on signs/UI, text, letters, numbers, logos, watermarks, copyrighted characters, artist imitation, photorealism, or external asset collage. Keep all components internally consistent in silhouette, outline, palette, lighting, projection, and rendering density."
+}

@@ -1,0 +1,53 @@
+[versions]
+agp = "9.2.1"
+kotlin = "2.4.0"
+compose-bom = "2026.06.01"
+activity-compose = "1.13.0"
+navigation-compose = "2.9.8"
+lifecycle = "2.11.0"
+datastore = "1.2.1"
+camera-x = "1.6.1"
+mediapipe = "0.10.35"
+coroutines = "1.11.0"
+protobuf = "4.35.1"
+protobuf-plugin = "0.10.0"
+junit4 = "4.13.2"
+robolectric = "4.16.1"
+androidx-test = "1.7.0"
+androidx-test-junit = "1.3.0"
+espresso = "3.7.0"
+
+[libraries]
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
+androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
+androidx-compose-ui = { module = "androidx.compose.ui:ui" }
+androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
+androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
+androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "camera-x" }
+androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "camera-x" }
+androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "camera-x" }
+androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "camera-x" }
+mediapipe-tasks-vision = { module = "com.google.mediapipe:tasks-vision", version.ref = "mediapipe" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+protobuf-javalite = { module = "com.google.protobuf:protobuf-javalite", version.ref = "protobuf" }
+protobuf-protoc = { module = "com.google.protobuf:protoc", version.ref = "protobuf" }
+junit4 = { module = "junit:junit", version.ref = "junit4" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-test" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test" }
+androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-test-junit" }
+androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+protobuf = { id = "com.google.protobuf", version.ref = "protobuf-plugin" }

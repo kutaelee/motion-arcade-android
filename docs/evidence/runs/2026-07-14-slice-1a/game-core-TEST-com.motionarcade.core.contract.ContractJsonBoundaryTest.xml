@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.motionarcade.core.contract.ContractJsonBoundaryTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-07-14T16:19:41.671Z" hostname="DESKTOP-D283RK5" time="0.286">
+  <properties/>
+  <testcase name="snapshot_temporaryBoundaryPreservesLargeStateIntegerWithoutDouble" classname="com.motionarcade.core.contract.ContractJsonBoundaryTest" time="0.22"/>
+  <testcase name="motionEvent_domainConversionRejectsSchemaValidButNonDeterministicId" classname="com.motionarcade.core.contract.ContractJsonBoundaryTest" time="0.021"/>
+  <testcase name="motionEvent_rejectsUnknownExecutableTypeAndNonFiniteNumbers" classname="com.motionarcade.core.contract.ContractJsonBoundaryTest" time="0.004"/>
+  <testcase name="motionEvent_acceptsSchemaBoundaryValues" classname="com.motionarcade.core.contract.ContractJsonBoundaryTest" time="0.0"/>
+  <testcase name="poseFrame_rejectsNonFiniteCoordinateAndMoreThanTwoPoses" classname="com.motionarcade.core.contract.ContractJsonBoundaryTest" time="0.005"/>
+  <testcase name="snapshot_rejectsFutureSchemaUnknownPauseAndDuplicateRewards" classname="com.motionarcade.core.contract.ContractJsonBoundaryTest" time="0.003"/>
+  <testcase name="poseFrame_preservesOpenLandmarkNamesButClosesLandmarkValues" classname="com.motionarcade.core.contract.ContractJsonBoundaryTest" time="0.003"/>
+  <testcase name="diagnostics_rejectsEveryMetricEventAndSessionKeyOutsideAllowlists" classname="com.motionarcade.core.contract.ContractJsonBoundaryTest" time="0.004"/>
+  <testcase name="diagnostics_acceptsTypedAggregateAllowlist" classname="com.motionarcade.core.contract.ContractJsonBoundaryTest" time="0.001"/>
+  <testcase name="motionEvent_rejectsMissingAndUnknownProperties" classname="com.motionarcade.core.contract.ContractJsonBoundaryTest" time="0.003"/>
+  <testcase name="calibration_enforcesClosedPlayerShapeAndFinitePositiveDimensions" classname="com.motionarcade.core.contract.ContractJsonBoundaryTest" time="0.003"/>
+  <testcase name="motionEvent_rejectsIntegerOutsideKotlinIntersection" classname="com.motionarcade.core.contract.ContractJsonBoundaryTest" time="0.0"/>
+  <testcase name="snapshot_normalizesMissingAndNullPauseReasonToNone" classname="com.motionarcade.core.contract.ContractJsonBoundaryTest" time="0.001"/>
+  <testcase name="diagnostics_rejectsRawOrCoordinateClaimsEvenWithConsent" classname="com.motionarcade.core.contract.ContractJsonBoundaryTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

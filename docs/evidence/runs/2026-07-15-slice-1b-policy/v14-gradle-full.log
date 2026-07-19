@@ -1,0 +1,297 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.4.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :games:preBuild UP-TO-DATE
+> Task :game-core:preBuild UP-TO-DATE
+> Task :games:preDebugBuild UP-TO-DATE
+> Task :game-core:preDebugBuild UP-TO-DATE
+> Task :vision:verifyPoseModel
+> Task :vision:preBuild
+> Task :vision:preDebugBuild
+> Task :game-core:processDebugNavigationResources
+> Task :games:processDebugNavigationResources
+> Task :vision:processDebugNavigationResources
+> Task :games:generateDebugResources
+> Task :vision:generateDebugResources
+> Task :game-core:generateDebugResources
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugBuildConfig
+> Task :app:generateDebugResources
+> Task :vision:packageDebugResources
+> Task :game-core:packageDebugResources
+> Task :games:packageDebugResources
+> Task :vision:javaPreCompileDebug
+> Task :game-core:javaPreCompileDebug
+> Task :games:javaPreCompileDebug
+> Task :vision:extractDeepLinksDebug
+> Task :game-core:extractDeepLinksDebug
+> Task :games:extractDeepLinksDebug
+> Task :vision:writeDebugAarMetadata
+> Task :games:writeDebugAarMetadata
+> Task :game-core:writeDebugAarMetadata
+> Task :vision:mapDebugSourceSetPaths
+> Task :game-core:mapDebugSourceSetPaths
+> Task :games:mapDebugSourceSetPaths
+> Task :app:packageDebugResources
+> Task :vision:generateDebugAssets UP-TO-DATE
+> Task :game-core:generateDebugAssets UP-TO-DATE
+> Task :vision:parseDebugLocalResources
+> Task :games:generateDebugAssets UP-TO-DATE
+> Task :games:parseDebugLocalResources
+> Task :game-core:parseDebugLocalResources
+> Task :game-core:compileDebugLibraryResources
+> Task :game-core:mergeDebugAssets
+> Task :games:compileDebugLibraryResources
+> Task :game-core:preDebugUnitTestBuild UP-TO-DATE
+> Task :vision:compileDebugLibraryResources
+> Task :game-core:javaPreCompileDebugUnitTest
+> Task :vision:mergeDebugAssets
+> Task :games:mergeDebugAssets
+> Task :games:preDebugUnitTestBuild UP-TO-DATE
+> Task :vision:preDebugUnitTestBuild
+> Task :games:javaPreCompileDebugUnitTest
+> Task :app:processDebugNavigationResources
+> Task :game-core:mergeDebugJniLibFolders
+> Task :vision:javaPreCompileDebugUnitTest
+> Task :game-core:checkDebugAarMetadata
+> Task :games:checkDebugAarMetadata
+> Task :games:mergeDebugJniLibFolders
+> Task :app:javaPreCompileDebug
+> Task :games:mergeDebugNativeLibs NO-SOURCE
+> Task :game-core:mergeDebugNativeLibs NO-SOURCE
+> Task :games:stripDebugDebugSymbols NO-SOURCE
+> Task :game-core:stripDebugDebugSymbols NO-SOURCE
+> Task :app:parseDebugLocalResources
+> Task :game-core:extractDeepLinksForAarDebug
+> Task :games:extractDeepLinksForAarDebug
+> Task :game-core:generateDebugRFile
+> Task :vision:generateDebugRFile
+> Task :game-core:copyDebugJniLibsProjectAndLocalJars
+> Task :games:copyDebugJniLibsProjectAndLocalJars
+> Task :game-core:processDebugManifest
+> Task :vision:checkDebugAarMetadata
+> Task :vision:mergeDebugJniLibFolders
+> Task :games:prepareDebugArtProfile
+> Task :game-core:prepareDebugArtProfile
+> Task :vision:processDebugManifest
+> Task :vision:mergeDebugNativeLibs NO-SOURCE
+> Task :app:mapDebugSourceSetPaths
+> Task :games:processDebugManifest
+> Task :app:checkDebugAarMetadata
+> Task :games:prepareLintJarForPublish
+> Task :games:writeDebugLintModelMetadata
+> Task :games:generateDebugRFile
+> Task :app:compileDebugNavigationResources
+> Task :games:extractProguardFiles
+> Task :games:preDebugAndroidTestBuild UP-TO-DATE
+> Task :games:copyDebugJniLibsProjectOnly
+> Task :app:generateDebugRFile
+> Task :games:generateDebugUnitTestStubRFile
+> Task :vision:stripDebugDebugSymbols NO-SOURCE
+> Task :vision:copyDebugJniLibsProjectAndLocalJars
+> Task :vision:extractDeepLinksForAarDebug
+> Task :vision:prepareDebugArtProfile
+> Task :vision:prepareLintJarForPublish
+> Task :vision:writeDebugLintModelMetadata
+> Task :vision:extractProguardFiles
+> Task :vision:preDebugAndroidTestBuild
+> Task :vision:copyDebugJniLibsProjectOnly
+> Task :vision:generateDebugUnitTestStubRFile
+> Task :game-core:generateDebugUnitTestStubRFile
+> Task :game-core:extractDebugAnnotations
+> Task :game-core:prepareLintJarForPublish
+> Task :game-core:writeDebugLintModelMetadata
+> Task :game-core:extractProguardFiles
+> Task :game-core:preDebugAndroidTestBuild UP-TO-DATE
+> Task :game-core:copyDebugJniLibsProjectOnly
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+
+> Task :app:processDebugMainManifest
+C:\codex\motion_game\app\src\main\AndroidManifest.xml:9:5-11:31 Warning:
+	uses-permission#android.permission.INTERNET was tagged at AndroidManifest.xml:9 to remove other declarations but no other declaration present
+
+> Task :app:processDebugManifest
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:javaPreCompileDebugUnitTest
+> Task :app:mergeDebugAssets
+
+> Task :app:processDebugUnitTestManifest
+C:\codex\motion_game\app\src\main\AndroidManifest.xml:6:5-8:31 Warning:
+	uses-permission#android.permission.ACCESS_NETWORK_STATE was tagged at AndroidManifest.xml:6 to remove other declarations but no other declaration present
+C:\codex\motion_game\app\src\main\AndroidManifest.xml:9:5-11:31 Warning:
+	uses-permission#android.permission.INTERNET was tagged at AndroidManifest.xml:9 to remove other declarations but no other declaration present
+C:\codex\motion_game\app\build\intermediates\tmp\manifest\test\debug\tempFile2ProcessTestManifest15161905560029103244.xml:14:5-16:31 Warning:
+	uses-permission#android.permission.INTERNET was tagged at tempFile2ProcessTestManifest15161905560029103244.xml:14 to remove other declarations but no other declaration present
+
+> Task :app:preDebugAndroidTestBuild SKIPPED
+> Task :app:extractProguardFiles
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:compressDebugAssets
+> Task :app:mergeDebugResources
+> Task :app:generateDebugGlobalSynthetics
+> Task :app:desugarDebugFileDependencies
+> Task :app:mergeDebugJniLibFolders
+> Task :app:checkDebugDuplicateClasses
+> Task :app:validateSigningDebug
+> Task :app:mergeDebugNativeLibs
+> Task :app:writeDebugAppMetadata
+> Task :app:writeDebugSigningConfigVersions
+> Task :app:processDebugAndroidTestManifest
+> Task :app:generateDebugAndroidTestBuildConfig
+> Task :app:generateDebugAndroidTestResources
+> Task :app:packageDebugAndroidTestResources
+> Task :app:processDebugAndroidTestNavigationResources
+> Task :app:generateDebugAndroidTestAssets UP-TO-DATE
+> Task :app:parseDebugAndroidTestLocalResources
+> Task :app:javaPreCompileDebugAndroidTest
+> Task :app:mergeDebugAndroidTestAssets
+> Task :app:compressDebugAndroidTestAssets
+> Task :app:generateDebugAndroidTestRFile
+> Task :app:stripDebugDebugSymbols
+> Task :app:generateDebugAndroidTestGlobalSynthetics
+> Task :app:desugarDebugAndroidTestFileDependencies
+> Task :app:checkDebugAndroidTestDuplicateClasses
+> Task :app:checkDebugAndroidTestAarMetadata
+> Task :app:mapDebugAndroidTestSourceSetPaths
+> Task :app:compileDebugAndroidTestNavigationResources
+> Task :app:mergeExtDexDebugAndroidTest
+> Task :app:mergeDebugAndroidTestJniLibFolders
+> Task :app:mergeDebugAndroidTestNativeLibs NO-SOURCE
+> Task :app:stripDebugAndroidTestDebugSymbols NO-SOURCE
+> Task :app:validateSigningDebugAndroidTest
+> Task :app:writeDebugAndroidTestSigningConfigVersions
+> Task :app:processDebugManifestForPackage
+> Task :app:processDebugResources
+> Task :app:packageDebugUnitTestForUnitTest
+> Task :app:generateDebugUnitTestConfig
+> Task :app:mergeDebugAndroidTestResources
+> Task :app:processDebugAndroidTestResources
+> Task :game-core:compileDebugKotlin
+> Task :game-core:compileDebugJavaWithJavac NO-SOURCE
+> Task :game-core:processDebugJavaRes
+> Task :game-core:mergeDebugGeneratedProguardFiles
+> Task :game-core:mergeDebugConsumerProguardFiles
+> Task :game-core:bundleLibCompileToJarDebug
+> Task :game-core:bundleLibRuntimeToJarDebug
+> Task :games:extractDebugAnnotations
+> Task :app:mergeExtDexDebug
+> Task :game-core:createFullJarDebug
+> Task :vision:extractDebugAnnotations
+> Task :game-core:mergeDebugJavaResource
+> Task :game-core:generateDebugLintModel
+> Task :game-core:syncDebugLibJars
+> Task :game-core:bundleDebugLocalLintAar
+> Task :game-core:generateDebugAndroidTestLintModel
+> Task :games:compileDebugKotlin
+> Task :games:compileDebugJavaWithJavac NO-SOURCE
+> Task :game-core:generateDebugUnitTestLintModel
+> Task :games:bundleLibCompileToJarDebug
+> Task :games:bundleLibRuntimeToJarDebug
+> Task :games:processDebugJavaRes
+> Task :games:compileDebugUnitTestKotlin NO-SOURCE
+> Task :games:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :games:processDebugUnitTestJavaRes NO-SOURCE
+> Task :games:testDebugUnitTest NO-SOURCE
+> Task :games:test UP-TO-DATE
+> Task :games:mergeDebugGeneratedProguardFiles
+> Task :games:mergeDebugConsumerProguardFiles
+> Task :game-core:generateDebugLintReportModel
+> Task :games:mergeDebugJavaResource
+> Task :games:createFullJarDebug
+> Task :games:syncDebugLibJars
+> Task :games:bundleDebugLocalLintAar
+> Task :games:generateDebugLintModel
+> Task :game-core:bundleLibRuntimeToDirDebug
+> Task :games:generateDebugAndroidTestLintModel
+> Task :games:generateDebugUnitTestLintModel
+> Task :games:generateDebugLintReportModel
+> Task :games:bundleLibRuntimeToDirDebug
+> Task :game-core:compileDebugUnitTestKotlin
+> Task :game-core:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :game-core:processDebugUnitTestJavaRes
+> Task :vision:compileDebugKotlin
+> Task :vision:compileDebugJavaWithJavac NO-SOURCE
+> Task :vision:processDebugJavaRes
+> Task :vision:mergeDebugGeneratedProguardFiles
+> Task :vision:bundleLibCompileToJarDebug
+> Task :vision:bundleLibRuntimeToJarDebug
+> Task :vision:mergeDebugConsumerProguardFiles
+> Task :vision:mergeDebugJavaResource
+> Task :vision:createFullJarDebug
+> Task :vision:syncDebugLibJars
+> Task :app:mergeLibDexDebug
+> Task :vision:bundleDebugLocalLintAar
+> Task :vision:generateDebugLintModel
+> Task :vision:generateDebugAndroidTestLintModel
+> Task :vision:generateDebugUnitTestLintModel
+> Task :vision:generateDebugLintReportModel
+> Task :vision:bundleLibRuntimeToDirDebug
+> Task :app:mergeLibDexDebugAndroidTest
+> Task :vision:compileDebugUnitTestKotlin
+> Task :vision:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :vision:processDebugUnitTestJavaRes
+> Task :app:compileDebugKotlin
+> Task :game-core:testDebugUnitTest
+> Task :game-core:test
+> Task :vision:testDebugUnitTest
+> Task :vision:test
+> Task :games:lintAnalyzeDebugUnitTest
+> Task :vision:lintAnalyzeDebugAndroidTest
+> Task :game-core:lintAnalyzeDebugAndroidTest
+> Task :games:lintAnalyzeDebugAndroidTest
+> Task :app:compileDebugJavaWithJavac
+> Task :app:processDebugJavaRes
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:generateDebugLintReportModel
+> Task :app:compileDebugUnitTestKotlin NO-SOURCE
+> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processDebugUnitTestJavaRes NO-SOURCE
+> Task :app:generateDebugAndroidTestLintModel
+> Task :app:generateDebugUnitTestLintModel
+> Task :app:transformDebugClassesWithAsm
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:testDebugUnitTest NO-SOURCE
+> Task :app:test UP-TO-DATE
+> Task :app:dexBuilderDebug
+> Task :app:mergeProjectDexDebug
+> Task :app:compileDebugAndroidTestKotlin
+> Task :app:compileDebugAndroidTestJavaWithJavac
+> Task :app:processDebugAndroidTestJavaRes
+> Task :app:mergeDebugAndroidTestJavaResource
+> Task :app:dexBuilderDebugAndroidTest
+> Task :app:mergeProjectDexDebugAndroidTest
+> Task :app:packageDebugAndroidTest
+> Task :app:createDebugAndroidTestApkListingFileRedirect
+> Task :app:assembleDebugAndroidTest
+> Task :app:lintAnalyzeDebugUnitTest
+> Task :app:mergeDebugJavaResource
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+> Task :app:lintAnalyzeDebugAndroidTest
+> Task :game-core:lintAnalyzeDebugUnitTest
+> Task :vision:lintAnalyzeDebugUnitTest
+> Task :game-core:lintAnalyzeDebug
+> Task :game-core:lintReportDebug
+> Task :game-core:lintDebug
+> Task :game-core:lint
+> Task :games:lintAnalyzeDebug
+> Task :games:lintReportDebug
+> Task :games:lintDebug
+> Task :games:lint
+> Task :vision:lintAnalyzeDebug
+> Task :vision:lintReportDebug
+> Task :vision:lintDebug
+> Task :vision:lint
+> Task :app:lintAnalyzeDebug
+
+> Task :app:lintReportDebug
+Wrote HTML report to file:///C:/codex/motion_game/app/build/reports/lint-results-debug.html
+
+> Task :app:lintDebug
+> Task :app:lint
+
+BUILD SUCCESSFUL in 1m 17s
+224 actionable tasks: 224 executed

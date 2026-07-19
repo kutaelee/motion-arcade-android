@@ -1,0 +1,13 @@
+{
+    "lockFile":  "app/gradle.lockfile",
+    "lockFileSha256":  "4E42BECB846A8DCA89FE0DB61DF1F7460D13DB735F745B827C69D6485BFC079D",
+    "debugRuntimeCoordinateCount":  159,
+    "releaseRuntimeCoordinateCount":  159,
+    "debugOnly":  [
+
+                  ],
+    "releaseOnly":  [
+
+                    ],
+    "verdict":  "PASS"
+}

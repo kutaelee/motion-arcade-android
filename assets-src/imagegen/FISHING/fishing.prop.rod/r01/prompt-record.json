@@ -1,0 +1,20 @@
+{
+  "assetId": "fishing.prop.rod",
+  "gameId": "FISHING",
+  "generationMethod": "IMAGEGEN_SKILL",
+  "registryPath": "android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0/assets/imagegen-prompt-registry.json",
+  "styleProfileId": "fishing-v1",
+  "styleRevision": 1,
+  "templateId": "icon-v1",
+  "promptVariables": {
+    "symbol": "fishing rod and float",
+    "shapeLanguage": "rounded nautical arcade",
+    "safeMargin": "12 percent"
+  },
+  "referenceAssetIds": ["fishing.anchor.style-board"],
+  "anchorRevision": 2,
+  "generationDate": "2026-07-19",
+  "revision": 1,
+  "reviewStatus": "PENDING_HUMAN_PROP_REVIEW",
+  "resolvedPrompt": "Create fishing.prop.rod strictly under locked fishing-v1 revision 1 and fishing anchor revision 2: original arcade fishing rod and float, rounded nautical shape, navy-teal outline, coral reel, natural bend and short readable line. Center with 12 percent safe margin on chroma green. Contemporary high-resolution three-tone cel texture. No person, hand, fish, text, logo, watermark, photorealism, copyrighted resemblance, artist imitation, or external collage."
+}

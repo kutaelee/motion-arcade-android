@@ -1,0 +1,21 @@
+{
+  "assetId": "monster.background.arena",
+  "gameId": "MONSTER",
+  "generationMethod": "IMAGEGEN_SKILL",
+  "registryPath": "android-motion-games-design-augmented-v1.0/android-motion-games-design-augmented-v1.0/assets/imagegen-prompt-registry.json",
+  "styleProfileId": "monster-v1",
+  "styleRevision": 1,
+  "templateId": "side-background-v1",
+  "promptVariables": {
+    "environment": "ancient friendly runestone arena in a forest ruin",
+    "camera": "fixed side-view arena",
+    "layers": "mist forest, runestones, arena floor, foreground grass",
+    "safeZones": "top boss bar, side player HUD, lower camera inset"
+  },
+  "referenceAssetIds": ["monster.anchor.style-board"],
+  "anchorRevision": 3,
+  "generationDate": "2026-07-19",
+  "revision": 1,
+  "reviewStatus": "PENDING_HUMAN_BACKGROUND_REVIEW",
+  "resolvedPrompt": "Create monster.background.arena as an original ancient friendly runestone arena in a forest ruin under locked monster-v1 revision 1 and monster anchor revision 3. Fixed side-view arena with separable mist forest, unmarked runestones, arena floor, and foreground grass. Keep quiet contrast in top boss-bar, side player-HUD, lower camera-inset, and central motion-view safe zones. Contemporary high-resolution three-tone cel animation texture, no characters, text, letter-like runes, signs, logos, watermarks, photorealism, copyrighted setting imitation, or external collage."
+}
