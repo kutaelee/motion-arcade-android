@@ -191,7 +191,14 @@ object DualPlayerCombatMotionConfigs {
                 definition(MotionType.DODGE_LEFT, holdMs = 80, cooldownMs = 350, group = "MONSTER_DEFENSE", priority = 2),
                 definition(MotionType.DODGE_RIGHT, holdMs = 80, cooldownMs = 350, group = "MONSTER_DEFENSE", priority = 2),
                 definition(MotionType.PUNCH_JAB, holdMs = 0, cooldownMs = 350, group = "MONSTER_STRIKE", priority = 2),
-                definition(MotionType.PUNCH_HOOK, holdMs = 0, cooldownMs = 450, group = "MONSTER_STRIKE", priority = 1),
+                definition(
+                    MotionType.PUNCH_HOOK,
+                    holdMs = 0,
+                    cooldownMs = 450,
+                    group = "MONSTER_STRIKE",
+                    priority = 1,
+                    entryThreshold = 1f,
+                ),
             ),
         )
 
@@ -216,9 +223,10 @@ object DualPlayerCombatMotionConfigs {
         cooldownMs: Long,
         group: String,
         priority: Int,
+        entryThreshold: Float = 0.82f,
     ): GestureDefinition = GestureDefinition(
         type = type,
-        entryThreshold = 0.82f,
+        entryThreshold = entryThreshold,
         exitThreshold = 0.30f,
         minimumConfidence = 0.55f,
         minimumHoldNs = holdMs * NANOS_PER_MILLISECOND,
@@ -253,6 +261,12 @@ internal data class DualPlayerCombatPoseSignalConfig(
     val chargeMinimumRaiseTorsoLengths: Float = 0.25f,
     val chargeMinimumWristSeparationShoulderWidths: Float = 1.20f,
     val ultimateMaximumWristDistanceShoulderWidths: Float = 1.60f,
+    val monsterStrongMinimumWristSeparationShoulderWidths: Float = 0.40f,
+    val monsterStrongMaximumWristSeparationShoulderWidths: Float = 0.80f,
+    val monsterStrongMinimumOverheadHoldNs: Long = 500_000_000L,
+    val monsterStrongTeamPowerCutoffNs: Long = 800_000_000L,
+    val monsterStrongMaximumDescentNs: Long = 400_000_000L,
+    val monsterStrongMinimumDropTorsoLengths: Float = 0.50f,
     val maximumHistorySamples: Int = 48,
 ) {
     init {
@@ -274,6 +288,15 @@ internal data class DualPlayerCombatPoseSignalConfig(
         require(chargeMinimumRaiseTorsoLengths > 0f)
         require(chargeMinimumWristSeparationShoulderWidths > 0f)
         require(ultimateMaximumWristDistanceShoulderWidths > 0f)
+        require(monsterStrongMinimumWristSeparationShoulderWidths > 0f)
+        require(
+            monsterStrongMaximumWristSeparationShoulderWidths >
+                monsterStrongMinimumWristSeparationShoulderWidths,
+        )
+        require(monsterStrongMinimumOverheadHoldNs > 0L)
+        require(monsterStrongTeamPowerCutoffNs > monsterStrongMinimumOverheadHoldNs)
+        require(monsterStrongMaximumDescentNs > 0L)
+        require(monsterStrongMinimumDropTorsoLengths > 0f)
         require(maximumHistorySamples in 8..256)
     }
 }
