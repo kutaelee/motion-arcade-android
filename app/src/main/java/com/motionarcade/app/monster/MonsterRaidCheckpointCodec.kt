@@ -1,5 +1,6 @@
 package com.motionarcade.app.monster
 
+import com.motionarcade.app.checkpoint.TypedCheckpointEnvelopeCodec
 import com.motionarcade.core.contract.GameId
 import com.motionarcade.core.contract.GameMode
 import com.motionarcade.core.contract.PauseReason
@@ -22,14 +23,25 @@ import java.io.DataOutputStream
 
 /** Bounded process checkpoint containing deterministic raid state and no camera or pose data. */
 internal object MonsterRaidCheckpointCodec {
-    const val MAX_ENCODED_BYTES = 8 * 1024
+    const val MAX_ENCODED_BYTES = TypedCheckpointEnvelopeCodec.MAX_ENCODED_BYTES
 
     fun encode(snapshot: MonsterRaidSnapshot): ByteArray {
-        MonsterRaidGameSession.restore(snapshot)
+        val canonicalSnapshot = MonsterRaidGameSession.restore(snapshot).snapshot
+        val payload = encodeLegacyPayload(canonicalSnapshot)
+        return TypedCheckpointEnvelopeCodec.encode(
+            gameId = GameId.MONSTER,
+            mode = canonicalSnapshot.mode,
+            payloadCodecId = PAYLOAD_CODEC_ID,
+            payloadCodecVersion = PAYLOAD_CODEC_VERSION,
+            payload = payload,
+        )
+    }
+
+    private fun encodeLegacyPayload(snapshot: MonsterRaidSnapshot): ByteArray {
         val buffer = ByteArrayOutputStream()
         DataOutputStream(buffer).use { output ->
             output.writeInt(MAGIC)
-            output.writeInt(VERSION)
+            output.writeInt(PAYLOAD_CODEC_VERSION)
             output.writeInt(snapshot.schemaVersion)
             output.writeText(snapshot.sessionId)
             output.writeText(snapshot.gameId.name)
@@ -61,15 +73,36 @@ internal object MonsterRaidCheckpointCodec {
             output.writeNullableLong(snapshot.lastHumanCoreActionTick)
             output.writeNullableEnum(snapshot.outcome)
         }
-        return buffer.toByteArray().also { require(it.size in 1..MAX_ENCODED_BYTES) }
+        return buffer.toByteArray().also { require(it.size in 1..MAX_PAYLOAD_BYTES) }
     }
 
     fun decode(encoded: ByteArray): MonsterRaidSnapshot? {
         if (encoded.size !in 1..MAX_ENCODED_BYTES) return null
+        val privateBytes = encoded.copyOf()
+        var envelopeMode: GameMode? = null
+        val payload = if (TypedCheckpointEnvelopeCodec.hasEnvelopeMagic(privateBytes)) {
+            val envelope = TypedCheckpointEnvelopeCodec.decode(privateBytes) ?: return null
+            if (
+                envelope.gameId != GameId.MONSTER ||
+                envelope.payloadCodecId != PAYLOAD_CODEC_ID ||
+                envelope.payloadCodecVersion != PAYLOAD_CODEC_VERSION
+            ) return null
+            envelopeMode = envelope.mode
+            envelope.payload
+        } else {
+            privateBytes
+        }
+        val snapshot = decodeLegacyPayload(payload) ?: return null
+        if (envelopeMode != null && snapshot.mode != envelopeMode) return null
+        return snapshot
+    }
+
+    private fun decodeLegacyPayload(encoded: ByteArray): MonsterRaidSnapshot? {
+        if (encoded.size !in 1..MAX_PAYLOAD_BYTES) return null
         return runCatching {
             DataInputStream(ByteArrayInputStream(encoded.copyOf())).use { input ->
                 require(input.readInt() == MAGIC)
-                require(input.readInt() == VERSION)
+                require(input.readInt() == PAYLOAD_CODEC_VERSION)
                 val schemaVersion = input.readInt()
                 val sessionId = input.readText()
                 val gameId = input.readEnum<GameId>()
@@ -215,6 +248,8 @@ internal object MonsterRaidCheckpointCodec {
         if (readBoolean()) readEnum() else null
 
     private const val MAGIC = 0x4d524149
-    private const val VERSION = 2
+    const val PAYLOAD_CODEC_ID = "monster-raid-checkpoint"
+    const val PAYLOAD_CODEC_VERSION = 2
+    private const val MAX_PAYLOAD_BYTES = 8 * 1024
     private const val MAX_TEXT_CHARS = 160
 }

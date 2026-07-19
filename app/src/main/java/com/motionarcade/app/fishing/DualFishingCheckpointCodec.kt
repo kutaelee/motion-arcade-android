@@ -1,5 +1,6 @@
 package com.motionarcade.app.fishing
 
+import com.motionarcade.app.checkpoint.TypedCheckpointEnvelopeCodec
 import com.motionarcade.core.contract.GameId
 import com.motionarcade.core.contract.GameMode
 import com.motionarcade.core.contract.PauseReason
@@ -18,14 +19,25 @@ import java.io.DataOutputStream
 
 /** Bounded process-state encoding. Camera, pose, and renderer state are intentionally excluded. */
 internal object DualFishingCheckpointCodec {
-    const val MAX_ENCODED_BYTES = 4 * 1024
+    const val MAX_ENCODED_BYTES = TypedCheckpointEnvelopeCodec.MAX_ENCODED_BYTES
 
     fun encode(snapshot: DualFishingSnapshot): ByteArray {
-        DualFishingGameSession.restore(snapshot)
+        val canonicalSnapshot = DualFishingGameSession.restore(snapshot).snapshot
+        val payload = encodeLegacyPayload(canonicalSnapshot)
+        return TypedCheckpointEnvelopeCodec.encode(
+            gameId = GameId.FISHING,
+            mode = GameMode.DUAL,
+            payloadCodecId = PAYLOAD_CODEC_ID,
+            payloadCodecVersion = PAYLOAD_CODEC_VERSION,
+            payload = payload,
+        )
+    }
+
+    private fun encodeLegacyPayload(snapshot: DualFishingSnapshot): ByteArray {
         val buffer = ByteArrayOutputStream()
         DataOutputStream(buffer).use { output ->
             output.writeInt(MAGIC)
-            output.writeInt(CODEC_VERSION)
+            output.writeInt(PAYLOAD_CODEC_VERSION)
             output.writeInt(snapshot.schemaVersion)
             output.writeBoundedUtf(snapshot.sessionId)
             output.writeBoundedUtf(snapshot.gameId.name)
@@ -45,16 +57,33 @@ internal object DualFishingCheckpointCodec {
             PLAYERS.forEach { playerId -> output.writePlayer(snapshot.players.getValue(playerId)) }
         }
         return buffer.toByteArray().also { encoded ->
-            require(encoded.size in 1..MAX_ENCODED_BYTES)
+            require(encoded.size in 1..MAX_PAYLOAD_BYTES)
         }
     }
 
     fun decode(encoded: ByteArray): DualFishingSnapshot? {
         if (encoded.size !in 1..MAX_ENCODED_BYTES) return null
+        val privateBytes = encoded.copyOf()
+        val payload = if (TypedCheckpointEnvelopeCodec.hasEnvelopeMagic(privateBytes)) {
+            val envelope = TypedCheckpointEnvelopeCodec.decode(privateBytes) ?: return null
+            if (
+                envelope.gameId != GameId.FISHING || envelope.mode != GameMode.DUAL ||
+                envelope.payloadCodecId != PAYLOAD_CODEC_ID ||
+                envelope.payloadCodecVersion != PAYLOAD_CODEC_VERSION
+            ) return null
+            envelope.payload
+        } else {
+            privateBytes
+        }
+        return decodeLegacyPayload(payload)
+    }
+
+    private fun decodeLegacyPayload(encoded: ByteArray): DualFishingSnapshot? {
+        if (encoded.size !in 1..MAX_PAYLOAD_BYTES) return null
         return runCatching {
             DataInputStream(ByteArrayInputStream(encoded.copyOf())).use { input ->
                 require(input.readInt() == MAGIC)
-                require(input.readInt() == CODEC_VERSION)
+                require(input.readInt() == PAYLOAD_CODEC_VERSION)
                 val schemaVersion = input.readInt()
                 val sessionId = input.readBoundedUtf()
                 val gameId = input.readEnum<GameId>()
@@ -164,7 +193,9 @@ internal object DualFishingCheckpointCodec {
         if (readBoolean()) readEnum() else null
 
     private const val MAGIC = 0x44465348
-    private const val CODEC_VERSION = 2
+    const val PAYLOAD_CODEC_ID = "fishing-dual-checkpoint"
+    const val PAYLOAD_CODEC_VERSION = 2
+    private const val MAX_PAYLOAD_BYTES = 4 * 1024
     private const val MAX_STRING_CHARS = 160
     private val PLAYERS = listOf(PlayerId.P1, PlayerId.P2)
 }
