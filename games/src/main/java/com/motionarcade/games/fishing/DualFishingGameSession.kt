@@ -53,6 +53,9 @@ data class DualFishingSnapshot(
 ) {
     val paused: Boolean
         get() = status == SessionStatus.PAUSED
+
+    val teamScore: Int
+        get() = players.values.sumOf(DualFishingPlayerState::score)
 }
 
 enum class DualFishingInputRejection {
@@ -88,10 +91,15 @@ sealed interface DualFishingInputResult {
  *
  * Camera, tracking, and pose libraries remain outside :games. Both motion and touch submit the
  * same semantic envelopes. P1 starts as the rod role; the partner owns tension relief and the
- * landing net. Both players operate one shared fish, tension meter, score, and recovery window.
+ * landing net. Both players operate one shared fish, tension meter, and recovery window while
+ * their score fields record only their own accepted contributions.
  */
 class DualFishingGameSession private constructor(initial: DualFishingSnapshot) {
     private data class QueuedInput(val event: MotionEventEnvelope, val scheduledTick: Long)
+    private data class AppliedTransition(
+        val player: DualFishingPlayerState,
+        val scoreAward: Int,
+    )
 
     private var state = immutableSnapshot(initial)
     private var eventGate = MotionEventGate(initial.calibrationRevision)
@@ -263,47 +271,51 @@ class DualFishingGameSession private constructor(initial: DualFishingSnapshot) {
         val player = shared
         if (player.phase == FishingPhase.RESULT) return
         val applied = player.copy(lastAppliedSequence = event.sequenceNumber)
-        val next = if (
+        val transition = if (
             event.type == MotionType.FISH_TENSION_LEFT || event.type == MotionType.FISH_TENSION_RIGHT
         ) {
             relieveTension(applied, event)
         } else when (applied.phase) {
             FishingPhase.READY -> cast(applied, event)
-            FishingPhase.BITE_WAIT -> applied
+            FishingPhase.BITE_WAIT -> AppliedTransition(applied, 0)
             FishingPhase.HOOK_WINDOW -> hook(applied, event)
             FishingPhase.REELING -> reel(applied, event)
             FishingPhase.TENSION -> relieveTension(applied, event)
             FishingPhase.NETTING -> net(applied, event)
-            FishingPhase.RESULT -> applied
+            FishingPhase.RESULT -> AppliedTransition(applied, 0)
         }
-        setShared(next, event.playerId)
+        setShared(transition.player, event.playerId, transition.scoreAward)
     }
 
-    private fun cast(player: DualFishingPlayerState, event: MotionEventEnvelope): DualFishingPlayerState {
-        if (event.type != MotionType.FISH_CAST) return player
+    private fun cast(player: DualFishingPlayerState, event: MotionEventEnvelope): AppliedTransition {
+        if (event.type != MotionType.FISH_CAST) return AppliedTransition(player, 0)
         val random = mixed(state.prngState xor player.playerId.seedSalt)
         val fish = if (random and 3L == 0L) FishingFish.MOON_CARP else FishingFish.SUNFIN
         val biteDelay = BITE_DELAY_MIN_TICKS + ((random ushr 3) and BITE_DELAY_MASK).toInt()
-        return player.copy(
-            phase = FishingPhase.BITE_WAIT,
-            fish = fish,
-            biteAtTick = state.simulationTick + biteDelay,
-            score = score(player.score, event.quality, CAST_POINTS),
+        return AppliedTransition(
+            player = player.copy(
+                phase = FishingPhase.BITE_WAIT,
+                fish = fish,
+                biteAtTick = state.simulationTick + biteDelay,
+            ),
+            scoreAward = scoreAward(event.quality, CAST_POINTS),
         )
     }
 
-    private fun hook(player: DualFishingPlayerState, event: MotionEventEnvelope): DualFishingPlayerState {
-        if (event.type != MotionType.FISH_HOOK) return player
-        return player.copy(
-            phase = FishingPhase.REELING,
-            biteAtTick = null,
-            hookDeadlineTick = null,
-            score = score(player.score, event.quality, HOOK_POINTS),
+    private fun hook(player: DualFishingPlayerState, event: MotionEventEnvelope): AppliedTransition {
+        if (event.type != MotionType.FISH_HOOK) return AppliedTransition(player, 0)
+        return AppliedTransition(
+            player = player.copy(
+                phase = FishingPhase.REELING,
+                biteAtTick = null,
+                hookDeadlineTick = null,
+            ),
+            scoreAward = scoreAward(event.quality, HOOK_POINTS),
         )
     }
 
-    private fun reel(player: DualFishingPlayerState, event: MotionEventEnvelope): DualFishingPlayerState {
-        if (event.type != MotionType.FISH_REEL_CYCLE) return player
+    private fun reel(player: DualFishingPlayerState, event: MotionEventEnvelope): AppliedTransition {
+        if (event.type != MotionType.FISH_REEL_CYCLE) return AppliedTransition(player, 0)
         val cycles = player.reelCycles + 1
         val tension = (player.tension + tensionPerCycle(player)).coerceAtMost(MAX_TENSION)
         val phase = when {
@@ -311,39 +323,48 @@ class DualFishingGameSession private constructor(initial: DualFishingSnapshot) {
             tension >= TENSION_GATE -> FishingPhase.TENSION
             else -> FishingPhase.REELING
         }
-        return player.copy(
-            phase = phase,
-            reelCycles = cycles,
-            tension = tension,
-            assistDeadlineTick = if (phase == FishingPhase.TENSION || phase == FishingPhase.NETTING) {
-                state.simulationTick + ASSIST_WINDOW_TICKS
-            } else null,
-            score = score(player.score, event.quality, REEL_POINTS),
+        return AppliedTransition(
+            player = player.copy(
+                phase = phase,
+                reelCycles = cycles,
+                tension = tension,
+                assistDeadlineTick = if (phase == FishingPhase.TENSION || phase == FishingPhase.NETTING) {
+                    state.simulationTick + ASSIST_WINDOW_TICKS
+                } else null,
+            ),
+            scoreAward = scoreAward(event.quality, REEL_POINTS),
         )
     }
 
     private fun relieveTension(
         player: DualFishingPlayerState,
         event: MotionEventEnvelope,
-    ): DualFishingPlayerState {
-        if (event.type != MotionType.FISH_TENSION_LEFT && event.type != MotionType.FISH_TENSION_RIGHT) return player
+    ): AppliedTransition {
+        if (event.type != MotionType.FISH_TENSION_LEFT && event.type != MotionType.FISH_TENSION_RIGHT) {
+            return AppliedTransition(player, 0)
+        }
+        if (player.tension <= 0) return AppliedTransition(player, 0)
         val tension = (player.tension - TENSION_RELIEF).coerceAtLeast(0)
-        return player.copy(
-            phase = if (tension <= TENSION_SAFE) FishingPhase.REELING else FishingPhase.TENSION,
-            tension = tension,
-            assistDeadlineTick = if (tension <= TENSION_SAFE) null else state.simulationTick + ASSIST_WINDOW_TICKS,
-            score = score(player.score, event.quality, TENSION_POINTS),
+        return AppliedTransition(
+            player = player.copy(
+                phase = if (tension <= TENSION_SAFE) FishingPhase.REELING else FishingPhase.TENSION,
+                tension = tension,
+                assistDeadlineTick = if (tension <= TENSION_SAFE) null else state.simulationTick + ASSIST_WINDOW_TICKS,
+            ),
+            scoreAward = scoreAward(event.quality, TENSION_POINTS),
         )
     }
 
-    private fun net(player: DualFishingPlayerState, event: MotionEventEnvelope): DualFishingPlayerState {
-        if (event.type != MotionType.FISH_NET) return player
+    private fun net(player: DualFishingPlayerState, event: MotionEventEnvelope): AppliedTransition {
+        if (event.type != MotionType.FISH_NET) return AppliedTransition(player, 0)
         val rarity = if (player.fish == FishingFish.MOON_CARP) RARE_BONUS else 0
-        return player.copy(
-            phase = FishingPhase.RESULT,
-            score = (score(player.score, event.quality, NET_POINTS) + rarity).coerceAtMost(MAX_SCORE),
-            outcome = FishingOutcome.CAUGHT,
-            assistDeadlineTick = null,
+        return AppliedTransition(
+            player = player.copy(
+                phase = FishingPhase.RESULT,
+                outcome = FishingOutcome.CAUGHT,
+                assistDeadlineTick = null,
+            ),
+            scoreAward = scoreAward(event.quality, NET_POINTS) + rarity,
         )
     }
 
@@ -402,8 +423,8 @@ class DualFishingGameSession private constructor(initial: DualFishingSnapshot) {
     private fun tensionPerCycle(player: DualFishingPlayerState): Int =
         if (player.fish == FishingFish.MOON_CARP) RARE_TENSION_PER_CYCLE else COMMON_TENSION_PER_CYCLE
 
-    private fun score(current: Int, quality: Float, points: Int): Int =
-        (current + (quality.coerceIn(0f, 1f) * points).roundToInt()).coerceAtMost(MAX_SCORE)
+    private fun scoreAward(quality: Float, points: Int): Int =
+        (quality.coerceIn(0f, 1f) * points).roundToInt().coerceAtMost(MAX_SCORE)
 
     private val shared: DualFishingPlayerState
         get() = state.players.getValue(state.rodPlayerId)
@@ -426,7 +447,11 @@ class DualFishingGameSession private constructor(initial: DualFishingSnapshot) {
         else -> false
     }
 
-    private fun setShared(player: DualFishingPlayerState, appliedBy: PlayerId? = null) {
+    private fun setShared(
+        player: DualFishingPlayerState,
+        appliedBy: PlayerId? = null,
+        scoreAward: Int = 0,
+    ) {
         val completedCatch = player.phase == FishingPhase.RESULT && shared.phase != FishingPhase.RESULT
         val caught = completedCatch && player.outcome == FishingOutcome.CAUGHT
         state = state.copy(
@@ -437,13 +462,14 @@ class DualFishingGameSession private constructor(initial: DualFishingSnapshot) {
                 caught -> (state.combo + 1).coerceAtMost(MAX_COMBO)
                 else -> 0
             },
-            players = mirrorShared(player, appliedBy),
+            players = mirrorShared(player, appliedBy, scoreAward),
         )
     }
 
     private fun mirrorShared(
         source: DualFishingPlayerState,
         appliedBy: PlayerId? = null,
+        scoreAward: Int = 0,
     ): Map<PlayerId, DualFishingPlayerState> = immutablePlayers(
         state.players.mapValues { (id, existing) ->
             source.copy(
@@ -451,6 +477,11 @@ class DualFishingGameSession private constructor(initial: DualFishingSnapshot) {
                 acceptedSequenceWatermark = existing.acceptedSequenceWatermark,
                 acceptedEventTimestampWatermarkNs = existing.acceptedEventTimestampWatermarkNs,
                 lastAppliedSequence = if (id == appliedBy) source.lastAppliedSequence else existing.lastAppliedSequence,
+                score = if (id == appliedBy) {
+                    (existing.score + scoreAward).coerceAtMost(MAX_SCORE)
+                } else {
+                    existing.score
+                },
             )
         },
     )
@@ -475,7 +506,7 @@ class DualFishingGameSession private constructor(initial: DualFishingSnapshot) {
         const val MAX_CATCHES = 1_000_000
         const val MAX_COMBO = 100_000
         const val MAX_TENSION = 100
-        const val CONTENT_REVISION = "dual-fishing-coop-rules-v2"
+        const val CONTENT_REVISION = "dual-fishing-coop-rules-v3"
         const val PRNG_ALGORITHM_ID = "splitmix64-player-salt"
         const val PRNG_ALGORITHM_VERSION = 1
         private const val SCHEMA_VERSION = 1
@@ -604,7 +635,6 @@ class DualFishingGameSession private constructor(initial: DualFishingSnapshot) {
                 require(player.reelCycles == rod.reelCycles)
                 require(player.tension == rod.tension)
                 require(player.recoveryTokens == rod.recoveryTokens)
-                require(player.score == rod.score)
                 require(player.outcome == rod.outcome)
             }
             require(

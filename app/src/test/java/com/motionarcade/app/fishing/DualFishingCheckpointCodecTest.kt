@@ -73,6 +73,7 @@ class DualFishingCheckpointCodecTest {
 
         assertTrue(restored.snapshot.paused)
         assertEquals(100, restored.snapshot.players.getValue(PlayerId.P1).score)
+        assertEquals(0, restored.snapshot.players.getValue(PlayerId.P2).score)
         assertTrue(restored.resume())
         assertTrue(restored.accept(event(PlayerId.P1, 12L, 300L)) is DualFishingInputResult.Rejected)
         restored.advanceTicks(1)
@@ -105,14 +106,14 @@ class DualFishingCheckpointCodecTest {
             pauseReason = null,
             catches = 1,
             combo = 1,
-            players = game.snapshot.players.mapValues { (_, player) ->
+            players = game.snapshot.players.mapValues { (id, player) ->
                 player.copy(
                     phase = FishingPhase.RESULT,
                     fish = FishingFish.SUNFIN,
                     biteAtTick = null,
                     hookDeadlineTick = null,
                     assistDeadlineTick = null,
-                    score = 100,
+                    score = if (id == PlayerId.P1) 100 else 40,
                     outcome = com.motionarcade.games.fishing.FishingOutcome.CAUGHT,
                 )
             },
@@ -121,7 +122,9 @@ class DualFishingCheckpointCodecTest {
 
         val decoded = requireNotNull(DualFishingCheckpointCodec.decode(DualFishingCheckpointCodec.encode(resumed)))
         assertEquals(PlayerId.P2, decoded.rodPlayerId)
-        assertEquals(100, decoded.players.getValue(PlayerId.P2).score)
+        assertEquals(100, decoded.players.getValue(PlayerId.P1).score)
+        assertEquals(40, decoded.players.getValue(PlayerId.P2).score)
+        assertEquals(140, decoded.teamScore)
         assertTrue(decoded.paused)
     }
 
