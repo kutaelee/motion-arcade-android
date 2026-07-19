@@ -95,6 +95,55 @@ class BoxingGameSessionTest {
     }
 
     @Test
+    fun detectorConfidenceDoesNotReduceAnAdmittedStrikeButMotionQualityStillMatters() {
+        val lowerConfidence = game(seed = 18L)
+        val fullConfidence = game(seed = 18L)
+        val lowerQuality = game(seed = 18L)
+
+        queueAndAdvance(lowerConfidence, 0, MotionType.PUNCH_JAB, quality = 1f, confidence = 0.55f)
+        queueAndAdvance(fullConfidence, 0, MotionType.PUNCH_JAB, quality = 1f, confidence = 1f)
+        queueAndAdvance(lowerQuality, 0, MotionType.PUNCH_JAB, quality = 0.5f, confidence = 1f)
+
+        assertEquals(fullConfidence.snapshot.lastPlayerDamage, lowerConfidence.snapshot.lastPlayerDamage)
+        assertEquals(fullConfidence.snapshot.score, lowerConfidence.snapshot.score)
+        assertTrue(lowerQuality.snapshot.lastPlayerDamage < fullConfidence.snapshot.lastPlayerDamage)
+    }
+
+    @Test
+    fun dualPlayersReceiveTheSameConfidenceIndependentDamageRule() {
+        listOf(PlayerId.P1, PlayerId.P2).forEach { attacker ->
+            val lowerConfidence = BoxingGameSession.start("boxing-dual-low-${attacker.name}", 19L, 0, GameMode.DUAL)
+            val fullConfidence = BoxingGameSession.start("boxing-dual-high-${attacker.name}", 19L, 0, GameMode.DUAL)
+
+            queueAndAdvance(lowerConfidence, 0, MotionType.PUNCH_JAB, confidence = 0.55f, playerId = attacker)
+            queueAndAdvance(fullConfidence, 0, MotionType.PUNCH_JAB, confidence = 1f, playerId = attacker)
+
+            val lowActor = lowerConfidence.snapshot.players.getValue(attacker)
+            val highActor = fullConfidence.snapshot.players.getValue(attacker)
+            assertEquals(highActor.lastPlayerDamage, lowActor.lastPlayerDamage)
+            assertEquals(highActor.score, lowActor.score)
+            val defender = if (attacker == PlayerId.P1) PlayerId.P2 else PlayerId.P1
+            assertEquals(
+                fullConfidence.snapshot.players.getValue(defender).health,
+                lowerConfidence.snapshot.players.getValue(defender).health,
+            )
+        }
+    }
+
+    @Test
+    fun motionAndTouchSourcesResolveToTheSameBoxingState() {
+        val motion = BoxingGameSession.start("boxing-source-equivalence", 20L, 0)
+        val touch = BoxingGameSession.start("boxing-source-equivalence", 20L, 0)
+
+        assertTrue(motion.accept(event(motion, 0, MotionType.PUNCH_JAB, quality = 0.8f, confidence = 0.7f, source = InputSource.MOTION)) is BoxingInputResult.Queued)
+        assertTrue(touch.accept(event(touch, 0, MotionType.PUNCH_JAB, quality = 0.8f, confidence = 0.7f, source = InputSource.TOUCH)) is BoxingInputResult.Queued)
+        motion.advanceTicks(1)
+        touch.advanceTicks(1)
+
+        assertEquals(motion.snapshot, touch.snapshot)
+    }
+
+    @Test
     fun pauseFreezesTimerClearsQueuedInputsAndRequiresAnExplicitResume() {
         val game = game()
         assertTrue(game.accept(event(game, 0, MotionType.PUNCH_JAB)) is BoxingInputResult.Queued)
@@ -621,6 +670,7 @@ class BoxingGameSessionTest {
         metadata: Map<String, Float> = emptyMap(),
         playerId: PlayerId = PlayerId.P1,
         eventTimestampNs: Long = sequence * BoxingGameSession.FIXED_STEP_NS,
+        source: InputSource = InputSource.FIXTURE,
     ): MotionEventEnvelope = MotionEventEnvelope(
         eventId = "${game.snapshot.sessionId}/${playerId.name}/$sequence",
         sessionId = game.snapshot.sessionId,
@@ -631,7 +681,7 @@ class BoxingGameSessionTest {
         confidence = confidence,
         eventTimestampNs = eventTimestampNs,
         calibrationRevision = 0,
-        source = InputSource.FIXTURE,
+        source = source,
         metadata = metadata,
     )
 

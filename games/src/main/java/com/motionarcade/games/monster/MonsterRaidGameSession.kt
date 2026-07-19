@@ -321,7 +321,7 @@ class MonsterRaidGameSession private constructor(initial: MonsterRaidSnapshot) {
             MonsterRaidClass.VANGUARD -> if (strong) VANGUARD_STRONG_DAMAGE else VANGUARD_BASIC_DAMAGE
             MonsterRaidClass.RANGER -> if (strong) RANGER_STRONG_DAMAGE else RANGER_BASIC_DAMAGE
         }
-        val quality = min(event.quality, event.confidence).coerceIn(0f, 1f)
+        val quality = event.quality.coerceIn(0f, 1f)
         val damage = (classBase * (0.75f + quality * 0.25f)).roundToInt().coerceAtLeast(1)
         dealDamage(damage, event.playerId)
         if (state.mode == GameMode.SOLO && event.playerId == PlayerId.P1) {

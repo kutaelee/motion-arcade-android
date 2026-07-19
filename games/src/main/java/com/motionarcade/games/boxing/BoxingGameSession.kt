@@ -380,7 +380,7 @@ class BoxingGameSession private constructor(
             }
             return
         }
-        val postureQuality = min(event.quality, event.confidence)
+        val postureQuality = event.quality
         val qualityBonus = when {
             postureQuality >= 0.85f -> MAX_QUALITY_DAMAGE_BONUS
             postureQuality >= 0.65f -> MID_QUALITY_DAMAGE_BONUS
@@ -493,7 +493,7 @@ class BoxingGameSession private constructor(
             )
             return
         }
-        val postureQuality = min(event.quality, event.confidence)
+        val postureQuality = event.quality
         val qualityBonus = when {
             postureQuality >= 0.85f -> MAX_QUALITY_DAMAGE_BONUS
             postureQuality >= 0.65f -> MID_QUALITY_DAMAGE_BONUS
