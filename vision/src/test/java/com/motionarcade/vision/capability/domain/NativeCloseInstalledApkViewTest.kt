@@ -143,6 +143,41 @@ class NativeCloseInstalledApkViewTest {
     }
 
     @Test
+    fun exactZipflingerAlignmentPaddingIsAcceptedAndMutationsFailClosed() {
+        val first = NativeCloseApkTestFixture.Member("classes.dex", byteArrayOf(1), METHOD_STORED)
+        val second = NativeCloseApkTestFixture.Member("lib/x86/liba.so", byteArrayOf(2), METHOD_STORED)
+        val padding = NativeCloseApkTestFixture.alignmentPadding(257) +
+            NativeCloseApkTestFixture.alignmentPadding(11)
+        validImages(
+            plan(
+                "base",
+                ByteArraySource(
+                    NativeCloseApkTestFixture.apk(first, second, gapAfterFirst = padding),
+                ),
+            ),
+        )
+
+        val mutations = listOf(
+            padding.copyOf().also { putLe16(it, 4, 1) },
+            padding.copyOf().also { putLe16(it, 10, 0) },
+            padding.copyOf().also { putLe16(it, 26, 1) },
+            padding.copyOf().also { putLe32(it, 18, 1) },
+            padding.copyOf().also { it[30] = 1 },
+        )
+        mutations.forEach { mutated ->
+            assertPlanFailure(
+                planResult(
+                    "base",
+                    ByteArraySource(
+                        NativeCloseApkTestFixture.apk(first, second, gapAfterFirst = mutated),
+                    ),
+                ),
+                NativeCloseApkFailure.LOCAL_RECORD_INVALID,
+            )
+        }
+    }
+
+    @Test
     fun canonicalNamesDosUnixDirectoriesAndLocalPaddingAreClosed() {
         val duplicate = NativeCloseApkTestFixture.apk(
             NativeCloseApkTestFixture.Member("classes.dex", byteArrayOf(1), METHOD_STORED),
@@ -1412,6 +1447,24 @@ internal object NativeCloseApkTestFixture {
                     .array(),
             )
         }.toByteArray()
+    }
+
+    fun alignmentPadding(extraSize: Int): ByteArray {
+        require(extraSize in 1..0xffff)
+        return ByteBuffer.allocate(30 + extraSize)
+            .order(ByteOrder.LITTLE_ENDIAN)
+            .putInt(LOCAL_SIGNATURE)
+            .putShort(0)
+            .putShort(0)
+            .putShort(0)
+            .putShort(0x0821)
+            .putShort(0x0221)
+            .putInt(0)
+            .putInt(0)
+            .putInt(0)
+            .putShort(0)
+            .putShort(extraSize.toShort())
+            .array()
     }
 
     fun centralOffset(bytes: ByteArray): Int = le32(bytes, bytes.size - EOCD_LENGTH + 16).toInt()

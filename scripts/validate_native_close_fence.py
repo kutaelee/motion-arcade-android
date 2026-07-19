@@ -31,6 +31,12 @@ def reject(rule: str, message: str) -> None:
     raise FenceValidationError(rule, message)
 
 
+MAX_ALIGNMENT_PADDING_BYTES = 8 * 1024 * 1024
+MAX_ALIGNMENT_PADDING_RECORDS = 256
+ALIGNMENT_PADDING_TIME = 0x0821
+ALIGNMENT_PADDING_DATE = 0x0221
+
+
 @dataclass(frozen=True)
 class Record:
     kind: str
@@ -747,8 +753,10 @@ def validate_apk(archive: bytes) -> PackageView:
     next_expected = 0
     offsets: set[int] = set()
     for begin, finish, _ in member_ranges:
-        if begin in offsets or begin != next_expected:
+        if begin in offsets or begin < next_expected:
             reject("LOCAL_PARTITION", f"{begin}/{next_expected}")
+        if begin > next_expected:
+            _alignment_padding(archive, next_expected, begin)
         offsets.add(begin)
         next_expected = finish
 
@@ -758,6 +766,57 @@ def validate_apk(archive: bytes) -> PackageView:
     return PackageView(
         tuple(item[2] for item in member_ranges), signed, directory_start, directory_length
     )
+
+
+def _alignment_padding(archive: bytes, begin: int, finish: int) -> None:
+    """Accept only AGP zipflinger's content-free local padding records.
+
+    They are omitted from the central directory and exist solely to align the next member.  Every
+    semantic field is fixed and every extra byte must be zero, so the gap cannot carry a hidden
+    name, payload, or alternate archive member.
+    """
+    length = finish - begin
+    if length <= 0 or length > MAX_ALIGNMENT_PADDING_BYTES:
+        reject("LOCAL_PADDING_LENGTH", str(length))
+    cursor = begin
+    records = 0
+    while cursor < finish:
+        if records >= MAX_ALIGNMENT_PADDING_RECORDS or finish - cursor < 30:
+            reject("LOCAL_PADDING_RECORD", f"{records}@{cursor}")
+        (
+            signature,
+            version,
+            flags,
+            method,
+            modified_time,
+            modified_date,
+            crc,
+            packed,
+            plain,
+            name_size,
+            extra_size,
+        ) = struct.unpack_from("<IHHHHHIIIHH", archive, cursor)
+        record_end = cursor + 30 + name_size + extra_size + packed
+        if (
+            signature != 0x04034B50
+            or version != 0
+            or flags != 0
+            or method != 0
+            or modified_time != ALIGNMENT_PADDING_TIME
+            or modified_date != ALIGNMENT_PADDING_DATE
+            or crc != 0
+            or packed != 0
+            or plain != 0
+            or name_size != 0
+            or extra_size == 0
+            or record_end > finish
+            or any(archive[cursor + 30 : record_end])
+        ):
+            reject("LOCAL_PADDING_RECORD", f"{records}@{cursor}")
+        cursor = record_end
+        records += 1
+    if cursor != finish or records == 0:
+        reject("LOCAL_PADDING_CONSUMPTION", f"{cursor}/{finish}/{records}")
 
 
 def _signing_block(archive: bytes, begin: int, finish: int) -> None:
