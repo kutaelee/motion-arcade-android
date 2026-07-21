@@ -855,6 +855,14 @@ class MonsterRaidGameSession private constructor(initial: MonsterRaidSnapshot) {
                 snapshot.pendingUltimatePlayer == null ==
                     (snapshot.pendingUltimateTimestampNs == null),
             )
+            if (snapshot.pendingUltimatePlayer != null) {
+                require(snapshot.mode == GameMode.DUAL)
+                require(snapshot.pendingUltimatePlayer == PlayerId.P1 || snapshot.pendingUltimatePlayer == PlayerId.P2)
+                require(snapshot.pendingUltimateTimestampNs!! >= 0L)
+                require(snapshot.stage == MonsterRaidStage.BOSS)
+                require(snapshot.bossPhase == MonsterRaidBossPhase.PHASE_3)
+                require(snapshot.teamCharge == MAX_TEAM_CHARGE)
+            }
         }
 
         private fun initialPlayer(id: PlayerId, playerClass: MonsterRaidClass) = MonsterRaidPlayerState(

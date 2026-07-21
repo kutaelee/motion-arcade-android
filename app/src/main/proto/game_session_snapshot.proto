@@ -1,0 +1,368 @@
+syntax = "proto3";
+
+package motionarcade.snapshot.v1;
+
+option java_package = "com.motionarcade.wire.snapshot.v1";
+option java_multiple_files = true;
+option optimize_for = LITE_RUNTIME;
+
+enum GameIdProto {
+  GAME_ID_UNSPECIFIED = 0;
+  GAME_ID_FISHING = 1;
+  GAME_ID_BOXING = 2;
+  GAME_ID_MONSTER = 3;
+}
+
+enum GameModeProto {
+  GAME_MODE_UNSPECIFIED = 0;
+  GAME_MODE_SOLO = 1;
+  GAME_MODE_DUAL = 2;
+}
+
+enum PlayerIdProto {
+  PLAYER_ID_UNSPECIFIED = 0;
+  PLAYER_ID_P1 = 1;
+  PLAYER_ID_P2 = 2;
+  PLAYER_ID_AI = 3;
+}
+
+enum SessionStatusProto {
+  SESSION_STATUS_UNSPECIFIED = 0;
+  SESSION_STATUS_COUNTDOWN = 1;
+  SESSION_STATUS_RUNNING = 2;
+  SESSION_STATUS_PAUSED = 3;
+  SESSION_STATUS_COMPLETED = 4;
+  SESSION_STATUS_ABORTED = 5;
+}
+
+enum PauseReasonProto {
+  PAUSE_REASON_UNSPECIFIED = 0;
+  PAUSE_REASON_USER = 1;
+  PAUSE_REASON_APP_BACKGROUND = 2;
+  PAUSE_REASON_ROTATION_REBIND = 3;
+  PAUSE_REASON_CAMERA_SWITCH = 4;
+  PAUSE_REASON_CAMERA_ERROR = 5;
+  PAUSE_REASON_POSE_LOST = 6;
+  PAUSE_REASON_PLAYER_OVERLAP = 7;
+  PAUSE_REASON_PLAYER_LANE_CROSS = 8;
+  PAUSE_REASON_THERMAL_CRITICAL = 9;
+  PAUSE_REASON_EVENT_QUEUE_OVERFLOW = 10;
+}
+
+enum FishingPhaseProto {
+  FISHING_PHASE_UNSPECIFIED = 0;
+  FISHING_PHASE_READY = 1;
+  FISHING_PHASE_BITE_WAIT = 2;
+  FISHING_PHASE_HOOK_WINDOW = 3;
+  FISHING_PHASE_REELING = 4;
+  FISHING_PHASE_TENSION = 5;
+  FISHING_PHASE_NETTING = 6;
+  FISHING_PHASE_RESULT = 7;
+}
+
+enum FishingFishProto {
+  FISHING_FISH_UNSPECIFIED = 0;
+  FISHING_FISH_SUNFIN = 1;
+  FISHING_FISH_MOON_CARP = 2;
+}
+
+enum FishingOutcomeProto {
+  FISHING_OUTCOME_UNSPECIFIED = 0;
+  FISHING_OUTCOME_CAUGHT = 1;
+  FISHING_OUTCOME_ESCAPED = 2;
+}
+
+enum BoxingPhaseProto {
+  BOXING_PHASE_UNSPECIFIED = 0;
+  BOXING_PHASE_ROUND = 1;
+  BOXING_PHASE_RESULT = 2;
+}
+
+enum BoxingAiAttackProto {
+  BOXING_AI_ATTACK_UNSPECIFIED = 0;
+  BOXING_AI_ATTACK_STRAIGHT = 1;
+  BOXING_AI_ATTACK_HOOK = 2;
+  BOXING_AI_ATTACK_BODY = 3;
+}
+
+enum BoxingDodgeDirectionProto {
+  BOXING_DODGE_DIRECTION_UNSPECIFIED = 0;
+  BOXING_DODGE_DIRECTION_LEFT = 1;
+  BOXING_DODGE_DIRECTION_RIGHT = 2;
+}
+
+enum BoxingOutcomeProto {
+  BOXING_OUTCOME_UNSPECIFIED = 0;
+  BOXING_OUTCOME_WIN = 1;
+  BOXING_OUTCOME_LOSS = 2;
+  BOXING_OUTCOME_DRAW = 3;
+}
+
+enum MonsterRaidStageProto {
+  MONSTER_RAID_STAGE_UNSPECIFIED = 0;
+  MONSTER_RAID_STAGE_WAVE = 1;
+  MONSTER_RAID_STAGE_ELITE = 2;
+  MONSTER_RAID_STAGE_BOSS = 3;
+  MONSTER_RAID_STAGE_RESULT = 4;
+}
+
+enum MonsterRaidBossPhaseProto {
+  MONSTER_RAID_BOSS_PHASE_UNSPECIFIED = 0;
+  MONSTER_RAID_BOSS_PHASE_1 = 1;
+  MONSTER_RAID_BOSS_PHASE_2 = 2;
+  MONSTER_RAID_BOSS_PHASE_3 = 3;
+}
+
+enum MonsterBossAttackProto {
+  MONSTER_BOSS_ATTACK_UNSPECIFIED = 0;
+  MONSTER_BOSS_ATTACK_CLAW = 1;
+  MONSTER_BOSS_ATTACK_ORB = 2;
+  MONSTER_BOSS_ATTACK_BARRIER = 3;
+}
+
+enum MonsterRaidClassProto {
+  MONSTER_RAID_CLASS_UNSPECIFIED = 0;
+  MONSTER_RAID_CLASS_VANGUARD = 1;
+  MONSTER_RAID_CLASS_RANGER = 2;
+}
+
+enum MonsterRaidLaneProto {
+  MONSTER_RAID_LANE_UNSPECIFIED = 0;
+  MONSTER_RAID_LANE_LEFT = 1;
+  MONSTER_RAID_LANE_CENTER = 2;
+  MONSTER_RAID_LANE_RIGHT = 3;
+}
+
+enum MonsterRaidEnemyProto {
+  MONSTER_RAID_ENEMY_UNSPECIFIED = 0;
+  MONSTER_RAID_ENEMY_MOSS_CRAWLER = 1;
+  MONSTER_RAID_ENEMY_SKY_WISP = 2;
+  MONSTER_RAID_ENEMY_STONE_TUSK = 3;
+  MONSTER_RAID_ENEMY_IRON_WARDEN = 4;
+  MONSTER_RAID_ENEMY_TEMPEST_TITAN = 5;
+}
+
+enum MonsterRaidOutcomeProto {
+  MONSTER_RAID_OUTCOME_UNSPECIFIED = 0;
+  MONSTER_RAID_OUTCOME_VICTORY = 1;
+  MONSTER_RAID_OUTCOME_DEFEAT = 2;
+  MONSTER_RAID_OUTCOME_TIMEOUT = 3;
+}
+
+message DeterministicPrngProto {
+  string algorithm_id = 1;
+  uint32 algorithm_version = 2;
+  repeated int64 state = 3;
+}
+
+message FishingTimelineEpochProto {
+  int64 epoch = 1;
+  int64 base_ns = 2;
+  int64 simulation_base_tick = 3;
+}
+
+message FishingSoloStateProto {
+  uint32 payload_version = 1;
+  int64 event_timeline_epoch = 2;
+  int64 event_timeline_base_ns = 3;
+  int64 event_timeline_simulation_base_tick = 4;
+  uint32 event_timeline_ledger_version = 5;
+  repeated FishingTimelineEpochProto event_timeline_ledger = 6;
+  uint32 calibration_revision = 7;
+  FishingPhaseProto phase = 8;
+  optional FishingFishProto fish = 9;
+  optional int64 bite_at_tick = 10;
+  optional int64 hook_deadline_tick = 11;
+  optional int64 recovery_scheduled_at_tick = 12;
+  uint32 region_difficulty = 13;
+  optional string pending_reward_id = 14;
+}
+
+message FishingSoloPlayerProto {
+  PlayerIdProto player_id = 1;
+  optional int64 cast_event_sequence = 2;
+  optional int64 cast_event_epoch = 3;
+  optional int64 cast_event_tick = 4;
+  optional int64 cast_event_timestamp_ns = 5;
+  optional int64 cast_event_timeline_base_ns = 6;
+  optional int64 cast_event_timeline_simulation_base_tick = 7;
+  optional float cast_quality = 8;
+  optional int64 hook_event_sequence = 9;
+  optional int64 hook_event_epoch = 10;
+  optional int64 hook_event_tick = 11;
+  optional int64 hook_event_timestamp_ns = 12;
+  optional int64 hook_event_timeline_base_ns = 13;
+  optional int64 hook_event_timeline_simulation_base_tick = 14;
+  optional float hook_quality = 15;
+  uint32 reel_cycles = 16;
+  uint32 tension = 17;
+  uint32 reel_score = 18;
+  uint32 tension_score = 19;
+  optional float net_quality = 20;
+  uint32 recovery_tokens = 21;
+  uint32 failure_streak = 22;
+  uint32 score = 23;
+  optional FishingOutcomeProto outcome = 24;
+  sint64 accepted_sequence_watermark = 25;
+  sint64 accepted_event_timestamp_watermark_ns = 26;
+  sint64 last_applied_sequence = 27;
+  sint64 last_applied_event_epoch = 28;
+  optional int64 last_applied_event_tick = 29;
+  sint64 last_applied_event_timestamp_ns = 30;
+  optional int64 last_applied_event_timeline_base_ns = 31;
+  optional int64 last_applied_event_timeline_simulation_base_tick = 32;
+  sint64 last_state_changing_sequence = 33;
+  sint64 last_state_changing_event_epoch = 34;
+  optional int64 last_state_changing_event_tick = 35;
+  sint64 last_state_changing_event_timestamp_ns = 36;
+  optional int64 last_state_changing_event_timeline_base_ns = 37;
+  optional int64 last_state_changing_event_timeline_simulation_base_tick = 38;
+}
+
+message FishingDualStateProto {
+  uint32 payload_version = 1;
+  uint32 calibration_revision = 2;
+  PlayerIdProto rod_player_id = 3;
+  uint32 catches = 4;
+  uint32 combo = 5;
+}
+
+message FishingDualPlayerProto {
+  PlayerIdProto player_id = 1;
+  FishingPhaseProto phase = 2;
+  optional FishingFishProto fish = 3;
+  optional int64 bite_at_tick = 4;
+  optional int64 hook_deadline_tick = 5;
+  optional int64 assist_deadline_tick = 6;
+  uint32 reel_cycles = 7;
+  uint32 tension = 8;
+  uint32 recovery_tokens = 9;
+  uint32 score = 10;
+  optional FishingOutcomeProto outcome = 11;
+  sint64 accepted_sequence_watermark = 12;
+  sint64 accepted_event_timestamp_watermark_ns = 13;
+  sint64 last_applied_sequence = 14;
+}
+
+message BoxingSoloStateProto {
+  uint32 payload_version = 1;
+  uint32 calibration_revision = 2;
+  BoxingPhaseProto phase = 3;
+  uint32 opponent_health = 4;
+  uint32 round_ticks_remaining = 5;
+  optional BoxingAiAttackProto ai_telegraph = 6;
+  uint32 ai_telegraph_ticks_remaining = 7;
+  uint32 ai_attack_ordinal = 8;
+  optional BoxingOutcomeProto outcome = 9;
+}
+
+message BoxingDualStateProto {
+  uint32 payload_version = 1;
+  uint32 calibration_revision = 2;
+  BoxingPhaseProto phase = 3;
+  uint32 round_ticks_remaining = 4;
+  optional BoxingOutcomeProto outcome = 5;
+}
+
+message BoxingPlayerProto {
+  PlayerIdProto player_id = 1;
+  uint32 health = 2;
+  uint32 stamina = 3;
+  uint32 score = 4;
+  uint32 guard_ticks_remaining = 5;
+  optional BoxingDodgeDirectionProto dodge_direction = 6;
+  uint32 dodge_ticks_remaining = 7;
+  uint32 attack_cooldown_ticks = 8;
+  bool requires_return_to_guard = 9;
+  uint32 last_player_damage = 10;
+  uint32 last_received_damage = 11;
+  uint32 blocked_attack_count = 12;
+  uint32 dodged_attack_count = 13;
+  uint32 ignored_strike_count = 14;
+  sint64 accepted_sequence_watermark = 15;
+  sint64 accepted_event_timestamp_watermark_ns = 16;
+  sint64 last_applied_sequence = 17;
+}
+
+message MonsterRaidStateProto {
+  uint32 payload_version = 1;
+  uint32 calibration_revision = 2;
+  MonsterRaidStageProto stage = 3;
+  uint32 wave_index = 4;
+  MonsterRaidEnemyProto enemy = 5;
+  uint32 enemy_health = 6;
+  optional MonsterRaidBossPhaseProto boss_phase = 7;
+  optional MonsterBossAttackProto boss_attack = 8;
+  uint32 boss_telegraph_ticks_remaining = 9;
+  uint32 boss_attack_ordinal = 10;
+  uint32 team_charge = 11;
+  uint32 team_score = 12;
+  uint32 round_ticks_remaining = 13;
+  optional PlayerIdProto pending_ultimate_player = 14;
+  optional int64 pending_ultimate_timestamp_ns = 15;
+  optional int64 last_human_core_action_tick = 16;
+  optional MonsterRaidOutcomeProto outcome = 17;
+}
+
+message MonsterRaidPlayerProto {
+  PlayerIdProto player_id = 1;
+  MonsterRaidClassProto player_class = 2;
+  uint32 health = 3;
+  uint32 stamina = 4;
+  uint32 score = 5;
+  uint32 guard_ticks_remaining = 6;
+  uint32 attack_cooldown_ticks = 7;
+  uint32 skill_one_cooldown_ticks = 8;
+  uint32 skill_two_cooldown_ticks = 9;
+  uint32 skill_one_uses = 10;
+  uint32 skill_two_uses = 11;
+  MonsterRaidLaneProto lane = 12;
+  uint32 danger_evades = 13;
+  bool requires_rearm = 14;
+  bool downed = 15;
+  uint32 revives_performed = 16;
+  uint32 received_revives = 17;
+  uint32 last_damage_dealt = 18;
+  uint32 last_damage_taken = 19;
+  sint64 accepted_sequence_watermark = 20;
+  sint64 accepted_event_timestamp_watermark_ns = 21;
+  sint64 last_applied_sequence = 22;
+}
+
+message GameStateProto {
+  oneof variant {
+    FishingSoloStateProto fishing_solo = 1;
+    FishingDualStateProto fishing_dual = 2;
+    BoxingSoloStateProto boxing_solo = 3;
+    BoxingDualStateProto boxing_dual = 4;
+    MonsterRaidStateProto monster_solo = 5;
+    MonsterRaidStateProto monster_dual = 6;
+  }
+}
+
+message PlayerStateProto {
+  oneof variant {
+    FishingSoloPlayerProto fishing_solo = 1;
+    FishingDualPlayerProto fishing_dual = 2;
+    BoxingPlayerProto boxing_solo = 3;
+    BoxingPlayerProto boxing_dual = 4;
+    MonsterRaidPlayerProto monster_solo = 5;
+    MonsterRaidPlayerProto monster_dual = 6;
+  }
+}
+
+message GameSessionSnapshotProto {
+  uint32 schema_version = 1;
+  string session_id = 2;
+  GameIdProto game_id = 3;
+  GameModeProto mode = 4;
+  int64 simulation_tick = 5;
+  SessionStatusProto status = 6;
+  sint64 seed = 7;
+  DeterministicPrngProto prng = 8;
+  string content_revision = 9;
+  optional PauseReasonProto pause_reason = 10;
+  GameStateProto state = 11;
+  repeated PlayerStateProto players = 12;
+  repeated string committed_reward_ids = 13;
+}

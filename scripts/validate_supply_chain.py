@@ -50,7 +50,7 @@ EXPECTED_MODULES = {"app", "vision", "game-core", "games"}
 EXPECTED_GRADLE_SCRIPTS = {
     "settings.gradle.kts": "5ef64f250c523cb15b25c880949b87329daaeddaf977a074ece1039f5fc3e823",
     "build.gradle.kts": "1e81836a73bf96ac362992bdf7adc8b182f484b804cc70b4c76ec93b3cb7e38c",
-    "app/build.gradle.kts": "3a2263a51e6380de93167f0095e90eb1fb7345f355a22fc7387464cb8820c095",
+    "app/build.gradle.kts": "2d98add0e78ef102a4c66ca557d224f7d49ed4c038e97fb8d651931afcba00dc",
     "vision/build.gradle.kts": "befd8fec1c060aac190d230f7291cc641fca8880270dbf0aafdac3fac8fb9970",
     "game-core/build.gradle.kts": "94fb468af03a57517c11f0c89d0b1771fa2e0f1d7871e8e2bf392f88fd721892",
     "games/build.gradle.kts": "413d75ac39a68163cc15d59abb3cc5faa5c309246125bdbfcc9b55f6479a1201",

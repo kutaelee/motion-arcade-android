@@ -292,6 +292,29 @@ class MonsterRaidGameSessionTest {
     }
 
     @Test
+    fun restoreAcceptsReachablePendingUltimateAndRejectsInvalidOwnerOrTimestamp() {
+        val raid = Harness(GameMode.DUAL)
+        raid.attackUntilBossHealthAtMost(MonsterRaidGameSession.BOSS_PHASE_3_THRESHOLD)
+        while (raid.game.snapshot.teamCharge < MonsterRaidGameSession.MAX_TEAM_CHARGE) raid.advance(1)
+        raid.submit(PlayerId.P1, MotionType.TEAM_ULTIMATE, raid.nextTimestamp(PlayerId.P1))
+        raid.advance(1)
+        val valid = raid.game.snapshot
+
+        assertEquals(PlayerId.P1, valid.pendingUltimatePlayer)
+        assertTrue(runCatching { MonsterRaidGameSession.restore(valid) }.isSuccess)
+        assertTrue(
+            runCatching {
+                MonsterRaidGameSession.restore(valid.copy(pendingUltimatePlayer = PlayerId.AI))
+            }.isFailure,
+        )
+        assertTrue(
+            runCatching {
+                MonsterRaidGameSession.restore(valid.copy(pendingUltimateTimestampNs = -1L))
+            }.isFailure,
+        )
+    }
+
+    @Test
     fun dualRaidCanReachVictoryWithBothRolesContributing() {
         val raid = Harness(GameMode.DUAL)
         while (raid.game.snapshot.stage != MonsterRaidStage.RESULT) {

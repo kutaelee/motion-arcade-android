@@ -6,6 +6,7 @@ import com.android.build.api.instrumentation.FramesComputationMode
 import com.android.build.api.instrumentation.InstrumentationParameters
 import com.android.build.api.instrumentation.InstrumentationScope
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import com.google.protobuf.gradle.id
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.MethodVisitor
 import org.objectweb.asm.Opcodes
@@ -60,6 +61,7 @@ abstract class DisableMediaPipeRemoteLoggingFactory :
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.protobuf)
 }
 
 android {
@@ -138,6 +140,21 @@ kotlin {
     }
 }
 
+protobuf {
+    protoc {
+        artifact = libs.protobuf.protoc.get().toString()
+    }
+    generateProtoTasks {
+        all().configureEach {
+            builtins {
+                id("java") {
+                    option("lite")
+                }
+            }
+        }
+    }
+}
+
 configurations.configureEach {
     exclude(group = "com.google.android.datatransport")
     exclude(group = "com.google.firebase", module = "firebase-encoders")
@@ -177,6 +194,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.protobuf.javalite)
 
     testImplementation(libs.junit4)
     testImplementation(libs.robolectric)
