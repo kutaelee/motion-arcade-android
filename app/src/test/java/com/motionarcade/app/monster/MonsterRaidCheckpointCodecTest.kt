@@ -5,6 +5,8 @@ import com.motionarcade.core.contract.GameId
 import com.motionarcade.core.contract.GameMode
 import com.motionarcade.core.contract.PlayerId
 import com.motionarcade.games.monster.MonsterRaidGameSession
+import com.motionarcade.games.monster.MonsterRaidBossPhase
+import com.motionarcade.games.monster.MonsterRaidEnemy
 import com.motionarcade.games.monster.MonsterRaidStage
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
@@ -14,7 +16,7 @@ import org.junit.Test
 
 class MonsterRaidCheckpointCodecTest {
     @Test
-    fun typedEnvelopeMigratesPreEnvelopeV2FixturesForBothModes() {
+    fun typedEnvelopeMigratesPreEnvelopeV2FixturesToCanonicalV3ForBothModes() {
         val solo = MonsterRaidGameSession.start("monster-legacy-solo", 71L, 2, GameMode.SOLO)
             .checkpointForAppBackground()
         val dual = MonsterRaidGameSession.start("monster-legacy-dual", 73L, 2, GameMode.DUAL)
@@ -32,10 +34,29 @@ class MonsterRaidCheckpointCodecTest {
             val migrated = requireNotNull(MonsterRaidCheckpointCodec.decode(legacy))
             assertEquals(expected, migrated)
             val rewritten = MonsterRaidCheckpointCodec.encode(migrated)
-            assertArrayEquals(
-                legacy,
-                requireNotNull(TypedCheckpointEnvelopeCodec.decode(rewritten)).payload,
+            assertArrayEquals(encoded, rewritten)
+            assertEquals(migrated, MonsterRaidCheckpointCodec.decode(rewritten))
+            assertTrue(
+                !legacy.contentEquals(
+                    requireNotNull(TypedCheckpointEnvelopeCodec.decode(rewritten)).payload,
+                ),
             )
+            val legacyEnvelope = TypedCheckpointEnvelopeCodec.encode(
+                GameId.MONSTER,
+                expected.mode,
+                MonsterRaidCheckpointCodec.PAYLOAD_CODEC_ID,
+                2,
+                legacy,
+            )
+            assertEquals(expected, MonsterRaidCheckpointCodec.decode(legacyEnvelope))
+            val mismatchedVersionEnvelope = TypedCheckpointEnvelopeCodec.encode(
+                GameId.MONSTER,
+                expected.mode,
+                MonsterRaidCheckpointCodec.PAYLOAD_CODEC_ID,
+                MonsterRaidCheckpointCodec.PAYLOAD_CODEC_VERSION,
+                legacy,
+            )
+            assertNull(MonsterRaidCheckpointCodec.decode(mismatchedVersionEnvelope))
         }
     }
 
@@ -55,6 +76,33 @@ class MonsterRaidCheckpointCodecTest {
     }
 
     @Test
+    fun encodedCheckpointContinuesTheSameBossPrngSequenceForBothModes() {
+        GameMode.entries.forEach { mode ->
+            val source = MonsterRaidGameSession.start("raid-codec-prng-${mode.name}", 41L, 2, mode)
+            val bossCheckpoint = source.snapshot.copy(
+                stage = MonsterRaidStage.BOSS,
+                enemy = MonsterRaidEnemy.TEMPEST_TITAN,
+                enemyHealth = MonsterRaidGameSession.BOSS_HEALTH,
+                bossPhase = MonsterRaidBossPhase.PHASE_1,
+            )
+            val checkpoint = MonsterRaidGameSession.restore(bossCheckpoint).snapshot
+            val control = MonsterRaidGameSession.restore(checkpoint)
+            val restored = MonsterRaidGameSession.restore(
+                requireNotNull(MonsterRaidCheckpointCodec.decode(MonsterRaidCheckpointCodec.encode(checkpoint))),
+            )
+            assertTrue(control.resume())
+            assertTrue(restored.resume())
+
+            repeat(45) {
+                assertEquals(control.advanceTicks(1), restored.advanceTicks(1))
+            }
+
+            assertTrue(control.snapshot.bossAttackOrdinal >= 2)
+            assertEquals(control.snapshot.bossAttackOrdinal.toLong(), control.snapshot.prngState)
+        }
+    }
+
+    @Test
     fun deterministicEncodingAndMalformedStateFailClosed() {
         val snapshot = MonsterRaidGameSession.start("raid-codec-negative", 9L, 2, GameMode.DUAL)
             .checkpointForAppBackground()
@@ -64,6 +112,7 @@ class MonsterRaidCheckpointCodecTest {
         assertNull(MonsterRaidCheckpointCodec.decode(encoded.copyOf(encoded.size - 1)))
         assertNull(MonsterRaidCheckpointCodec.decode(ByteArray(MonsterRaidCheckpointCodec.MAX_ENCODED_BYTES + 1)))
         val payload = requireNotNull(TypedCheckpointEnvelopeCodec.decode(encoded)).payload
+        assertNull(MonsterRaidCheckpointCodec.decode(payload))
         val wrongRoute = TypedCheckpointEnvelopeCodec.encode(
             GameId.MONSTER,
             GameMode.SOLO,

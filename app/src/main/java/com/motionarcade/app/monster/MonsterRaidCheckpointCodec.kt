@@ -50,6 +50,7 @@ internal object MonsterRaidCheckpointCodec {
             output.writeLong(snapshot.seed)
             output.writeText(snapshot.prngAlgorithmId)
             output.writeInt(snapshot.prngAlgorithmVersion)
+            output.writeLong(snapshot.prngState)
             output.writeInt(snapshot.calibrationRevision)
             output.writeLong(snapshot.simulationTick)
             output.writeText(snapshot.status.name)
@@ -80,30 +81,47 @@ internal object MonsterRaidCheckpointCodec {
         if (encoded.size !in 1..MAX_ENCODED_BYTES) return null
         val privateBytes = encoded.copyOf()
         var envelopeMode: GameMode? = null
+        var envelopePayloadVersion: Int? = null
         val payload = if (TypedCheckpointEnvelopeCodec.hasEnvelopeMagic(privateBytes)) {
             val envelope = TypedCheckpointEnvelopeCodec.decode(privateBytes) ?: return null
             if (
                 envelope.gameId != GameId.MONSTER ||
                 envelope.payloadCodecId != PAYLOAD_CODEC_ID ||
-                envelope.payloadCodecVersion != PAYLOAD_CODEC_VERSION
+                envelope.payloadCodecVersion !in MIN_SUPPORTED_VERSION..PAYLOAD_CODEC_VERSION
             ) return null
             envelopeMode = envelope.mode
+            envelopePayloadVersion = envelope.payloadCodecVersion
             envelope.payload
         } else {
             privateBytes
         }
-        val snapshot = decodeLegacyPayload(payload) ?: return null
+        val snapshot = decodeLegacyPayload(
+            payload,
+            envelopePayloadVersion ?: MIN_SUPPORTED_VERSION,
+        ) ?: return null
         if (envelopeMode != null && snapshot.mode != envelopeMode) return null
         return snapshot
     }
 
-    private fun decodeLegacyPayload(encoded: ByteArray): MonsterRaidSnapshot? {
+    private fun decodeLegacyPayload(
+        encoded: ByteArray,
+        expectedPayloadVersion: Int?,
+    ): MonsterRaidSnapshot? {
         if (encoded.size !in 1..MAX_PAYLOAD_BYTES) return null
         return runCatching {
             DataInputStream(ByteArrayInputStream(encoded.copyOf())).use { input ->
                 require(input.readInt() == MAGIC)
-                require(input.readInt() == PAYLOAD_CODEC_VERSION)
-                val schemaVersion = input.readInt()
+                val encodedVersion = input.readInt()
+                require(encodedVersion in MIN_SUPPORTED_VERSION..PAYLOAD_CODEC_VERSION)
+                require(expectedPayloadVersion == null || encodedVersion == expectedPayloadVersion)
+                val encodedSchemaVersion = input.readInt()
+                require(
+                    encodedSchemaVersion == if (encodedVersion >= PAYLOAD_CODEC_VERSION) {
+                        MonsterRaidGameSession.SNAPSHOT_SCHEMA_VERSION
+                    } else {
+                        LEGACY_SNAPSHOT_SCHEMA_VERSION
+                    },
+                )
                 val sessionId = input.readText()
                 val gameId = input.readEnum<GameId>()
                 val mode = input.readEnum<GameMode>()
@@ -111,6 +129,7 @@ internal object MonsterRaidCheckpointCodec {
                 val seed = input.readLong()
                 val prngAlgorithmId = input.readText()
                 val prngAlgorithmVersion = input.readInt()
+                val encodedPrngState = if (encodedVersion >= PAYLOAD_CODEC_VERSION) input.readLong() else null
                 val calibrationRevision = input.readInt()
                 val simulationTick = input.readLong()
                 val status = input.readEnum<SessionStatus>()
@@ -136,7 +155,11 @@ internal object MonsterRaidCheckpointCodec {
                 require(input.available() == 0)
                 MonsterRaidGameSession.restore(
                     MonsterRaidSnapshot(
-                        schemaVersion = schemaVersion,
+                        schemaVersion = if (encodedVersion >= PAYLOAD_CODEC_VERSION) {
+                            encodedSchemaVersion
+                        } else {
+                            MonsterRaidGameSession.SNAPSHOT_SCHEMA_VERSION
+                        },
                         sessionId = sessionId,
                         gameId = gameId,
                         mode = mode,
@@ -144,6 +167,7 @@ internal object MonsterRaidCheckpointCodec {
                         seed = seed,
                         prngAlgorithmId = prngAlgorithmId,
                         prngAlgorithmVersion = prngAlgorithmVersion,
+                        prngState = encodedPrngState ?: bossAttackOrdinal.toLong(),
                         calibrationRevision = calibrationRevision,
                         simulationTick = simulationTick,
                         status = status,
@@ -249,7 +273,9 @@ internal object MonsterRaidCheckpointCodec {
 
     private const val MAGIC = 0x4d524149
     const val PAYLOAD_CODEC_ID = "monster-raid-checkpoint"
-    const val PAYLOAD_CODEC_VERSION = 2
+    const val PAYLOAD_CODEC_VERSION = 3
+    private const val MIN_SUPPORTED_VERSION = 2
+    private const val LEGACY_SNAPSHOT_SCHEMA_VERSION = 1
     private const val MAX_PAYLOAD_BYTES = 8 * 1024
     private const val MAX_TEXT_CHARS = 160
 }

@@ -166,6 +166,22 @@ class MonsterRaidGameSessionTest {
                 player.copy(guardTicksRemaining = 0, lastDamageTaken = 0)
             },
         )
+        assertEquals(phaseTwo.bossAttackOrdinal.toLong(), phaseTwo.prngState)
+        assertTrue(
+            runCatching {
+                MonsterRaidGameSession.restore(phaseTwo.copy(prngState = phaseTwo.prngState + 1L))
+            }.isFailure,
+        )
+        assertTrue(
+            runCatching {
+                MonsterRaidGameSession.restore(
+                    phaseTwo.copy(
+                        bossAttackOrdinal = Int.MAX_VALUE,
+                        prngState = Int.MAX_VALUE.toLong(),
+                    ),
+                )
+            }.isFailure,
+        )
         val guarded = MonsterRaidGameSession.restore(phaseTwo)
         val unguarded = MonsterRaidGameSession.restore(phaseTwo)
         assertTrue(guarded.resume())

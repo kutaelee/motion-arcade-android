@@ -1,11 +1,17 @@
 package com.motionarcade.app.boxing
 
 import com.motionarcade.app.checkpoint.TypedCheckpointEnvelopeCodec
+import com.motionarcade.core.contract.ContractResult
+import com.motionarcade.core.contract.DeterministicEventId
 import com.motionarcade.core.contract.GameId
 import com.motionarcade.core.contract.GameMode
+import com.motionarcade.core.contract.InputSource
+import com.motionarcade.core.contract.MotionEventEnvelope
+import com.motionarcade.core.contract.MotionType
 import com.motionarcade.core.contract.PlayerId
 import com.motionarcade.core.contract.SessionStatus
 import com.motionarcade.games.boxing.BoxingGameSession
+import com.motionarcade.games.boxing.BoxingInputResult
 import java.nio.ByteBuffer
 import java.util.Base64
 import org.junit.Assert.assertArrayEquals
@@ -16,7 +22,7 @@ import org.junit.Test
 
 class BoxingCheckpointCodecTest {
     @Test
-    fun typedEnvelopeMigratesPreEnvelopeV3FixturesForBothModes() {
+    fun typedEnvelopeMigratesPreEnvelopeV3FixturesToCanonicalV4ForBothModes() {
         val solo = BoxingGameSession.start("boxing-legacy-solo", 61L, 2, GameMode.SOLO)
             .checkpointForAppBackground()
         val dual = BoxingGameSession.start("boxing-legacy-dual", 67L, 2, GameMode.DUAL)
@@ -34,10 +40,29 @@ class BoxingCheckpointCodecTest {
             val migrated = requireNotNull(BoxingCheckpointCodec.decode(legacy))
             assertEquals(expected, migrated)
             val rewritten = BoxingCheckpointCodec.encode(migrated)
-            assertArrayEquals(
-                legacy,
-                requireNotNull(TypedCheckpointEnvelopeCodec.decode(rewritten)).payload,
+            assertArrayEquals(encoded, rewritten)
+            assertEquals(migrated, BoxingCheckpointCodec.decode(rewritten))
+            assertTrue(
+                !legacy.contentEquals(
+                    requireNotNull(TypedCheckpointEnvelopeCodec.decode(rewritten)).payload,
+                ),
             )
+            val legacyEnvelope = TypedCheckpointEnvelopeCodec.encode(
+                GameId.BOXING,
+                expected.mode,
+                BoxingCheckpointCodec.PAYLOAD_CODEC_ID,
+                3,
+                legacy,
+            )
+            assertEquals(expected, BoxingCheckpointCodec.decode(legacyEnvelope))
+            val mismatchedVersionEnvelope = TypedCheckpointEnvelopeCodec.encode(
+                GameId.BOXING,
+                expected.mode,
+                BoxingCheckpointCodec.PAYLOAD_CODEC_ID,
+                BoxingCheckpointCodec.PAYLOAD_CODEC_VERSION,
+                legacy,
+            )
+            assertNull(BoxingCheckpointCodec.decode(mismatchedVersionEnvelope))
         }
     }
 
@@ -58,6 +83,26 @@ class BoxingCheckpointCodecTest {
     }
 
     @Test
+    fun encodedCheckpointContinuesTheSameSoloAiPrngSequence() {
+        val source = BoxingGameSession.start("boxing-codec-prng", 37L, 2, GameMode.SOLO)
+        repeat(13) { source.advanceTicks(1) }
+        val checkpoint = source.checkpointForAppBackground()
+        val control = BoxingGameSession.restore(checkpoint)
+        val restored = BoxingGameSession.restore(
+            requireNotNull(BoxingCheckpointCodec.decode(BoxingCheckpointCodec.encode(checkpoint))),
+        )
+        assertTrue(control.resume())
+        assertTrue(restored.resume())
+
+        repeat(36) {
+            assertEquals(control.advanceTicks(1), restored.advanceTicks(1))
+        }
+
+        assertTrue(control.snapshot.aiAttackOrdinal >= 4)
+        assertEquals(control.snapshot.aiAttackOrdinal.toLong(), control.snapshot.prngState)
+    }
+
+    @Test
     fun dualRoundTripPreservesBothPlayersAndCompatibilityProjection() {
         val checkpoint = BoxingGameSession.start("boxing-codec-dual", 9L, 4, GameMode.DUAL)
             .checkpointForAppBackground()
@@ -70,6 +115,45 @@ class BoxingCheckpointCodecTest {
     }
 
     @Test
+    fun encodedDualCheckpointContinuesInputsAndClockWithZeroPrngState() {
+        val checkpoint = BoxingGameSession.start("boxing-codec-dual-replay", 43L, 4, GameMode.DUAL)
+            .checkpointForAppBackground()
+        val control = BoxingGameSession.restore(checkpoint)
+        val restored = BoxingGameSession.restore(
+            requireNotNull(BoxingCheckpointCodec.decode(BoxingCheckpointCodec.encode(checkpoint))),
+        )
+        assertTrue(control.resume())
+        assertTrue(restored.resume())
+
+        listOf(PlayerId.P1, PlayerId.P2).forEachIndexed { index, playerId ->
+            val eventId = (
+                DeterministicEventId.create(checkpoint.sessionId, playerId, 0L) as ContractResult.Valid
+            ).value
+            val event = MotionEventEnvelope(
+                eventId = eventId,
+                sessionId = checkpoint.sessionId,
+                playerId = playerId,
+                sequenceNumber = 0L,
+                type = MotionType.PUNCH_JAB,
+                quality = 1f,
+                confidence = 1f,
+                eventTimestampNs = 1_000L + index,
+                calibrationRevision = checkpoint.calibrationRevision,
+                source = InputSource.FIXTURE,
+                metadata = emptyMap(),
+            )
+            assertTrue(control.accept(event) is BoxingInputResult.Queued)
+            assertTrue(restored.accept(event) is BoxingInputResult.Queued)
+        }
+        repeat(8) {
+            assertEquals(control.advanceTicks(1), restored.advanceTicks(1))
+        }
+
+        assertEquals(0, control.snapshot.aiAttackOrdinal)
+        assertEquals(0L, control.snapshot.prngState)
+    }
+
+    @Test
     fun malformedOversizedAndSemanticallyInvalidStateFailClosed() {
         val checkpoint = BoxingGameSession.start("boxing-codec-negative", 9L, 2, GameMode.SOLO)
             .checkpointForAppBackground()
@@ -78,6 +162,7 @@ class BoxingCheckpointCodecTest {
         assertNull(BoxingCheckpointCodec.decode(encoded.copyOf(encoded.size - 1)))
         assertNull(BoxingCheckpointCodec.decode(ByteArray(BoxingCheckpointCodec.MAX_ENCODED_BYTES + 1)))
         val payload = requireNotNull(TypedCheckpointEnvelopeCodec.decode(encoded)).payload
+        assertNull(BoxingCheckpointCodec.decode(payload))
         val wrongRoute = TypedCheckpointEnvelopeCodec.encode(
             GameId.BOXING,
             GameMode.DUAL,

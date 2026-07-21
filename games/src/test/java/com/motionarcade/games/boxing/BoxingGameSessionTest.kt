@@ -388,6 +388,17 @@ class BoxingGameSessionTest {
         assertTrue(runCatching { BoxingGameSession.restore(running.copy(gameId = com.motionarcade.core.contract.GameId.FISHING)) }.isFailure)
         assertTrue(runCatching { BoxingGameSession.restore(running.copy(aiTelegraphTicksRemaining = 1)) }.isFailure)
         assertTrue(runCatching { BoxingGameSession.restore(running.copy(lastAppliedSequence = 0)) }.isFailure)
+        assertTrue(runCatching { BoxingGameSession.restore(running.copy(prngState = 1L)) }.isFailure)
+        assertTrue(
+            runCatching {
+                BoxingGameSession.restore(
+                    running.copy(
+                        aiAttackOrdinal = Int.MAX_VALUE,
+                        prngState = Int.MAX_VALUE.toLong(),
+                    ),
+                )
+            }.isFailure,
+        )
         assertTrue(runCatching { BoxingGameSession.restore(running.copy(roundTicksRemaining = running.roundTicksRemaining - 1)) }.isFailure)
         assertTrue(
             runCatching {
@@ -401,6 +412,19 @@ class BoxingGameSessionTest {
     }
 
     @Test
+    fun soloAiPrngStateAdvancesWithAttackOrdinalAndSurvivesRestore() {
+        val game = BoxingGameSession.start("boxing-prng-checkpoint", 83L, 2, GameMode.SOLO)
+
+        advance(game, BoxingGameSession.AI_ATTACK_CADENCE_TICKS.toInt())
+        val checkpoint = game.checkpointForAppBackground()
+        val restored = BoxingGameSession.restore(checkpoint).snapshot
+
+        assertEquals(1, checkpoint.aiAttackOrdinal)
+        assertEquals(checkpoint.aiAttackOrdinal.toLong(), checkpoint.prngState)
+        assertEquals(checkpoint, restored)
+    }
+
+    @Test
     fun dualRestoreRequiresBothPlayersAndExactP1CompatibilityProjection() {
         val checkpoint = BoxingGameSession.start("boxing-dual-restore", 31L, 2, GameMode.DUAL)
             .checkpointForAppBackground()
@@ -411,6 +435,11 @@ class BoxingGameSessionTest {
         assertEquals(restored.players.getValue(PlayerId.P1).health, restored.playerHealth)
         assertTrue(runCatching { BoxingGameSession.restore(checkpoint.copy(players = checkpoint.players - PlayerId.P2)) }.isFailure)
         assertTrue(runCatching { BoxingGameSession.restore(checkpoint.copy(score = checkpoint.score + 1)) }.isFailure)
+        assertTrue(
+            runCatching {
+                BoxingGameSession.restore(checkpoint.copy(aiAttackOrdinal = 1, prngState = 1L))
+            }.isFailure,
+        )
     }
 
     @Test

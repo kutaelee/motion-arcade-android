@@ -45,6 +45,9 @@ internal object BoxingCheckpointCodec {
             output.writeText(snapshot.mode.name)
             output.writeText(snapshot.contentRevision)
             output.writeLong(snapshot.seed)
+            output.writeText(snapshot.prngAlgorithmId)
+            output.writeInt(snapshot.prngAlgorithmVersion)
+            output.writeLong(snapshot.prngState)
             output.writeInt(snapshot.calibrationRevision)
             output.writeLong(snapshot.simulationTick)
             output.writeText(snapshot.status.name)
@@ -83,37 +86,63 @@ internal object BoxingCheckpointCodec {
         if (encoded.size !in 1..MAX_ENCODED_BYTES) return null
         val privateBytes = encoded.copyOf()
         var envelopeMode: GameMode? = null
+        var envelopePayloadVersion: Int? = null
         val payload = if (TypedCheckpointEnvelopeCodec.hasEnvelopeMagic(privateBytes)) {
             val envelope = TypedCheckpointEnvelopeCodec.decode(privateBytes) ?: return null
             if (
                 envelope.gameId != GameId.BOXING ||
                 envelope.payloadCodecId != PAYLOAD_CODEC_ID ||
-                envelope.payloadCodecVersion != PAYLOAD_CODEC_VERSION
+                envelope.payloadCodecVersion !in MIN_SUPPORTED_VERSION..PAYLOAD_CODEC_VERSION
             ) return null
             envelopeMode = envelope.mode
+            envelopePayloadVersion = envelope.payloadCodecVersion
             envelope.payload
         } else {
             privateBytes
         }
-        val snapshot = decodeLegacyPayload(payload) ?: return null
+        val snapshot = decodeLegacyPayload(
+            payload,
+            envelopePayloadVersion ?: MIN_SUPPORTED_VERSION,
+        ) ?: return null
         if (envelopeMode != null && snapshot.mode != envelopeMode) return null
         return snapshot
     }
 
-    private fun decodeLegacyPayload(encoded: ByteArray): BoxingSnapshot? {
+    private fun decodeLegacyPayload(
+        encoded: ByteArray,
+        expectedPayloadVersion: Int?,
+    ): BoxingSnapshot? {
         if (encoded.size !in 1..MAX_PAYLOAD_BYTES) return null
         return runCatching {
             DataInputStream(ByteArrayInputStream(encoded.copyOf())).use { input ->
                 require(input.readInt() == MAGIC)
                 val encodedVersion = input.readInt()
                 require(encodedVersion in MIN_SUPPORTED_VERSION..PAYLOAD_CODEC_VERSION)
+                require(expectedPayloadVersion == null || encodedVersion == expectedPayloadVersion)
                 val encodedSchemaVersion = input.readInt()
-                if (encodedVersion == 1) require(encodedSchemaVersion == LEGACY_SNAPSHOT_SCHEMA_VERSION)
+                require(
+                    encodedSchemaVersion == if (encodedVersion >= PAYLOAD_CODEC_VERSION) {
+                        BoxingGameSession.SNAPSHOT_SCHEMA_VERSION
+                    } else {
+                        LEGACY_SNAPSHOT_SCHEMA_VERSION
+                    },
+                )
                 val sessionId = input.readText()
                 val gameId = input.readEnum<GameId>()
                 val mode = input.readEnum<GameMode>()
                 val contentRevision = input.readText()
                 val seed = input.readLong()
+                val prngAlgorithmId = if (encodedVersion >= PAYLOAD_CODEC_VERSION) {
+                    input.readText()
+                } else {
+                    BoxingGameSession.PRNG_ALGORITHM_ID
+                }
+                val prngAlgorithmVersion = if (encodedVersion >= PAYLOAD_CODEC_VERSION) {
+                    input.readInt()
+                } else {
+                    BoxingGameSession.PRNG_ALGORITHM_VERSION
+                }
+                val encodedPrngState = if (encodedVersion >= PAYLOAD_CODEC_VERSION) input.readLong() else null
                 val calibrationRevision = input.readInt()
                 val simulationTick = input.readLong()
                 val status = input.readEnum<SessionStatus>()
@@ -154,7 +183,7 @@ internal object BoxingCheckpointCodec {
                 require(input.available() == 0)
                 BoxingGameSession.restore(
                     BoxingSnapshot(
-                        schemaVersion = if (encodedVersion == 1) {
+                        schemaVersion = if (encodedVersion < PAYLOAD_CODEC_VERSION) {
                             BoxingGameSession.SNAPSHOT_SCHEMA_VERSION
                         } else {
                             encodedSchemaVersion
@@ -164,6 +193,9 @@ internal object BoxingCheckpointCodec {
                         mode = mode,
                         contentRevision = contentRevision,
                         seed = seed,
+                        prngAlgorithmId = prngAlgorithmId,
+                        prngAlgorithmVersion = prngAlgorithmVersion,
+                        prngState = encodedPrngState ?: aiAttackOrdinal.toLong(),
                         calibrationRevision = calibrationRevision,
                         simulationTick = simulationTick,
                         status = status,
@@ -295,9 +327,9 @@ internal object BoxingCheckpointCodec {
 
     private const val MAGIC = 0x42584e47
     const val PAYLOAD_CODEC_ID = "boxing-checkpoint"
-    const val PAYLOAD_CODEC_VERSION = 3
+    const val PAYLOAD_CODEC_VERSION = 4
     private const val MIN_SUPPORTED_VERSION = 3
-    private const val LEGACY_SNAPSHOT_SCHEMA_VERSION = 2
+    private const val LEGACY_SNAPSHOT_SCHEMA_VERSION = 4
     private const val MAX_PAYLOAD_BYTES = 8 * 1024
     private const val MAX_TEXT_CHARS = 160
 }
