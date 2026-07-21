@@ -1,10 +1,13 @@
 package com.motionarcade.app.fishing
 
 import com.motionarcade.app.checkpoint.TypedCheckpointEnvelopeCodec
+import com.motionarcade.app.checkpoint.typed.DecodedGameSessionSnapshot
+import com.motionarcade.app.checkpoint.typed.GameSessionSnapshotProtoAdapter
 import com.motionarcade.core.contract.GameId
 import com.motionarcade.core.contract.GameMode
 import com.motionarcade.core.contract.PauseReason
 import com.motionarcade.core.contract.SessionStatus
+import com.motionarcade.games.fishing.DualFishingGameSession
 import com.motionarcade.games.fishing.FishingGameSession
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
@@ -15,7 +18,7 @@ import org.junit.Test
 
 class FishingCheckpointCodecTest {
     @Test
-    fun writerUsesTypedV2EnvelopeAndExactLegacyPayloadMigratesToV2() {
+    fun writerUsesProtoEnvelopeAndRawOrEnvelopedLegacyPayloadMigratesDeterministically() {
         val checkpoint = FishingGameSession.start(
             sessionId = "fishing-envelope-migration",
             seed = 29L,
@@ -25,25 +28,34 @@ class FishingCheckpointCodecTest {
         val expectedPersisted = FishingGameSession.restore(checkpoint).checkpoint()
         val preChangeBytes = FishingLegacyCheckpointFixtures.pausedV1
 
-        val encodedV2 = FishingCheckpointCodec.encode(checkpoint)
-        val envelope = requireNotNull(TypedCheckpointEnvelopeCodec.decode(encodedV2))
+        val encoded = FishingCheckpointCodec.encode(checkpoint)
+        val envelope = requireNotNull(TypedCheckpointEnvelopeCodec.decode(encoded))
         assertEquals(GameId.FISHING, envelope.gameId)
         assertEquals(GameMode.SOLO, envelope.mode)
         assertEquals(FishingCheckpointCodec.PAYLOAD_CODEC_ID, envelope.payloadCodecId)
         assertEquals(FishingCheckpointCodec.PAYLOAD_CODEC_VERSION, envelope.payloadCodecVersion)
+        val typed = GameSessionSnapshotProtoAdapter.decode(envelope.payload)
+        assertTrue(typed is DecodedGameSessionSnapshot.FishingSolo)
+        assertEquals(expectedPersisted, (typed as DecodedGameSessionSnapshot.FishingSolo).snapshot)
 
-        val migrated = requireNotNull(FishingCheckpointCodec.decode(preChangeBytes))
-        assertEquals(expectedPersisted, migrated)
-        assertEquals(SessionStatus.RUNNING, checkpoint.status)
-        assertEquals(SessionStatus.PAUSED, migrated.status)
-        assertEquals(PauseReason.APP_BACKGROUND, migrated.pauseReason)
-        val rewritten = FishingCheckpointCodec.encode(migrated)
-        assertTrue(TypedCheckpointEnvelopeCodec.hasEnvelopeMagic(rewritten))
-        assertArrayEquals(encodedV2, rewritten)
-        assertArrayEquals(
+        val rawMigrated = requireNotNull(FishingCheckpointCodec.decode(preChangeBytes))
+        val legacyEnvelope = TypedCheckpointEnvelopeCodec.encode(
+            GameId.FISHING,
+            GameMode.SOLO,
+            "fishing-solo-checkpoint",
+            1,
             preChangeBytes,
-            requireNotNull(TypedCheckpointEnvelopeCodec.decode(rewritten)).payload,
         )
+        val envelopedMigrated = requireNotNull(FishingCheckpointCodec.decode(legacyEnvelope))
+        assertEquals(expectedPersisted, rawMigrated)
+        assertEquals(expectedPersisted, envelopedMigrated)
+        assertEquals(SessionStatus.RUNNING, checkpoint.status)
+        assertEquals(SessionStatus.PAUSED, rawMigrated.status)
+        assertEquals(PauseReason.APP_BACKGROUND, rawMigrated.pauseReason)
+        val rewritten = FishingCheckpointCodec.encode(rawMigrated)
+        assertTrue(TypedCheckpointEnvelopeCodec.hasEnvelopeMagic(rewritten))
+        assertArrayEquals(encoded, rewritten)
+        assertArrayEquals(rewritten, FishingCheckpointCodec.encode(envelopedMigrated))
     }
 
     @Test
@@ -65,6 +77,14 @@ class FishingCheckpointCodecTest {
             payload,
         )
         assertNull(FishingCheckpointCodec.decode(wrongMode))
+        val wrongGame = TypedCheckpointEnvelopeCodec.encode(
+            GameId.BOXING,
+            GameMode.SOLO,
+            FishingCheckpointCodec.PAYLOAD_CODEC_ID,
+            FishingCheckpointCodec.PAYLOAD_CODEC_VERSION,
+            payload,
+        )
+        assertNull(FishingCheckpointCodec.decode(wrongGame))
         val wrongCodec = TypedCheckpointEnvelopeCodec.encode(
             GameId.FISHING,
             GameMode.SOLO,
@@ -73,6 +93,36 @@ class FishingCheckpointCodecTest {
             payload,
         )
         assertNull(FishingCheckpointCodec.decode(wrongCodec))
+        val wrongVersion = TypedCheckpointEnvelopeCodec.encode(
+            GameId.FISHING,
+            GameMode.SOLO,
+            FishingCheckpointCodec.PAYLOAD_CODEC_ID,
+            FishingCheckpointCodec.PAYLOAD_CODEC_VERSION + 1,
+            payload,
+        )
+        assertNull(FishingCheckpointCodec.decode(wrongVersion))
+        val dualPayload = requireNotNull(
+            GameSessionSnapshotProtoAdapter.encode(
+                DualFishingGameSession.start("wrong-solo-type", 31L, 2).checkpointForAppBackground(),
+            ),
+        )
+        val wrongType = TypedCheckpointEnvelopeCodec.encode(
+            GameId.FISHING,
+            GameMode.SOLO,
+            FishingCheckpointCodec.PAYLOAD_CODEC_ID,
+            FishingCheckpointCodec.PAYLOAD_CODEC_VERSION,
+            dualPayload,
+        )
+        assertNull(FishingCheckpointCodec.decode(wrongType))
+        val wrongLegacyVersion = TypedCheckpointEnvelopeCodec.encode(
+            GameId.FISHING,
+            GameMode.SOLO,
+            "fishing-solo-checkpoint",
+            2,
+            FishingLegacyCheckpointFixtures.pausedV1,
+        )
+        assertNull(FishingCheckpointCodec.decode(wrongLegacyVersion))
+        assertNull(FishingCheckpointCodec.decode(payload))
         assertNull(
             FishingCheckpointCodec.decode(
                 """{"schemaVersion":1,"gameId":"FISHING","mode":"SOLO","state":{}}"""

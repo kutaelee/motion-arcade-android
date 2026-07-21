@@ -1,6 +1,8 @@
 package com.motionarcade.app.fishing
 
 import com.motionarcade.app.checkpoint.TypedCheckpointEnvelopeCodec
+import com.motionarcade.app.checkpoint.typed.DecodedGameSessionSnapshot
+import com.motionarcade.app.checkpoint.typed.GameSessionSnapshotProtoAdapter
 import com.motionarcade.core.contract.DeterministicEventId
 import com.motionarcade.core.contract.InputSource
 import com.motionarcade.core.contract.MotionEventEnvelope
@@ -20,7 +22,7 @@ import org.junit.Test
 
 class DualFishingCheckpointCodecTest {
     @Test
-    fun writerUsesTypedEnvelopeAndPreEnvelopeV2MigratesExactly() {
+    fun writerUsesProtoEnvelopeAndRawOrEnvelopedV2MigratesDeterministically() {
         val checkpoint = DualFishingGameSession.start(
             "dual-legacy-envelope",
             seed = 53L,
@@ -34,14 +36,23 @@ class DualFishingCheckpointCodecTest {
         assertEquals(GameMode.DUAL, envelope.mode)
         assertEquals(DualFishingCheckpointCodec.PAYLOAD_CODEC_ID, envelope.payloadCodecId)
         assertEquals(DualFishingCheckpointCodec.PAYLOAD_CODEC_VERSION, envelope.payloadCodecVersion)
-        val migrated = requireNotNull(DualFishingCheckpointCodec.decode(legacy))
-        assertEquals(checkpoint, migrated)
-        val rewritten = DualFishingCheckpointCodec.encode(migrated)
-        assertArrayEquals(encoded, rewritten)
-        assertArrayEquals(
+        val typed = GameSessionSnapshotProtoAdapter.decode(envelope.payload)
+        assertTrue(typed is DecodedGameSessionSnapshot.FishingDual)
+        assertEquals(checkpoint, (typed as DecodedGameSessionSnapshot.FishingDual).snapshot)
+        val rawMigrated = requireNotNull(DualFishingCheckpointCodec.decode(legacy))
+        val legacyEnvelope = TypedCheckpointEnvelopeCodec.encode(
+            GameId.FISHING,
+            GameMode.DUAL,
+            "fishing-dual-checkpoint",
+            2,
             legacy,
-            requireNotNull(TypedCheckpointEnvelopeCodec.decode(rewritten)).payload,
         )
+        val envelopedMigrated = requireNotNull(DualFishingCheckpointCodec.decode(legacyEnvelope))
+        assertEquals(checkpoint, rawMigrated)
+        assertEquals(checkpoint, envelopedMigrated)
+        val rewritten = DualFishingCheckpointCodec.encode(rawMigrated)
+        assertArrayEquals(encoded, rewritten)
+        assertArrayEquals(rewritten, DualFishingCheckpointCodec.encode(envelopedMigrated))
     }
 
     @Test
@@ -84,6 +95,10 @@ class DualFishingCheckpointCodecTest {
 
         assertArrayEquals(encoded, DualFishingCheckpointCodec.encode(snapshot))
         assertNull(DualFishingCheckpointCodec.decode(encoded.copyOf(encoded.size - 1)))
+        val corrupted = encoded.copyOf().also { bytes ->
+            bytes[bytes.lastIndex] = (bytes.last().toInt() xor 1).toByte()
+        }
+        assertNull(DualFishingCheckpointCodec.decode(corrupted))
         assertNull(DualFishingCheckpointCodec.decode(ByteArray(DualFishingCheckpointCodec.MAX_ENCODED_BYTES + 1)))
         val payload = requireNotNull(TypedCheckpointEnvelopeCodec.decode(encoded)).payload
         val wrongRoute = TypedCheckpointEnvelopeCodec.encode(
@@ -94,6 +109,57 @@ class DualFishingCheckpointCodecTest {
             payload,
         )
         assertNull(DualFishingCheckpointCodec.decode(wrongRoute))
+        val wrongGame = TypedCheckpointEnvelopeCodec.encode(
+            GameId.BOXING,
+            GameMode.DUAL,
+            DualFishingCheckpointCodec.PAYLOAD_CODEC_ID,
+            DualFishingCheckpointCodec.PAYLOAD_CODEC_VERSION,
+            payload,
+        )
+        assertNull(DualFishingCheckpointCodec.decode(wrongGame))
+        val unknownCodec = TypedCheckpointEnvelopeCodec.encode(
+            GameId.FISHING,
+            GameMode.DUAL,
+            "unknown-checkpoint-codec",
+            DualFishingCheckpointCodec.PAYLOAD_CODEC_VERSION,
+            payload,
+        )
+        assertNull(DualFishingCheckpointCodec.decode(unknownCodec))
+        val wrongVersion = TypedCheckpointEnvelopeCodec.encode(
+            GameId.FISHING,
+            GameMode.DUAL,
+            DualFishingCheckpointCodec.PAYLOAD_CODEC_ID,
+            DualFishingCheckpointCodec.PAYLOAD_CODEC_VERSION + 1,
+            payload,
+        )
+        assertNull(DualFishingCheckpointCodec.decode(wrongVersion))
+        val soloPayload = requireNotNull(
+            GameSessionSnapshotProtoAdapter.encode(
+                com.motionarcade.games.fishing.FishingGameSession.start(
+                    "wrong-dual-type",
+                    3L,
+                    2,
+                    0L,
+                ).checkpoint(),
+            ),
+        )
+        val wrongType = TypedCheckpointEnvelopeCodec.encode(
+            GameId.FISHING,
+            GameMode.DUAL,
+            DualFishingCheckpointCodec.PAYLOAD_CODEC_ID,
+            DualFishingCheckpointCodec.PAYLOAD_CODEC_VERSION,
+            soloPayload,
+        )
+        assertNull(DualFishingCheckpointCodec.decode(wrongType))
+        val wrongLegacyVersion = TypedCheckpointEnvelopeCodec.encode(
+            GameId.FISHING,
+            GameMode.DUAL,
+            "fishing-dual-checkpoint",
+            1,
+            DualFishingLegacyCheckpointFixtures.pausedV2,
+        )
+        assertNull(DualFishingCheckpointCodec.decode(wrongLegacyVersion))
+        assertNull(DualFishingCheckpointCodec.decode(payload))
         assertNull(
             DualFishingCheckpointCodec.decode(
                 """{"schemaVersion":1,"gameId":"FISHING","mode":"DUAL","state":{}}"""

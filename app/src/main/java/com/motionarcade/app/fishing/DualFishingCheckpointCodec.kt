@@ -1,6 +1,8 @@
 package com.motionarcade.app.fishing
 
 import com.motionarcade.app.checkpoint.TypedCheckpointEnvelopeCodec
+import com.motionarcade.app.checkpoint.typed.DecodedGameSessionSnapshot
+import com.motionarcade.app.checkpoint.typed.GameSessionSnapshotProtoAdapter
 import com.motionarcade.core.contract.GameId
 import com.motionarcade.core.contract.GameMode
 import com.motionarcade.core.contract.PauseReason
@@ -23,7 +25,9 @@ internal object DualFishingCheckpointCodec {
 
     fun encode(snapshot: DualFishingSnapshot): ByteArray {
         val canonicalSnapshot = DualFishingGameSession.restore(snapshot).snapshot
-        val payload = encodeLegacyPayload(canonicalSnapshot)
+        val payload = requireNotNull(GameSessionSnapshotProtoAdapter.encode(canonicalSnapshot)) {
+            "Dual fishing checkpoint cannot be represented by the typed snapshot contract"
+        }
         return TypedCheckpointEnvelopeCodec.encode(
             gameId = GameId.FISHING,
             mode = GameMode.DUAL,
@@ -37,7 +41,7 @@ internal object DualFishingCheckpointCodec {
         val buffer = ByteArrayOutputStream()
         DataOutputStream(buffer).use { output ->
             output.writeInt(MAGIC)
-            output.writeInt(PAYLOAD_CODEC_VERSION)
+            output.writeInt(LEGACY_PAYLOAD_CODEC_VERSION)
             output.writeInt(snapshot.schemaVersion)
             output.writeBoundedUtf(snapshot.sessionId)
             output.writeBoundedUtf(snapshot.gameId.name)
@@ -64,18 +68,23 @@ internal object DualFishingCheckpointCodec {
     fun decode(encoded: ByteArray): DualFishingSnapshot? {
         if (encoded.size !in 1..MAX_ENCODED_BYTES) return null
         val privateBytes = encoded.copyOf()
-        val payload = if (TypedCheckpointEnvelopeCodec.hasEnvelopeMagic(privateBytes)) {
+        if (TypedCheckpointEnvelopeCodec.hasEnvelopeMagic(privateBytes)) {
             val envelope = TypedCheckpointEnvelopeCodec.decode(privateBytes) ?: return null
-            if (
-                envelope.gameId != GameId.FISHING || envelope.mode != GameMode.DUAL ||
-                envelope.payloadCodecId != PAYLOAD_CODEC_ID ||
-                envelope.payloadCodecVersion != PAYLOAD_CODEC_VERSION
-            ) return null
-            envelope.payload
-        } else {
-            privateBytes
+            if (envelope.gameId != GameId.FISHING || envelope.mode != GameMode.DUAL) return null
+            return when {
+                envelope.payloadCodecId == PAYLOAD_CODEC_ID &&
+                    envelope.payloadCodecVersion == PAYLOAD_CODEC_VERSION ->
+                    (GameSessionSnapshotProtoAdapter.decode(envelope.payload) as?
+                        DecodedGameSessionSnapshot.FishingDual)?.snapshot
+
+                envelope.payloadCodecId == LEGACY_PAYLOAD_CODEC_ID &&
+                    envelope.payloadCodecVersion == LEGACY_PAYLOAD_CODEC_VERSION ->
+                    decodeLegacyPayload(envelope.payload)
+
+                else -> null
+            }
         }
-        return decodeLegacyPayload(payload)
+        return decodeLegacyPayload(privateBytes)
     }
 
     private fun decodeLegacyPayload(encoded: ByteArray): DualFishingSnapshot? {
@@ -83,7 +92,7 @@ internal object DualFishingCheckpointCodec {
         return runCatching {
             DataInputStream(ByteArrayInputStream(encoded.copyOf())).use { input ->
                 require(input.readInt() == MAGIC)
-                require(input.readInt() == PAYLOAD_CODEC_VERSION)
+                require(input.readInt() == LEGACY_PAYLOAD_CODEC_VERSION)
                 val schemaVersion = input.readInt()
                 val sessionId = input.readBoundedUtf()
                 val gameId = input.readEnum<GameId>()
@@ -193,8 +202,10 @@ internal object DualFishingCheckpointCodec {
         if (readBoolean()) readEnum() else null
 
     private const val MAGIC = 0x44465348
-    const val PAYLOAD_CODEC_ID = "fishing-dual-checkpoint"
-    const val PAYLOAD_CODEC_VERSION = 2
+    const val PAYLOAD_CODEC_ID = "game-session-snapshot-proto"
+    const val PAYLOAD_CODEC_VERSION = 1
+    private const val LEGACY_PAYLOAD_CODEC_ID = "fishing-dual-checkpoint"
+    private const val LEGACY_PAYLOAD_CODEC_VERSION = 2
     private const val MAX_PAYLOAD_BYTES = 4 * 1024
     private const val MAX_STRING_CHARS = 160
     private val PLAYERS = listOf(PlayerId.P1, PlayerId.P2)
