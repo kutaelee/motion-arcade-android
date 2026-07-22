@@ -63,6 +63,9 @@ data class BoxingSnapshot(
     val mode: GameMode,
     val contentRevision: String,
     val seed: Long,
+    val prngAlgorithmId: String,
+    val prngAlgorithmVersion: Int,
+    val prngState: Long,
     val calibrationRevision: Int,
     val simulationTick: Long,
     val status: SessionStatus,
@@ -380,7 +383,7 @@ class BoxingGameSession private constructor(
             }
             return
         }
-        val postureQuality = min(event.quality, event.confidence)
+        val postureQuality = event.quality
         val qualityBonus = when {
             postureQuality >= 0.85f -> MAX_QUALITY_DAMAGE_BONUS
             postureQuality >= 0.65f -> MID_QUALITY_DAMAGE_BONUS
@@ -493,7 +496,7 @@ class BoxingGameSession private constructor(
             )
             return
         }
-        val postureQuality = min(event.quality, event.confidence)
+        val postureQuality = event.quality
         val qualityBonus = when {
             postureQuality >= 0.85f -> MAX_QUALITY_DAMAGE_BONUS
             postureQuality >= 0.65f -> MID_QUALITY_DAMAGE_BONUS
@@ -524,9 +527,10 @@ class BoxingGameSession private constructor(
         if (attack == null) {
             if (state.simulationTick % AI_ATTACK_CADENCE_TICKS == 0L) {
                 state = state.copy(
-                    aiTelegraph = nextAiAttack(state.seed, state.aiAttackOrdinal),
+                    aiTelegraph = nextAiAttack(state.seed, state.prngState),
                     aiTelegraphTicksRemaining = AI_TELEGRAPH_TICKS,
                     aiAttackOrdinal = state.aiAttackOrdinal + 1,
+                    prngState = state.prngState + 1L,
                 )
             }
             return
@@ -655,8 +659,10 @@ class BoxingGameSession private constructor(
         )
         val AI_ATTACKS = BoxingAiAttack.entries
 
-        const val SNAPSHOT_SCHEMA_VERSION = 4
+        const val SNAPSHOT_SCHEMA_VERSION = 5
         const val CONTENT_REVISION = "boxing-rules-v3-pvp"
+        const val PRNG_ALGORITHM_ID = "boxing-ai-ordinal-v1"
+        const val PRNG_ALGORITHM_VERSION = 1
         const val FIXED_STEP_NS = 100_000_000L
         const val ROUND_TICKS = 900
         const val MAX_CATCH_UP_TICKS = 5
@@ -699,6 +705,9 @@ class BoxingGameSession private constructor(
                     mode = mode,
                     contentRevision = CONTENT_REVISION,
                     seed = seed,
+                    prngAlgorithmId = PRNG_ALGORITHM_ID,
+                    prngAlgorithmVersion = PRNG_ALGORITHM_VERSION,
+                    prngState = 0L,
                     calibrationRevision = calibrationRevision,
                     simulationTick = 0L,
                     status = SessionStatus.RUNNING,
@@ -750,6 +759,10 @@ class BoxingGameSession private constructor(
             require(snapshot.sessionId.length in 1..120)
             require(snapshot.gameId == GameId.BOXING)
             require(snapshot.contentRevision == CONTENT_REVISION)
+            require(snapshot.prngAlgorithmId == PRNG_ALGORITHM_ID)
+            require(snapshot.prngAlgorithmVersion == PRNG_ALGORITHM_VERSION)
+            require(snapshot.prngState == snapshot.aiAttackOrdinal.toLong())
+            require(snapshot.prngState in 0L..snapshot.simulationTick)
             require(snapshot.calibrationRevision >= 0)
             require(snapshot.simulationTick in 0L..ROUND_TICKS.toLong())
             require(snapshot.playerHealth in 0..MAX_HEALTH)
@@ -819,6 +832,7 @@ class BoxingGameSession private constructor(
                 require(snapshot.dodgedAttackCount == p1.dodgedAttackCount)
                 require(snapshot.ignoredStrikeCount == p1.ignoredStrikeCount)
                 require(snapshot.aiTelegraph == null && snapshot.aiTelegraphTicksRemaining == 0)
+                require(snapshot.aiAttackOrdinal == 0 && snapshot.prngState == 0L)
             }
 
             require((snapshot.phase == BoxingPhase.RESULT) == (snapshot.outcome != null))
@@ -919,8 +933,8 @@ class BoxingGameSession private constructor(
                 )
             }
 
-        private fun nextAiAttack(seed: Long, ordinal: Int): BoxingAiAttack {
-            val index = ((seed xor ordinal.toLong()) and Long.MAX_VALUE) % AI_ATTACKS.size
+        private fun nextAiAttack(seed: Long, prngState: Long): BoxingAiAttack {
+            val index = ((seed xor prngState) and Long.MAX_VALUE) % AI_ATTACKS.size
             return AI_ATTACKS[index.toInt()]
         }
 

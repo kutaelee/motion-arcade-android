@@ -40,6 +40,11 @@ class DualFishingGameSessionTest {
         assertEquals(FishingOutcome.CAUGHT, game.snapshot.players.getValue(PlayerId.P1).outcome)
         assertEquals(1, game.snapshot.catches)
         assertEquals(1, game.snapshot.combo)
+        val p1Score = game.snapshot.players.getValue(PlayerId.P1).score
+        val p2Score = game.snapshot.players.getValue(PlayerId.P2).score
+        assertTrue(p1Score > 0)
+        assertTrue(p2Score > 0)
+        assertEquals(p1Score + p2Score, game.snapshot.teamScore)
     }
 
     @Test
@@ -82,15 +87,67 @@ class DualFishingGameSessionTest {
         assertTrue(second.accept(event(second, PlayerId.P1, 3, MotionType.FISH_REEL_CYCLE, rodTimestamp)) is DualFishingInputResult.Queued)
         assertTrue(second.accept(event(second, PlayerId.P2, 0, MotionType.FISH_TENSION_LEFT, supportTimestamp)) is DualFishingInputResult.Queued)
 
+        val scoresBefore = first.snapshot.players.mapValues { it.value.score }
+
         assertEquals(first.advanceTicks(1), second.advanceTicks(1))
         assertEquals(FishingPhase.REELING, shared(first).phase)
         assertTrue(shared(first).tension < 48)
+        assertEquals(scoresBefore.getValue(PlayerId.P1) + 60, first.snapshot.players.getValue(PlayerId.P1).score)
+        assertEquals(scoresBefore.getValue(PlayerId.P2) + 40, first.snapshot.players.getValue(PlayerId.P2).score)
+    }
+
+    @Test
+    fun sameTickDuplicateCastAndHookAwardOnlyTheAppliedTransition() {
+        val casts = game("coop-duplicate-cast", seed = 31L)
+        assertTrue(casts.accept(event(casts, PlayerId.P1, 0, MotionType.FISH_CAST)) is DualFishingInputResult.Queued)
+        assertTrue(casts.accept(event(casts, PlayerId.P1, 1, MotionType.FISH_CAST)) is DualFishingInputResult.Queued)
+        casts.advanceTicks(1)
+
+        assertEquals(FishingPhase.BITE_WAIT, shared(casts).phase)
+        assertEquals(100, casts.snapshot.players.getValue(PlayerId.P1).score)
+        assertEquals(100, casts.snapshot.teamScore)
+
+        val hooks = game("coop-duplicate-hook", seed = 31L)
+        castAndOpenHook(hooks, 0)
+        val beforeHookScore = hooks.snapshot.players.getValue(PlayerId.P1).score
+        assertTrue(hooks.accept(event(hooks, PlayerId.P1, 1, MotionType.FISH_HOOK)) is DualFishingInputResult.Queued)
+        assertTrue(hooks.accept(event(hooks, PlayerId.P1, 2, MotionType.FISH_HOOK)) is DualFishingInputResult.Queued)
+        hooks.advanceTicks(1)
+
+        assertEquals(FishingPhase.REELING, shared(hooks).phase)
+        assertEquals(beforeHookScore + 150, hooks.snapshot.players.getValue(PlayerId.P1).score)
+        assertEquals(beforeHookScore + 150, hooks.snapshot.teamScore)
+    }
+
+    @Test
+    fun supportScoresOnlyWhenTensionActuallyDecreases() {
+        val zeroTension = game("coop-zero-tension", seed = 17L)
+        castAndOpenHook(zeroTension, 0)
+        submit(zeroTension, PlayerId.P1, 1, MotionType.FISH_HOOK)
+        assertEquals(0, shared(zeroTension).tension)
+        submit(zeroTension, PlayerId.P2, 0, MotionType.FISH_TENSION_LEFT)
+        assertEquals(0, zeroTension.snapshot.players.getValue(PlayerId.P2).score)
+
+        val overRelief = game("coop-over-relief", seed = 17L)
+        castAndOpenHook(overRelief, 0)
+        submit(overRelief, PlayerId.P1, 1, MotionType.FISH_HOOK)
+        submit(overRelief, PlayerId.P1, 2, MotionType.FISH_REEL_CYCLE)
+        submit(overRelief, PlayerId.P1, 3, MotionType.FISH_REEL_CYCLE)
+        submit(overRelief, PlayerId.P2, 0, MotionType.FISH_TENSION_LEFT)
+        assertEquals(12, shared(overRelief).tension)
+        val supportBefore = overRelief.snapshot.players.getValue(PlayerId.P2).score
+        assertTrue(overRelief.accept(event(overRelief, PlayerId.P2, 1, MotionType.FISH_TENSION_LEFT)) is DualFishingInputResult.Queued)
+        assertTrue(overRelief.accept(event(overRelief, PlayerId.P2, 2, MotionType.FISH_TENSION_LEFT)) is DualFishingInputResult.Queued)
+        overRelief.advanceTicks(1)
+
+        assertEquals(0, shared(overRelief).tension)
+        assertEquals(supportBefore + 40, overRelief.snapshot.players.getValue(PlayerId.P2).score)
     }
 
     @Test
     fun roleSwitchIsExplicitAndOnlyAvailableAtResultBoundary() {
         val game = completedGame("coop-role-switch")
-        val score = shared(game).score
+        val scores = game.snapshot.players.mapValues { it.value.score }
         val watermarks = game.snapshot.players.mapValues { it.value.acceptedSequenceWatermark }
 
         val next = game.startNextCatch(switchRoles = true)
@@ -98,7 +155,7 @@ class DualFishingGameSessionTest {
         assertEquals(PlayerId.P2, next.rodPlayerId)
         assertEquals(SessionStatus.RUNNING, next.status)
         assertEquals(FishingPhase.READY, shared(game).phase)
-        assertEquals(score, shared(game).score)
+        assertEquals(scores, game.snapshot.players.mapValues { it.value.score })
         assertEquals(watermarks, next.players.mapValues { it.value.acceptedSequenceWatermark })
         assertWrongRole(game, PlayerId.P1, 100, MotionType.FISH_CAST)
         assertTrue(runCatching { game.startNextCatch(false) }.isFailure)
@@ -125,6 +182,7 @@ class DualFishingGameSessionTest {
         submit(game, PlayerId.P1, 2, MotionType.FISH_REEL_CYCLE)
         submit(game, PlayerId.P1, 3, MotionType.FISH_REEL_CYCLE)
         val before = shared(game)
+        val scoresBefore = game.snapshot.players.mapValues { it.value.score }
         val tick = game.snapshot.simulationTick
 
         game.pause(PauseReason.POSE_LOST)
@@ -135,7 +193,7 @@ class DualFishingGameSessionTest {
         assertEquals(tick, game.snapshot.simulationTick)
         assertEquals(before.tension - 12, shared(game).tension)
         assertEquals(once, shared(game).tension)
-        assertEquals(before.score, shared(game).score)
+        assertEquals(scoresBefore, game.snapshot.players.mapValues { it.value.score })
         assertEquals(before.outcome, shared(game).outcome)
         assertEquals(PauseReason.POSE_LOST, game.snapshot.pauseReason)
     }
@@ -210,12 +268,63 @@ class DualFishingGameSessionTest {
     }
 
     @Test
-    fun restoreRejectsNonMirroredCooperativeState() {
+    fun restoreAcceptsSeparateScoresButRejectsNonMirroredGameplayState() {
         val valid = game("coop-invalid").snapshot
-        val players = valid.players.toMutableMap().apply {
+        val separateScores = valid.players.toMutableMap().apply {
             this[PlayerId.P2] = getValue(PlayerId.P2).copy(score = 99)
         }
-        assertTrue(runCatching { DualFishingGameSession.restore(valid.copy(players = players)) }.isFailure)
+        val restored = DualFishingGameSession.restore(valid.copy(players = separateScores))
+        assertEquals(0, restored.snapshot.players.getValue(PlayerId.P1).score)
+        assertEquals(99, restored.snapshot.players.getValue(PlayerId.P2).score)
+        assertEquals(99, restored.snapshot.teamScore)
+
+        val mismatchedGameplay = valid.players.toMutableMap().apply {
+            this[PlayerId.P2] = getValue(PlayerId.P2).copy(tension = 1)
+        }
+        assertTrue(
+            runCatching { DualFishingGameSession.restore(valid.copy(players = mismatchedGameplay)) }.isFailure,
+        )
+    }
+
+    @Test
+    fun scoreCreditsOnlyTheActorAndSurvivesCheckpointAndRoleSwitch() {
+        val game = completedGame("coop-individual-score")
+        val completedScores = game.snapshot.players.mapValues { it.value.score }
+
+        assertTrue(completedScores.getValue(PlayerId.P1) > 0)
+        assertTrue(completedScores.getValue(PlayerId.P2) > 0)
+        assertEquals(completedScores.values.sum(), game.snapshot.teamScore)
+
+        val restored = DualFishingGameSession.restore(game.snapshot)
+        assertEquals(completedScores, restored.snapshot.players.mapValues { it.value.score })
+        val switched = restored.startNextCatch(switchRoles = true)
+        assertEquals(PlayerId.P2, switched.rodPlayerId)
+        assertEquals(completedScores, switched.players.mapValues { it.value.score })
+
+        submit(restored, PlayerId.P2, 100, MotionType.FISH_CAST)
+        assertTrue(restored.snapshot.players.getValue(PlayerId.P2).score > completedScores.getValue(PlayerId.P2))
+        assertEquals(completedScores.getValue(PlayerId.P1), restored.snapshot.players.getValue(PlayerId.P1).score)
+    }
+
+    @Test
+    fun individualScoreCapAndContentRevisionFailClosed() {
+        val initial = game("coop-score-cap").snapshot
+        val cappedPlayers = initial.players.toMutableMap().apply {
+            this[PlayerId.P1] = getValue(PlayerId.P1).copy(score = DualFishingGameSession.MAX_SCORE)
+            this[PlayerId.P2] = getValue(PlayerId.P2).copy(score = 7)
+        }
+        val capped = DualFishingGameSession.restore(initial.copy(players = cappedPlayers))
+        assertTrue(capped.resume())
+        submit(capped, PlayerId.P1, 0, MotionType.FISH_CAST)
+
+        assertEquals(DualFishingGameSession.MAX_SCORE, capped.snapshot.players.getValue(PlayerId.P1).score)
+        assertEquals(7, capped.snapshot.players.getValue(PlayerId.P2).score)
+        assertEquals(DualFishingGameSession.MAX_SCORE + 7, capped.snapshot.teamScore)
+        assertTrue(
+            runCatching {
+                DualFishingGameSession.restore(initial.copy(contentRevision = "dual-fishing-coop-rules-v2"))
+            }.isFailure,
+        )
     }
 
     @Test

@@ -156,6 +156,10 @@ POLICY_PATHS = (
     "docs/execution/slice-1b-contract.md",
 )
 ABIS = frozenset(("arm64-v8a", "armeabi-v7a", "x86", "x86_64"))
+MAX_ALIGNMENT_PADDING_BYTES = 8 * 1024 * 1024
+MAX_ALIGNMENT_PADDING_RECORDS = 256
+ALIGNMENT_PADDING_TIME = 0x0821
+ALIGNMENT_PADDING_DATE = 0x0221
 _DEX_NAME = re.compile(r"classes(?:[2-9]|[1-9][0-9]+)?[.]dex\Z")
 _JNI_NAME = re.compile(r"lib/([^/]+)/([A-Za-z0-9._+\-]+[.]so)\Z")
 _AGENT_ID = re.compile(r"agent:/[a-z0-9_]+(?:/[a-z0-9_]+)*\Z")
@@ -846,8 +850,10 @@ def parse_apk(apk_bytes: bytes) -> ApkView:
     expected_start = 0
     seen_offsets: set[int] = set()
     for start, end, _ in ranges:
-        if start in seen_offsets or start != expected_start:
+        if start in seen_offsets or start < expected_start:
             _fail("LOCAL_ADJACENCY", f"{start} != {expected_start}")
+        if start > expected_start:
+            _validate_alignment_padding(apk_bytes, expected_start, start)
         seen_offsets.add(start)
         expected_start = end
 
@@ -860,6 +866,52 @@ def parse_apk(apk_bytes: bytes) -> ApkView:
         central_offset=central_offset,
         central_size=central_size,
     )
+
+
+def _validate_alignment_padding(data: bytes, start: int, end: int) -> None:
+    """Accept only AGP zipflinger's content-free local alignment records."""
+    length = end - start
+    if length <= 0 or length > MAX_ALIGNMENT_PADDING_BYTES:
+        _fail("LOCAL_PADDING_LENGTH", str(length))
+    cursor = start
+    records = 0
+    while cursor < end:
+        if records >= MAX_ALIGNMENT_PADDING_RECORDS or end - cursor < 30:
+            _fail("LOCAL_PADDING_RECORD", f"{records}@{cursor}")
+        (
+            signature,
+            version,
+            flags,
+            method,
+            modified_time,
+            modified_date,
+            crc,
+            compressed,
+            uncompressed,
+            name_length,
+            extra_length,
+        ) = struct.unpack_from("<IHHHHHIIIHH", data, cursor)
+        record_end = cursor + 30 + name_length + extra_length + compressed
+        if (
+            signature != 0x04034B50
+            or version != 0
+            or flags != 0
+            or method != 0
+            or modified_time != ALIGNMENT_PADDING_TIME
+            or modified_date != ALIGNMENT_PADDING_DATE
+            or crc != 0
+            or compressed != 0
+            or uncompressed != 0
+            or name_length != 0
+            or extra_length == 0
+            or record_end > end
+            or any(data[cursor + 30 : record_end])
+        ):
+            _fail("LOCAL_PADDING_RECORD", f"{records}@{cursor}")
+        cursor = record_end
+        records += 1
+    if cursor != end or records == 0:
+        _fail("LOCAL_PADDING_CONSUMPTION", f"{cursor}/{end}/{records}")
 
 
 def _validate_signing_block(data: bytes, start: int, end: int) -> None:

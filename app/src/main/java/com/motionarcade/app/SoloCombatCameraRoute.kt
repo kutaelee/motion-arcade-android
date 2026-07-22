@@ -41,6 +41,7 @@ import com.motionarcade.vision.motion.SoloCombatMotionFrameSink
 import com.motionarcade.vision.motion.supportsSoloCombat
 import com.motionarcade.vision.pose.LivePoseInferenceSink
 import com.motionarcade.vision.pose.LivePoseInferenceSnapshot
+import kotlinx.coroutines.delay
 
 internal class SoloCombatCameraPresentation(
     val status: FrontCameraPreviewStatus,
@@ -90,6 +91,9 @@ internal fun SoloCombatCameraRoute(
     val dispatcher = remember(gate) { SoloCombatMotionDispatcher() }
     var status by remember { mutableStateOf(FrontCameraPreviewStatus.IDLE) }
     var inference by remember(gate) { mutableStateOf(LivePoseInferenceSnapshot.idle()) }
+    var autoRecovery by remember(surface, lifecycleOwner, config, lensSelection, lensBindEpoch) {
+        mutableStateOf(LivePoseAutoRecoveryState())
+    }
     var bindEpoch by remember(lifecycleOwner) {
         mutableIntStateOf(
             if (lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) 1 else 0,
@@ -102,6 +106,7 @@ internal fun SoloCombatCameraRoute(
             onResumeRebind = { bindEpoch = Math.incrementExact(bindEpoch) },
             onInactive = {
                 gate.invalidateForRebind()
+                autoRecovery = LivePoseAutoRecoveryState()
                 inference = LivePoseInferenceSnapshot.idle()
                 status = FrontCameraPreviewStatus.IDLE
             },
@@ -159,6 +164,32 @@ internal fun SoloCombatCameraRoute(
             },
         )
     }
+    LaunchedEffect(
+        inference.sessionGeneration,
+        inference.phase,
+    ) {
+        val failedSnapshot = inference
+        val decision = decideLivePoseAutoRecovery(
+            state = autoRecovery,
+            inference = failedSnapshot,
+            lifecycleResumed = lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED),
+        )
+        autoRecovery = decision.state
+        if (decision.requestRebind) {
+            delay(LIVE_POSE_AUTO_RECOVERY_DELAY_MILLIS)
+            if (canCompleteLivePoseAutoRecovery(
+                    lifecycleResumed = lifecycleOwner.lifecycle.currentState.isAtLeast(
+                        Lifecycle.State.RESUMED,
+                    ),
+                    inference = inference,
+                    failedGeneration = failedSnapshot.sessionGeneration,
+                )
+            ) {
+                status = FrontCameraPreviewStatus.STARTING
+                bindEpoch = Math.incrementExact(bindEpoch)
+            }
+        }
+    }
     DisposableEffect(surface) {
         onDispose { surface.release() }
     }
@@ -174,6 +205,7 @@ internal fun SoloCombatCameraRoute(
         status = status,
         inference = inference,
         expectedPlayers = 1,
+        automaticRecoveryScheduled = autoRecovery.isRecovering(inference),
     )
 
     Box(Modifier.fillMaxSize()) {

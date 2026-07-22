@@ -4,6 +4,11 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.lifecycle.SavedStateHandle
 import com.motionarcade.app.FishingViewModelRuntimeTarget
+import com.motionarcade.app.checkpoint.TypedCheckpointEnvelopeCodec
+import com.motionarcade.app.checkpoint.typed.DecodedGameSessionSnapshot
+import com.motionarcade.app.checkpoint.typed.GameSessionSnapshotProtoAdapter
+import com.motionarcade.core.contract.GameId
+import com.motionarcade.core.contract.GameMode
 import com.motionarcade.core.contract.InputSource
 import com.motionarcade.core.contract.MotionType
 import com.motionarcade.core.contract.PauseReason
@@ -519,6 +524,40 @@ class FishingGameViewModelTest {
             handle.get<ByteArray>("fishing.checkpoint.rejected.v1"),
         )
         assertTrue(requireNotNull(handle.get<ByteArray>("fishing.checkpoint.v1")).size > 5)
+    }
+
+    @Test
+    fun exactLegacyCheckpointRestoresThenIsAtomicallyRewrittenAsTypedProto() {
+        val legacyPayload = FishingLegacyCheckpointFixtures.pausedV1
+        val original = requireNotNull(FishingCheckpointCodec.decode(legacyPayload))
+        val legacyConfig = motionConfig.withCalibrationRevision(original.calibrationRevision)
+        val handle = SavedStateHandle(
+            mapOf(
+                "fishing.checkpoint.v1" to legacyPayload,
+                "fishing.motion-config-id.v1" to legacyConfig.configId,
+                "fishing.motion-config-revision.v1" to legacyConfig.calibrationRevision,
+            ),
+        )
+
+        val recreated = FishingGameViewModel(handle, legacyConfig)
+        assertTrue(bindMotionGeneration(recreated, 1L))
+
+        assertEquals(original.sessionId, recreated.uiState.value.snapshot.sessionId)
+        assertEquals(
+            "checkpoint_restored_waiting_for_rearm",
+            recreated.uiState.value.lastInputDetail,
+        )
+        val rewritten = requireNotNull(handle.get<ByteArray>("fishing.checkpoint.v1"))
+        assertTrue(TypedCheckpointEnvelopeCodec.hasEnvelopeMagic(rewritten))
+        val envelope = requireNotNull(TypedCheckpointEnvelopeCodec.decode(rewritten))
+        assertEquals(FishingCheckpointCodec.PAYLOAD_CODEC_ID, envelope.payloadCodecId)
+        assertEquals(FishingCheckpointCodec.PAYLOAD_CODEC_VERSION, envelope.payloadCodecVersion)
+        assertEquals(GameId.FISHING, envelope.gameId)
+        assertEquals(GameMode.SOLO, envelope.mode)
+        val typed = requireNotNull(GameSessionSnapshotProtoAdapter.decode(envelope.payload))
+        assertTrue(typed is DecodedGameSessionSnapshot.FishingSolo)
+        assertEquals(original, (typed as DecodedGameSessionSnapshot.FishingSolo).snapshot)
+        assertNull(handle.get<ByteArray>("fishing.checkpoint.rejected.v1"))
     }
 
     @Test

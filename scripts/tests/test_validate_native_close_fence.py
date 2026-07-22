@@ -326,11 +326,31 @@ def signing_block(
     return struct.pack("<Q", block_size) + encoded_pairs + struct.pack("<Q", block_size) + b"APK Sig Block 42"
 
 
+def alignment_padding(extra_size: int) -> bytes:
+    if extra_size <= 0 or extra_size > 0xFFFF:
+        raise ValueError("invalid alignment padding size")
+    return struct.pack(
+        "<IHHHHHIIIHH",
+        0x04034B50,
+        0,
+        0,
+        0,
+        validate.ALIGNMENT_PADDING_TIME,
+        validate.ALIGNMENT_PADDING_DATE,
+        0,
+        0,
+        0,
+        0,
+        extra_size,
+    ) + bytes(extra_size)
+
+
 def make_apk(
     members: tuple[tuple[str, bytes, int], ...] = (("classes.dex", b"dex-content", 0),),
     *,
     local_extra: bytes = b"",
     block: bytes | None = None,
+    gap_after_first: bytes = b"",
 ) -> bytes:
     local_records = bytearray()
     central_records: list[bytes] = []
@@ -377,6 +397,8 @@ def make_apk(
             )
             + raw_name
         )
+        if len(central_records) == 1:
+            local_records += gap_after_first
     gap = b"" if block is None else block
     directory_start = len(local_records) + len(gap)
     directory = b"".join(central_records)
@@ -617,6 +639,22 @@ class NativeCloseFenceIndependentValidatorTest(unittest.TestCase):
             make_apk(block=signing_block(((0x12345678, b"PK\x03\x04 opaque local"),)))
         )
         self.assertTrue(signed_view.has_signing_block)
+
+    def test_exact_zipflinger_alignment_padding_and_mutations(self) -> None:
+        members = (("classes.dex", b"a", 0), ("classes2.dex", b"b", 0))
+        padding = alignment_padding(257) + alignment_padding(11)
+        view = validate.validate_apk(make_apk(members, gap_after_first=padding))
+        self.assertEqual(2, len(view.members))
+        mutations = {
+            "version": mutate_u16(padding, 4, 1),
+            "time": mutate_u16(padding, 10, 0),
+            "name": mutate_u16(padding, 26, 1),
+            "payload": mutate_u32(padding, 18, 1),
+            "nonzero_extra": padding[:30] + b"\x01" + padding[31:],
+        }
+        for label, mutated in mutations.items():
+            with self.subTest(label=label), self.assertRaises(validate.FenceValidationError):
+                validate.validate_apk(make_apk(members, gap_after_first=mutated))
 
     def test_invalid_raw_deflate_is_typed_fail_closed(self) -> None:
         archive = make_apk((("classes.dex", b"deflated-content" * 8, 8),))

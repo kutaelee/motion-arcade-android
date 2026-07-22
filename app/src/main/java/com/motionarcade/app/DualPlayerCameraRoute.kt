@@ -51,6 +51,7 @@ import com.motionarcade.vision.tracking.LoadedPlayerTrackerConfig
 import com.motionarcade.vision.tracking.PlayerTrackerConfigAssets
 import com.motionarcade.vision.tracking.PlayerTrackerConfigJson
 import com.motionarcade.vision.tracking.PlayerTrackerConfigLoadResult
+import kotlinx.coroutines.delay
 
 /**
  * Camera host shared by the two-player game routes. The app layer gets aggregate role state only;
@@ -136,6 +137,16 @@ internal fun DualPlayerCameraRoute(
         DualPlayerCombatMotionDispatcher()
     }
     var inference by remember(admissionGate) { mutableStateOf(LivePoseInferenceSnapshot.idle()) }
+    var autoRecovery by remember(
+        surface,
+        lifecycleOwner,
+        loadedConfig,
+        combatMotionConfig,
+        lensSelection,
+        lensBindEpoch,
+    ) {
+        mutableStateOf(LivePoseAutoRecoveryState())
+    }
     var bindEpoch by remember(lifecycleOwner) {
         mutableIntStateOf(
             if (lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) 1 else 0,
@@ -148,6 +159,7 @@ internal fun DualPlayerCameraRoute(
             onResumeRebind = { bindEpoch = Math.incrementExact(bindEpoch) },
             onInactive = {
                 admissionGate.invalidateForRebind()
+                autoRecovery = LivePoseAutoRecoveryState()
                 tracking = null
                 inference = LivePoseInferenceSnapshot.idle()
                 status = FrontCameraPreviewStatus.IDLE
@@ -245,6 +257,32 @@ internal fun DualPlayerCameraRoute(
             },
         )
     }
+    LaunchedEffect(
+        inference.sessionGeneration,
+        inference.phase,
+    ) {
+        val failedSnapshot = inference
+        val decision = decideLivePoseAutoRecovery(
+            state = autoRecovery,
+            inference = failedSnapshot,
+            lifecycleResumed = lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED),
+        )
+        autoRecovery = decision.state
+        if (decision.requestRebind) {
+            delay(LIVE_POSE_AUTO_RECOVERY_DELAY_MILLIS)
+            if (canCompleteLivePoseAutoRecovery(
+                    lifecycleResumed = lifecycleOwner.lifecycle.currentState.isAtLeast(
+                        Lifecycle.State.RESUMED,
+                    ),
+                    inference = inference,
+                    failedGeneration = failedSnapshot.sessionGeneration,
+                )
+            ) {
+                status = FrontCameraPreviewStatus.STARTING
+                bindEpoch = Math.incrementExact(bindEpoch)
+            }
+        }
+    }
     DisposableEffect(surface) {
         onDispose { surface.release() }
     }
@@ -272,6 +310,7 @@ internal fun DualPlayerCameraRoute(
         status = status,
         inference = inference,
         expectedPlayers = 2,
+        automaticRecoveryScheduled = autoRecovery.isRecovering(inference),
     )
     DualTrackingFailureToast(tracking?.pauseReason)
 

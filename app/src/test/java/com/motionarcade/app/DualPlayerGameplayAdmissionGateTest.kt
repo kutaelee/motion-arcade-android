@@ -3,6 +3,7 @@ package com.motionarcade.app
 import com.motionarcade.core.contract.PauseReason
 import com.motionarcade.vision.camera.FrontCameraPreviewStatus
 import com.motionarcade.vision.pose.LivePoseInferencePhase
+import com.motionarcade.vision.pose.LivePoseFailureReason
 import com.motionarcade.vision.pose.LivePoseInferenceSnapshot
 import com.motionarcade.vision.tracking.IdentityPauseReason
 import org.junit.Assert.assertEquals
@@ -256,5 +257,10 @@ class DualPlayerGameplayAdmissionGateTest {
             poseCount = null,
             callbackCount = 1L,
             resultTimestampMs = null,
+            failureReason = if (phase == LivePoseInferencePhase.FAILED) {
+                LivePoseFailureReason.CAMERA_PIPELINE_TERMINATED
+            } else {
+                null
+            },
         )
 }

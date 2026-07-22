@@ -1,5 +1,8 @@
 package com.motionarcade.app.fishing
 
+import com.motionarcade.app.checkpoint.TypedCheckpointEnvelopeCodec
+import com.motionarcade.app.checkpoint.typed.DecodedGameSessionSnapshot
+import com.motionarcade.app.checkpoint.typed.GameSessionSnapshotProtoAdapter
 import com.motionarcade.core.contract.GameId
 import com.motionarcade.core.contract.GameMode
 import com.motionarcade.core.contract.PauseReason
@@ -23,15 +26,30 @@ import java.util.LinkedHashSet
  * predictions, gesture candidates, renderer state, and Android objects have no representation.
  */
 internal object FishingCheckpointCodec {
-    const val MAX_ENCODED_BYTES: Int = 16 * 1024
+    const val MAX_ENCODED_BYTES: Int = TypedCheckpointEnvelopeCodec.MAX_ENCODED_BYTES
 
     fun encode(snapshot: FishingSnapshot): ByteArray {
-        // The domain restore path is the single semantic validator for checkpoint invariants.
-        FishingGameSession.restore(snapshot)
+        // The domain restore path is the single semantic validator and canonicalizer for
+        // checkpoint invariants. Persisting its checkpoint keeps non-result artifacts paused
+        // without mutating the live controller that supplied the snapshot.
+        val canonicalSnapshot = FishingGameSession.restore(snapshot).checkpoint()
+        val payload = requireNotNull(GameSessionSnapshotProtoAdapter.encode(canonicalSnapshot)) {
+            "Fishing checkpoint cannot be represented by the typed snapshot contract"
+        }
+        return TypedCheckpointEnvelopeCodec.encode(
+            gameId = GameId.FISHING,
+            mode = GameMode.SOLO,
+            payloadCodecId = PAYLOAD_CODEC_ID,
+            payloadCodecVersion = PAYLOAD_CODEC_VERSION,
+            payload = payload,
+        )
+    }
+
+    private fun encodeLegacyPayload(snapshot: FishingSnapshot): ByteArray {
         val buffer = ByteArrayOutputStream()
         DataOutputStream(buffer).use { output ->
             output.writeInt(MAGIC)
-            output.writeInt(CODEC_VERSION)
+            output.writeInt(LEGACY_PAYLOAD_CODEC_VERSION)
             output.writeInt(snapshot.schemaVersion)
             output.writeBoundedUtf(snapshot.sessionId)
             output.writeBoundedUtf(snapshot.gameId.name)
@@ -104,7 +122,7 @@ internal object FishingCheckpointCodec {
             rewards.forEach { rewardId -> output.writeBoundedUtf(rewardId) }
         }
         return buffer.toByteArray().also { encoded ->
-            require(encoded.size in 1..MAX_ENCODED_BYTES) {
+            require(encoded.size in 1..MAX_PAYLOAD_BYTES) {
                 "Fishing checkpoint exceeds the process-state budget"
             }
         }
@@ -114,10 +132,33 @@ internal object FishingCheckpointCodec {
         if (encoded.size !in 1..MAX_ENCODED_BYTES) return null
         // Snapshot caller-owned mutable bytes only after the size preflight.
         val privateBytes = encoded.copyOf()
+        if (TypedCheckpointEnvelopeCodec.hasEnvelopeMagic(privateBytes)) {
+            val envelope = TypedCheckpointEnvelopeCodec.decode(privateBytes) ?: return null
+            if (envelope.gameId != GameId.FISHING || envelope.mode != GameMode.SOLO) return null
+            return when {
+                envelope.payloadCodecId == PAYLOAD_CODEC_ID &&
+                    envelope.payloadCodecVersion == PAYLOAD_CODEC_VERSION ->
+                    (GameSessionSnapshotProtoAdapter.decode(envelope.payload) as?
+                        DecodedGameSessionSnapshot.FishingSolo)?.snapshot
+
+                envelope.payloadCodecId == LEGACY_PAYLOAD_CODEC_ID &&
+                    envelope.payloadCodecVersion == LEGACY_PAYLOAD_CODEC_VERSION ->
+                    decodeLegacyPayload(envelope.payload)
+
+                else -> null
+            }
+        }
+        // The only supported raw migration source is the exact prior game-owned binary payload.
+        // The unrelated open generic JSON v1 contract is never treated as migration input.
+        return decodeLegacyPayload(privateBytes)
+    }
+
+    private fun decodeLegacyPayload(privateBytes: ByteArray): FishingSnapshot? {
+        if (privateBytes.size !in 1..MAX_PAYLOAD_BYTES) return null
         return runCatching {
             DataInputStream(ByteArrayInputStream(privateBytes)).use { input ->
                 require(input.readInt() == MAGIC)
-                require(input.readInt() == CODEC_VERSION)
+                require(input.readInt() == LEGACY_PAYLOAD_CODEC_VERSION)
                 val schemaVersion = input.readInt()
                 val sessionId = input.readBoundedUtf()
                 val gameId = input.readEnum<GameId>()
@@ -266,7 +307,11 @@ internal object FishingCheckpointCodec {
     }
 
     private const val MAGIC = 0x4D_41_46_43
-    private const val CODEC_VERSION = 1
+    const val PAYLOAD_CODEC_ID = "game-session-snapshot-proto"
+    const val PAYLOAD_CODEC_VERSION = 1
+    private const val LEGACY_PAYLOAD_CODEC_ID = "fishing-solo-checkpoint"
+    private const val LEGACY_PAYLOAD_CODEC_VERSION = 1
+    private const val MAX_PAYLOAD_BYTES = 16 * 1024
     private const val MAX_STRING_CHARS = 512
     private const val MAX_REWARD_IDS = 1
 }

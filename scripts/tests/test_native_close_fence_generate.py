@@ -204,11 +204,31 @@ def signing_block(
     return struct.pack("<Q", block_size) + pair_bytes + struct.pack("<Q", block_size) + b"APK Sig Block 42"
 
 
+def alignment_padding(extra_size: int) -> bytes:
+    if extra_size <= 0 or extra_size > 0xFFFF:
+        raise ValueError("invalid alignment padding size")
+    return struct.pack(
+        "<IHHHHHIIIHH",
+        0x04034B50,
+        0,
+        0,
+        0,
+        generate.ALIGNMENT_PADDING_TIME,
+        generate.ALIGNMENT_PADDING_DATE,
+        0,
+        0,
+        0,
+        0,
+        extra_size,
+    ) + bytes(extra_size)
+
+
 def make_apk(
     members: tuple[tuple[str, bytes, int], ...] = (("classes.dex", b"dex-content", 0),),
     *,
     local_extra: bytes = b"",
     block: bytes | None = None,
+    gap_after_first: bytes = b"",
 ) -> bytes:
     locals_blob = bytearray()
     directory_parts: list[bytes] = []
@@ -255,6 +275,8 @@ def make_apk(
             )
             + name_bytes
         )
+        if len(directory_parts) == 1:
+            locals_blob += gap_after_first
     middle = b"" if block is None else block
     central_offset = len(locals_blob) + len(middle)
     directory = b"".join(directory_parts)
@@ -621,6 +643,22 @@ class NativeCloseFenceGeneratorTest(unittest.TestCase):
                 view = generate.parse_apk(apk.read_bytes())
                 self.assertTrue(view.signing_block_present)
                 self.assertGreater(len(view.entries), 1)
+
+    def test_exact_zipflinger_alignment_padding_and_mutations(self) -> None:
+        members = (("classes.dex", b"a", 0), ("classes2.dex", b"b", 0))
+        padding = alignment_padding(257) + alignment_padding(11)
+        view = generate.parse_apk(make_apk(members, gap_after_first=padding))
+        self.assertEqual(2, len(view.entries))
+        mutations = {
+            "version": mutate_u16(padding, 4, 1),
+            "time": mutate_u16(padding, 10, 0),
+            "name": mutate_u16(padding, 26, 1),
+            "payload": mutate_u32(padding, 18, 1),
+            "nonzero_extra": padding[:30] + b"\x01" + padding[31:],
+        }
+        for label, mutated in mutations.items():
+            with self.subTest(label=label), self.assertRaises(generate.NativeCloseFenceError):
+                generate.parse_apk(make_apk(members, gap_after_first=mutated))
 
 
 if __name__ == "__main__":

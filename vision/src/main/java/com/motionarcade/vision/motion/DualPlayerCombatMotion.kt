@@ -186,12 +186,19 @@ object DualPlayerCombatMotionConfigs {
                 definition(MotionType.MONSTER_REVIVE, holdMs = 1_500, cooldownMs = 500, group = "MONSTER_SUPPORT", priority = 3),
                 definition(MotionType.MONSTER_SKILL_ONE, holdMs = 400, cooldownMs = 1_200, group = "MONSTER_CLASS_SKILL", priority = 2),
                 definition(MotionType.MONSTER_SKILL_TWO, holdMs = 400, cooldownMs = 1_200, group = "MONSTER_CLASS_SKILL", priority = 2),
-                definition(MotionType.MONSTER_MAGIC_CHARGE, holdMs = 800, cooldownMs = 800, group = "MONSTER_SUPPORT", priority = 2),
-                definition(MotionType.TEAM_ULTIMATE, holdMs = 800, cooldownMs = 900, group = "MONSTER_SKILL", priority = 1),
+                definition(MotionType.MONSTER_MAGIC_CHARGE, holdMs = 800, cooldownMs = 800, group = "MONSTER_TEAM_POWER", priority = 2),
+                definition(MotionType.TEAM_ULTIMATE, holdMs = 800, cooldownMs = 900, group = "MONSTER_TEAM_POWER", priority = 1),
                 definition(MotionType.DODGE_LEFT, holdMs = 80, cooldownMs = 350, group = "MONSTER_DEFENSE", priority = 2),
                 definition(MotionType.DODGE_RIGHT, holdMs = 80, cooldownMs = 350, group = "MONSTER_DEFENSE", priority = 2),
                 definition(MotionType.PUNCH_JAB, holdMs = 0, cooldownMs = 350, group = "MONSTER_STRIKE", priority = 2),
-                definition(MotionType.PUNCH_HOOK, holdMs = 0, cooldownMs = 450, group = "MONSTER_STRIKE", priority = 1),
+                definition(
+                    MotionType.PUNCH_HOOK,
+                    holdMs = 0,
+                    cooldownMs = 450,
+                    group = "MONSTER_STRIKE",
+                    priority = 1,
+                    entryThreshold = 1f,
+                ),
             ),
         )
 
@@ -216,9 +223,10 @@ object DualPlayerCombatMotionConfigs {
         cooldownMs: Long,
         group: String,
         priority: Int,
+        entryThreshold: Float = 0.82f,
     ): GestureDefinition = GestureDefinition(
         type = type,
-        entryThreshold = 0.82f,
+        entryThreshold = entryThreshold,
         exitThreshold = 0.30f,
         minimumConfidence = 0.55f,
         minimumHoldNs = holdMs * NANOS_PER_MILLISECOND,
@@ -252,6 +260,13 @@ internal data class DualPlayerCombatPoseSignalConfig(
     val skillMinimumRestBelowChestTorsoLengths: Float = 0.05f,
     val chargeMinimumRaiseTorsoLengths: Float = 0.25f,
     val chargeMinimumWristSeparationShoulderWidths: Float = 1.20f,
+    val ultimateMaximumWristDistanceShoulderWidths: Float = 1.60f,
+    val monsterStrongMinimumWristSeparationShoulderWidths: Float = 0.40f,
+    val monsterStrongMaximumWristSeparationShoulderWidths: Float = 0.80f,
+    val monsterStrongMinimumOverheadHoldNs: Long = 500_000_000L,
+    val monsterStrongTeamPowerCutoffNs: Long = 800_000_000L,
+    val monsterStrongMaximumDescentNs: Long = 400_000_000L,
+    val monsterStrongMinimumDropTorsoLengths: Float = 0.50f,
     val maximumHistorySamples: Int = 48,
 ) {
     init {
@@ -272,6 +287,16 @@ internal data class DualPlayerCombatPoseSignalConfig(
         require(skillMinimumRestBelowChestTorsoLengths > 0f)
         require(chargeMinimumRaiseTorsoLengths > 0f)
         require(chargeMinimumWristSeparationShoulderWidths > 0f)
+        require(ultimateMaximumWristDistanceShoulderWidths > 0f)
+        require(monsterStrongMinimumWristSeparationShoulderWidths > 0f)
+        require(
+            monsterStrongMaximumWristSeparationShoulderWidths >
+                monsterStrongMinimumWristSeparationShoulderWidths,
+        )
+        require(monsterStrongMinimumOverheadHoldNs > 0L)
+        require(monsterStrongTeamPowerCutoffNs > monsterStrongMinimumOverheadHoldNs)
+        require(monsterStrongMaximumDescentNs > 0L)
+        require(monsterStrongMinimumDropTorsoLengths > 0f)
         require(maximumHistorySamples in 8..256)
     }
 }

@@ -29,6 +29,17 @@ enum class LivePoseInferencePhase {
     RELEASED,
 }
 
+enum class LivePoseFailureReason {
+    SESSION_CREATE_FAILED,
+    FRAME_SUBMISSION_FAILED,
+    TIMESTAMP_REJECTED,
+    MEDIAPIPE_CALLBACK_ERROR,
+    CALLBACK_PROTOCOL_ERROR,
+    RESULT_TIMEOUT,
+    SESSION_CLOSE_FAILED,
+    CAMERA_PIPELINE_TERMINATED,
+}
+
 /** Aggregate-only UI observation. It never contains pixels, landmarks, paths, or user identity. */
 data class LivePoseInferenceSnapshot(
     val sessionGeneration: Long,
@@ -39,12 +50,14 @@ data class LivePoseInferenceSnapshot(
     val resultTimestampMs: Long?,
     val upperBodyConfidenceFloor: Float? = null,
     val upperBodyOnScreen: Boolean? = null,
+    val failureReason: LivePoseFailureReason? = null,
 ) {
     init {
         require(sessionGeneration >= 0L) { "Session generation must be non-negative" }
         require(revision >= 0L) { "Snapshot revision must be non-negative" }
         require(callbackCount >= 0L) { "Callback count must be non-negative" }
         if (phase == LivePoseInferencePhase.ACTIVE) {
+            require(failureReason == null) { "Active inference cannot expose a failure reason" }
             require(poseCount != null && poseCount in 0..LIVE_POSE_MAX_POSES) {
                 "Active inference requires an aggregate pose count"
             }
@@ -63,6 +76,9 @@ data class LivePoseInferenceSnapshot(
             require(poseCount == null) { "Only active inference exposes a pose count" }
             require(resultTimestampMs == null) { "Only active inference exposes a result timestamp" }
             require(upperBodyConfidenceFloor == null && upperBodyOnScreen == null)
+            require((phase == LivePoseInferencePhase.FAILED) == (failureReason != null)) {
+                "Only failed inference must expose a failure reason"
+            }
         }
     }
 
@@ -279,14 +295,14 @@ internal class LivePosePipeline(
                             resolveResultLocked(result)
                         }
                     } catch (_: RuntimeException) {
-                        fail()
+                        fail(LivePoseFailureReason.CALLBACK_PROTOCOL_ERROR)
                         return
                     }
                 completeResolution(resolution)
             }
 
             override fun onError() {
-                fail()
+                fail(LivePoseFailureReason.MEDIAPIPE_CALLBACK_ERROR)
             }
         }
 
@@ -304,7 +320,7 @@ internal class LivePosePipeline(
         val activeSession = session ?: createSession() ?: return LivePoseSubmissionResult.TERMINAL
         val taskTimestampMs = timestampEpoch.reserve(frame.sourceTimestampNs)
         if (taskTimestampMs == null) {
-            fail()
+            fail(LivePoseFailureReason.TIMESTAMP_REJECTED)
             return LivePoseSubmissionResult.TERMINAL
         }
         val pending =
@@ -323,10 +339,10 @@ internal class LivePosePipeline(
         try {
             activeSession.detectAsync(frame, taskTimestampMs)
         } catch (_: RuntimeException) {
-            fail()
+            fail(LivePoseFailureReason.FRAME_SUBMISSION_FAILED)
             return LivePoseSubmissionResult.TERMINAL
         } catch (_: LinkageError) {
-            fail()
+            fail(LivePoseFailureReason.FRAME_SUBMISSION_FAILED)
             return LivePoseSubmissionResult.TERMINAL
         }
         val completion = try {
@@ -355,7 +371,7 @@ internal class LivePosePipeline(
                 }
             }
         } catch (_: RuntimeException) {
-            fail()
+            fail(LivePoseFailureReason.CALLBACK_PROTOCOL_ERROR)
             return LivePoseSubmissionResult.TERMINAL
         }
         completion.resolution?.let(::completeResolution)
@@ -364,7 +380,7 @@ internal class LivePosePipeline(
 
     fun isAccepting(): Boolean = accepting.get()
 
-    fun fail() {
+    fun fail(reason: LivePoseFailureReason = LivePoseFailureReason.CAMERA_PIPELINE_TERMINATED) {
         val shouldDrain =
             synchronized(lock) {
                 if (phase in TERMINAL_PHASES) {
@@ -374,7 +390,7 @@ internal class LivePosePipeline(
                     cancelWatchdogLocked()
                     pendingSubmission = null
                     phase = LivePoseInferencePhase.FAILED
-                    enqueueLocked(snapshotLocked(phase))
+                    enqueueLocked(snapshotLocked(phase, failureReason = reason))
                 }
             }
         observationDispatcher.revoke(LivePoseObservationTerminalReason.FAILED)
@@ -431,7 +447,12 @@ internal class LivePosePipeline(
                             LivePoseInferencePhase.FAILED
                         }
                     TerminalTransition(
-                        shouldDrainSnapshots = enqueueLocked(snapshotLocked(phase)),
+                        shouldDrainSnapshots = enqueueLocked(
+                            snapshotLocked(
+                                phase,
+                                failureReason = if (closed) null else LivePoseFailureReason.SESSION_CLOSE_FAILED,
+                            ),
+                        ),
                         phase = phase,
                     )
                 }
@@ -451,10 +472,10 @@ internal class LivePosePipeline(
             try {
                 sessionFactory.create(callbacks)
             } catch (_: RuntimeException) {
-                fail()
+                fail(LivePoseFailureReason.SESSION_CREATE_FAILED)
                 return null
             } catch (_: LinkageError) {
-                fail()
+                fail(LivePoseFailureReason.SESSION_CREATE_FAILED)
                 return null
             }
         if (!accepting.get()) {
@@ -487,6 +508,7 @@ internal class LivePosePipeline(
         resultTimestampMs: Long? = null,
         upperBodyConfidenceFloor: Float? = null,
         upperBodyOnScreen: Boolean? = null,
+        failureReason: LivePoseFailureReason? = null,
     ): LivePoseInferenceSnapshot =
         LivePoseInferenceSnapshot(
             sessionGeneration = sessionGeneration,
@@ -497,6 +519,7 @@ internal class LivePosePipeline(
             resultTimestampMs = resultTimestampMs,
             upperBodyConfidenceFloor = upperBodyConfidenceFloor,
             upperBodyOnScreen = upperBodyOnScreen,
+            failureReason = failureReason,
         )
 
     private fun enqueueLocked(snapshot: LivePoseInferenceSnapshot): Boolean {
@@ -512,7 +535,9 @@ internal class LivePosePipeline(
         pendingSubmission = null
         phase = LivePoseInferencePhase.FAILED
         return CallbackResolution(
-            shouldDrainSnapshots = enqueueLocked(snapshotLocked(phase)),
+            shouldDrainSnapshots = enqueueLocked(
+                snapshotLocked(phase, failureReason = LivePoseFailureReason.CALLBACK_PROTOCOL_ERROR),
+            ),
             terminalFailure = true,
         )
     }
@@ -629,7 +654,9 @@ internal class LivePosePipeline(
                 accepting.set(false)
                 pendingSubmission = null
                 phase = LivePoseInferencePhase.FAILED
-                enqueueLocked(snapshotLocked(phase))
+                enqueueLocked(
+                    snapshotLocked(phase, failureReason = LivePoseFailureReason.RESULT_TIMEOUT),
+                )
             }
         observationDispatcher.revoke(LivePoseObservationTerminalReason.FAILED)
         if (shouldDrain) drainSnapshots()

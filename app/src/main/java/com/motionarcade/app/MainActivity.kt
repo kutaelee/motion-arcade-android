@@ -87,6 +87,7 @@ import com.motionarcade.vision.motion.FishingMotionFrameSink
 import com.motionarcade.vision.pose.LivePoseInferencePhase
 import com.motionarcade.vision.pose.LivePoseInferenceSink
 import com.motionarcade.vision.pose.LivePoseInferenceSnapshot
+import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -317,7 +318,7 @@ private fun CameraPermissionScreen(
 private const val CAMERA_PERMISSION_PREFERENCES = "camera-permission-recovery-v1"
 private const val CAMERA_PERMISSION_DENIED = "denied"
 
-private enum class ArcadePlayMode {
+internal enum class ArcadePlayMode {
     FISHING,
     FISHING_DUAL,
     BOXING_SOLO,
@@ -326,7 +327,7 @@ private enum class ArcadePlayMode {
     MONSTER_DUAL,
 }
 
-private fun arcadePlayMode(
+internal fun arcadePlayMode(
     game: ArcadeGameChoice,
     playerCount: ArcadePlayerCount,
 ): ArcadePlayMode = when (game to playerCount) {
@@ -349,6 +350,7 @@ private fun CameraPreviewScreen(
     var selectedGame by rememberSaveable { mutableStateOf<ArcadePlayMode?>(null) }
     var selectedFishingRod by rememberSaveable { mutableIntStateOf(NO_FISHING_ROD_SELECTED) }
     var fishingRodConfirmed by rememberSaveable { mutableStateOf(false) }
+    var tutorialCompleted by rememberSaveable { mutableStateOf(false) }
     var lensSelection by rememberSaveable { mutableStateOf(CameraLensSelection.FRONT) }
     var rearConfirmationPending by rememberSaveable { mutableStateOf(false) }
     var lensBindEpoch by rememberSaveable { mutableIntStateOf(0) }
@@ -357,6 +359,7 @@ private fun CameraPreviewScreen(
         selectedGame = null
         fishingRodConfirmed = false
         selectedFishingRod = NO_FISHING_ROD_SELECTED
+        tutorialCompleted = false
     }
     fun completeLensRequest(next: CameraLensSelection?) {
         rearConfirmationPending = false
@@ -397,7 +400,21 @@ private fun CameraPreviewScreen(
                 selectedGame = arcadePlayMode(game, players)
                 fishingRodConfirmed = false
                 selectedFishingRod = NO_FISHING_ROD_SELECTED
+                tutorialCompleted = false
             },
+        )
+        return
+    }
+    if (shouldPresentArcadeTutorial(
+            mode = requireNotNull(selectedGame),
+            fishingRodConfirmed = fishingRodConfirmed,
+            tutorialCompleted = tutorialCompleted,
+        )
+    ) {
+        ArcadeTutorialScreen(
+            mode = requireNotNull(selectedGame),
+            onComplete = { tutorialCompleted = true },
+            onBack = ::returnToGameSelection,
         )
         return
     }
@@ -549,12 +566,47 @@ private fun CameraPreviewScreen(
     val surface = remember(context) { FrontCameraPreviewSurface(context) }
     var status by remember { mutableStateOf(FrontCameraPreviewStatus.IDLE) }
     var inference by remember { mutableStateOf(LivePoseInferenceSnapshot.idle()) }
+    var autoRecovery by remember(
+        surface,
+        lifecycleOwner,
+        lensSelection,
+        lensBindEpoch,
+        activeFishingMotionConfig,
+    ) {
+        mutableStateOf(LivePoseAutoRecoveryState())
+    }
     var bindRequest by remember { mutableIntStateOf(0) }
     var cameraRebindPolicy by remember { mutableStateOf(FishingCameraRebindPolicyState()) }
     var boundGameIdentity by remember {
         mutableStateOf(
             fishingState.snapshot.sessionId to fishingState.snapshot.eventTimelineEpoch,
         )
+    }
+    LaunchedEffect(
+        inference.sessionGeneration,
+        inference.phase,
+    ) {
+        val failedSnapshot = inference
+        val decision = decideLivePoseAutoRecovery(
+            state = autoRecovery,
+            inference = failedSnapshot,
+            lifecycleResumed = lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED),
+        )
+        autoRecovery = decision.state
+        if (decision.requestRebind) {
+            delay(LIVE_POSE_AUTO_RECOVERY_DELAY_MILLIS)
+            if (canCompleteLivePoseAutoRecovery(
+                    lifecycleResumed = lifecycleOwner.lifecycle.currentState.isAtLeast(
+                        Lifecycle.State.RESUMED,
+                    ),
+                    inference = inference,
+                    failedGeneration = failedSnapshot.sessionGeneration,
+                )
+            ) {
+                status = FrontCameraPreviewStatus.STARTING
+                bindRequest = Math.incrementExact(bindRequest)
+            }
+        }
     }
 
     LaunchedEffect(
@@ -623,6 +675,7 @@ private fun CameraPreviewScreen(
                     fishingRuntime.onForeground()
                 }
                 Lifecycle.Event.ON_PAUSE -> {
+                    autoRecovery = LivePoseAutoRecoveryState()
                     cameraRebindPolicy = reduceFishingCameraRebindPolicy(
                         cameraRebindPolicy,
                         FishingCameraRebindEvent.PAUSE,
@@ -660,6 +713,13 @@ private fun CameraPreviewScreen(
         status = status,
         inference = inference,
         expectedPlayers = 1,
+        automaticRecoveryScheduled = autoRecovery.isRecovering(inference),
+    )
+    val recoveryControls = fishingRecoveryControls(
+        runtimeFailed = fishingState.runtimeFailed,
+        status = status,
+        inference = inference,
+        rebindAttempts = cameraRebindPolicy.manualRetryAttempts,
     )
 
     Box(
@@ -710,7 +770,7 @@ private fun CameraPreviewScreen(
                 Text(text = "게임 선택")
             }
         }
-        if (fishingState.runtimeFailed) {
+        if (FishingRecoveryControl.RUNTIME_RESTART in recoveryControls) {
             Button(
                 modifier = Modifier
                     .align(Alignment.Center)
@@ -720,7 +780,7 @@ private fun CameraPreviewScreen(
                 Text(text = stringResource(R.string.fishing_runtime_restart))
             }
         }
-        if (previewCanRetry(status, inference, cameraRebindPolicy.manualRetryAttempts)) {
+        if (FishingRecoveryControl.CAMERA_RECONNECT in recoveryControls) {
             Button(
                 modifier = Modifier
                     .align(Alignment.TopCenter)
@@ -887,6 +947,23 @@ internal fun previewCanRetry(
             cameraStatusCanRetry(status) ||
                 inference.phase == LivePoseInferencePhase.FAILED
         )
+
+internal enum class FishingRecoveryControl {
+    RUNTIME_RESTART,
+    CAMERA_RECONNECT,
+}
+
+internal fun fishingRecoveryControls(
+    runtimeFailed: Boolean,
+    status: FrontCameraPreviewStatus,
+    inference: LivePoseInferenceSnapshot,
+    rebindAttempts: Int,
+): Set<FishingRecoveryControl> = buildSet {
+    if (runtimeFailed) add(FishingRecoveryControl.RUNTIME_RESTART)
+    if (previewCanRetry(status, inference, rebindAttempts)) {
+        add(FishingRecoveryControl.CAMERA_RECONNECT)
+    }
+}
 
 internal enum class FishingCameraRebindEvent {
     PAUSE,

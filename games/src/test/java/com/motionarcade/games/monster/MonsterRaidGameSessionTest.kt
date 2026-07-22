@@ -60,6 +60,73 @@ class MonsterRaidGameSessionTest {
     }
 
     @Test
+    fun admittedRaidStrikesIgnoreDetectorConfidenceForSoloAndBothDualPlayers() {
+        val cases = listOf(
+            GameMode.SOLO to PlayerId.P1,
+            GameMode.DUAL to PlayerId.P1,
+            GameMode.DUAL to PlayerId.P2,
+        )
+        cases.forEach { (mode, attacker) ->
+            fun attacked(confidence: Float, quality: Float): MonsterRaidGameSession {
+                val game = MonsterRaidGameSession.start(
+                    "raid-confidence-${mode.name}-${attacker.name}-$confidence-$quality",
+                    23L,
+                    2,
+                    mode,
+                )
+                assertTrue(
+                    game.accept(
+                        raidEvent(
+                            game,
+                            attacker,
+                            0,
+                            MotionType.PUNCH_JAB,
+                            2,
+                            1_000L,
+                            quality = quality,
+                            confidence = confidence,
+                        ),
+                    ) is MonsterRaidInputResult.Queued,
+                )
+                game.advanceTicks(1)
+                return game
+            }
+
+            val lowerConfidence = attacked(confidence = 0.55f, quality = 1f)
+            val fullConfidence = attacked(confidence = 1f, quality = 1f)
+            val lowerQuality = attacked(confidence = 1f, quality = 0.5f)
+
+            assertEquals(fullConfidence.snapshot.enemyHealth, lowerConfidence.snapshot.enemyHealth)
+            assertEquals(
+                fullConfidence.snapshot.players.getValue(attacker).score,
+                lowerConfidence.snapshot.players.getValue(attacker).score,
+            )
+            assertTrue(lowerQuality.snapshot.enemyHealth > fullConfidence.snapshot.enemyHealth)
+        }
+    }
+
+    @Test
+    fun motionAndTouchSourcesResolveToTheSameRaidState() {
+        val motion = MonsterRaidGameSession.start("raid-source-equivalence", 24L, 2, GameMode.DUAL)
+        val touch = MonsterRaidGameSession.start("raid-source-equivalence", 24L, 2, GameMode.DUAL)
+
+        assertTrue(
+            motion.accept(
+                raidEvent(motion, PlayerId.P2, 0, MotionType.PUNCH_JAB, 2, 1_000L, 0.8f, 0.7f, InputSource.MOTION),
+            ) is MonsterRaidInputResult.Queued,
+        )
+        assertTrue(
+            touch.accept(
+                raidEvent(touch, PlayerId.P2, 0, MotionType.PUNCH_JAB, 2, 1_000L, 0.8f, 0.7f, InputSource.TOUCH),
+            ) is MonsterRaidInputResult.Queued,
+        )
+        motion.advanceTicks(1)
+        touch.advanceTicks(1)
+
+        assertEquals(motion.snapshot, touch.snapshot)
+    }
+
+    @Test
     fun raidProgressesThreeWavesEliteAndAllThreeBossPhases() {
         val raid = Harness(GameMode.DUAL)
         val seenEnemies = linkedSetOf(raid.game.snapshot.enemy)
@@ -98,6 +165,22 @@ class MonsterRaidGameSessionTest {
             players = raid.game.snapshot.players.mapValues { (_, player) ->
                 player.copy(guardTicksRemaining = 0, lastDamageTaken = 0)
             },
+        )
+        assertEquals(phaseTwo.bossAttackOrdinal.toLong(), phaseTwo.prngState)
+        assertTrue(
+            runCatching {
+                MonsterRaidGameSession.restore(phaseTwo.copy(prngState = phaseTwo.prngState + 1L))
+            }.isFailure,
+        )
+        assertTrue(
+            runCatching {
+                MonsterRaidGameSession.restore(
+                    phaseTwo.copy(
+                        bossAttackOrdinal = Int.MAX_VALUE,
+                        prngState = Int.MAX_VALUE.toLong(),
+                    ),
+                )
+            }.isFailure,
         )
         val guarded = MonsterRaidGameSession.restore(phaseTwo)
         val unguarded = MonsterRaidGameSession.restore(phaseTwo)
@@ -206,6 +289,29 @@ class MonsterRaidGameSessionTest {
         raid.submit(PlayerId.P2, MotionType.TEAM_ULTIMATE, timestamp + 700_000_001L)
         raid.advance(1)
         assertTrue(raid.game.snapshot.enemyHealth < before)
+    }
+
+    @Test
+    fun restoreAcceptsReachablePendingUltimateAndRejectsInvalidOwnerOrTimestamp() {
+        val raid = Harness(GameMode.DUAL)
+        raid.attackUntilBossHealthAtMost(MonsterRaidGameSession.BOSS_PHASE_3_THRESHOLD)
+        while (raid.game.snapshot.teamCharge < MonsterRaidGameSession.MAX_TEAM_CHARGE) raid.advance(1)
+        raid.submit(PlayerId.P1, MotionType.TEAM_ULTIMATE, raid.nextTimestamp(PlayerId.P1))
+        raid.advance(1)
+        val valid = raid.game.snapshot
+
+        assertEquals(PlayerId.P1, valid.pendingUltimatePlayer)
+        assertTrue(runCatching { MonsterRaidGameSession.restore(valid) }.isSuccess)
+        assertTrue(
+            runCatching {
+                MonsterRaidGameSession.restore(valid.copy(pendingUltimatePlayer = PlayerId.AI))
+            }.isFailure,
+        )
+        assertTrue(
+            runCatching {
+                MonsterRaidGameSession.restore(valid.copy(pendingUltimateTimestampNs = -1L))
+            }.isFailure,
+        )
     }
 
     @Test
@@ -338,6 +444,9 @@ class MonsterRaidGameSessionTest {
         type: MotionType,
         calibrationRevision: Int,
         timestampNs: Long,
+        quality: Float = 1f,
+        confidence: Float = 1f,
+        source: InputSource = InputSource.FIXTURE,
     ): MotionEventEnvelope {
         val eventId = (DeterministicEventId.create(game.snapshot.sessionId, playerId, sequence) as
             com.motionarcade.core.contract.ContractResult.Valid).value
@@ -347,11 +456,11 @@ class MonsterRaidGameSessionTest {
             playerId = playerId,
             sequenceNumber = sequence,
             type = type,
-            quality = 1f,
-            confidence = 1f,
+            quality = quality,
+            confidence = confidence,
             eventTimestampNs = timestampNs,
             calibrationRevision = calibrationRevision,
-            source = InputSource.FIXTURE,
+            source = source,
             metadata = emptyMap(),
         )
     }

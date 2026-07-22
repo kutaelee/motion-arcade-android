@@ -2,6 +2,7 @@ package com.motionarcade.app
 
 import com.motionarcade.vision.camera.FrontCameraPreviewStatus
 import com.motionarcade.vision.pose.LivePoseInferencePhase
+import com.motionarcade.vision.pose.LivePoseFailureReason
 import com.motionarcade.vision.pose.LivePoseInferenceSnapshot
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -41,6 +42,7 @@ class CameraPreviewPresentationPolicyTest {
                 poseCount = null,
                 callbackCount = 1L,
                 resultTimestampMs = null,
+                failureReason = LivePoseFailureReason.CAMERA_PIPELINE_TERMINATED,
             )
 
         assertTrue(previewCanRetry(FrontCameraPreviewStatus.ACTIVE, failed, rebindAttempts = 0))

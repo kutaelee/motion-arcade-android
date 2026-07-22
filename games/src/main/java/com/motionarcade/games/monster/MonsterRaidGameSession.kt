@@ -58,6 +58,7 @@ data class MonsterRaidSnapshot(
     val seed: Long,
     val prngAlgorithmId: String,
     val prngAlgorithmVersion: Int,
+    val prngState: Long,
     val calibrationRevision: Int,
     val simulationTick: Long,
     val status: SessionStatus,
@@ -321,7 +322,7 @@ class MonsterRaidGameSession private constructor(initial: MonsterRaidSnapshot) {
             MonsterRaidClass.VANGUARD -> if (strong) VANGUARD_STRONG_DAMAGE else VANGUARD_BASIC_DAMAGE
             MonsterRaidClass.RANGER -> if (strong) RANGER_STRONG_DAMAGE else RANGER_BASIC_DAMAGE
         }
-        val quality = min(event.quality, event.confidence).coerceIn(0f, 1f)
+        val quality = event.quality.coerceIn(0f, 1f)
         val damage = (classBase * (0.75f + quality * 0.25f)).roundToInt().coerceAtLeast(1)
         dealDamage(damage, event.playerId)
         if (state.mode == GameMode.SOLO && event.playerId == PlayerId.P1) {
@@ -527,12 +528,13 @@ class MonsterRaidGameSession private constructor(initial: MonsterRaidSnapshot) {
         if (attack == null) {
             if (state.simulationTick % bossCadence() == 0L) {
                 val next = BOSS_ATTACKS[
-                    (((state.seed xor state.bossAttackOrdinal.toLong()) and Long.MAX_VALUE) % BOSS_ATTACKS.size).toInt()
+                    (((state.seed xor state.prngState) and Long.MAX_VALUE) % BOSS_ATTACKS.size).toInt()
                 ]
                 state = state.copy(
                     bossAttack = next,
                     bossTelegraphTicksRemaining = BOSS_TELEGRAPH_TICKS,
                     bossAttackOrdinal = state.bossAttackOrdinal + 1,
+                    prngState = state.prngState + 1L,
                 )
             }
             return
@@ -658,7 +660,7 @@ class MonsterRaidGameSession private constructor(initial: MonsterRaidSnapshot) {
         const val CONTENT_REVISION = "monster-raid-rules-v1"
         const val PRNG_ALGORITHM_ID = "xor-index-v1"
         const val PRNG_ALGORITHM_VERSION = 1
-        private const val SCHEMA_VERSION = 1
+        const val SNAPSHOT_SCHEMA_VERSION = 2
         private const val STAMINA_REGEN_PER_TICK = 2
         private const val PASSIVE_CHARGE_PER_TICK = 1
         private const val BASIC_STAMINA_COST = 6
@@ -737,7 +739,7 @@ class MonsterRaidGameSession private constructor(initial: MonsterRaidSnapshot) {
             }
             return MonsterRaidGameSession(
                 MonsterRaidSnapshot(
-                    schemaVersion = SCHEMA_VERSION,
+                    schemaVersion = SNAPSHOT_SCHEMA_VERSION,
                     sessionId = sessionId,
                     gameId = GameId.MONSTER,
                     mode = mode,
@@ -745,6 +747,7 @@ class MonsterRaidGameSession private constructor(initial: MonsterRaidSnapshot) {
                     seed = seed,
                     prngAlgorithmId = PRNG_ALGORITHM_ID,
                     prngAlgorithmVersion = PRNG_ALGORITHM_VERSION,
+                    prngState = 0L,
                     calibrationRevision = calibrationRevision,
                     simulationTick = 0,
                     status = SessionStatus.RUNNING,
@@ -785,16 +788,19 @@ class MonsterRaidGameSession private constructor(initial: MonsterRaidSnapshot) {
         }
 
         private fun validate(snapshot: MonsterRaidSnapshot) {
-            require(snapshot.schemaVersion == SCHEMA_VERSION)
+            require(snapshot.schemaVersion == SNAPSHOT_SCHEMA_VERSION)
             require(snapshot.sessionId.length in 1..120)
             require(snapshot.gameId == GameId.MONSTER)
             require(snapshot.contentRevision == CONTENT_REVISION)
             require(snapshot.prngAlgorithmId == PRNG_ALGORITHM_ID)
             require(snapshot.prngAlgorithmVersion == PRNG_ALGORITHM_VERSION)
+            require(snapshot.prngState == snapshot.bossAttackOrdinal.toLong())
+            require(snapshot.prngState in 0L..snapshot.simulationTick)
             require(snapshot.calibrationRevision >= 0 && snapshot.simulationTick >= 0)
             require(snapshot.waveIndex in WAVE_ENEMIES.indices)
             require(snapshot.teamCharge in 0..MAX_TEAM_CHARGE)
             require(snapshot.teamScore >= 0 && snapshot.roundTicksRemaining >= 0)
+            require(snapshot.simulationTick + snapshot.roundTicksRemaining.toLong() == ROUND_TICKS.toLong())
             require(snapshot.lastHumanCoreActionTick == null || snapshot.lastHumanCoreActionTick in 0..snapshot.simulationTick)
             val expectedPlayers = if (snapshot.mode == GameMode.DUAL) {
                 setOf(PlayerId.P1, PlayerId.P2)
@@ -849,6 +855,14 @@ class MonsterRaidGameSession private constructor(initial: MonsterRaidSnapshot) {
                 snapshot.pendingUltimatePlayer == null ==
                     (snapshot.pendingUltimateTimestampNs == null),
             )
+            if (snapshot.pendingUltimatePlayer != null) {
+                require(snapshot.mode == GameMode.DUAL)
+                require(snapshot.pendingUltimatePlayer == PlayerId.P1 || snapshot.pendingUltimatePlayer == PlayerId.P2)
+                require(snapshot.pendingUltimateTimestampNs!! >= 0L)
+                require(snapshot.stage == MonsterRaidStage.BOSS)
+                require(snapshot.bossPhase == MonsterRaidBossPhase.PHASE_3)
+                require(snapshot.teamCharge == MAX_TEAM_CHARGE)
+            }
         }
 
         private fun initialPlayer(id: PlayerId, playerClass: MonsterRaidClass) = MonsterRaidPlayerState(

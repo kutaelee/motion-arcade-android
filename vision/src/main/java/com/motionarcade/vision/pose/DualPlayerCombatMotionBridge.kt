@@ -212,6 +212,7 @@ internal class DualPlayerCombatMotionBridge(
 
         private data class Features(
             val timestampNs: Long,
+            val headY: Float?,
             val shoulderCenter: Point,
             val chestCenter: Point,
             val pelvisCenter: Point,
@@ -226,10 +227,16 @@ internal class DualPlayerCombatMotionBridge(
 
         private val history = ArrayDeque<Features>()
         private var lastTimestampNs: Long? = null
+        private var monsterStrongOverheadStartedNs: Long? = null
+        private var monsterStrongDescentStartedNs: Long? = null
+        private var monsterStrongLeftAnchorRelativeY: Float? = null
+        private var monsterStrongRightAnchorRelativeY: Float? = null
+        private var monsterStrongSuppressedUntilNeutral = false
 
         fun reset() {
             history.clear()
             lastTimestampNs = null
+            resetMonsterStrongAttack()
         }
 
         fun process(timestampNs: Long, pose: LivePoseObservation): Map<MotionType, CombatPoseSignal>? {
@@ -241,8 +248,13 @@ internal class DualPlayerCombatMotionBridge(
                 return null
             }
             trimHistory(timestampNs)
+            val monsterStrongActivation = if (config.profile == DualPlayerCombatProfile.MONSTER) {
+                monsterStrongAttackActivation(current)
+            } else {
+                null
+            }
             val result = config.profile.requiredMotionTypes.associateWith { type ->
-                val activation = activation(type, current)
+                val activation = activation(type, current, monsterStrongActivation)
                 CombatPoseSignal(timestampNs, activation, current.confidence)
             }
             history.addLast(current)
@@ -250,12 +262,27 @@ internal class DualPlayerCombatMotionBridge(
             return result
         }
 
-        private fun activation(type: MotionType, current: Features): Float = when (type) {
+        private fun activation(
+            type: MotionType,
+            current: Features,
+            monsterStrongActivation: Float?,
+        ): Float = when (type) {
             MotionType.BOXING_GUARD -> guardActivation(current)
             MotionType.DODGE_LEFT -> dodgeActivation(current, left = true)
             MotionType.DODGE_RIGHT -> dodgeActivation(current, left = false)
-            MotionType.PUNCH_JAB -> punchActivation(current)
-            MotionType.PUNCH_HOOK -> hookActivation(current)
+            MotionType.PUNCH_JAB -> if (
+                config.profile == DualPlayerCombatProfile.MONSTER &&
+                (monsterStrongSequenceActive() || requireNotNull(monsterStrongActivation) > 0f)
+            ) {
+                0f
+            } else {
+                punchActivation(current)
+            }
+            MotionType.PUNCH_HOOK -> if (config.profile == DualPlayerCombatProfile.MONSTER) {
+                requireNotNull(monsterStrongActivation)
+            } else {
+                hookActivation(current)
+            }
             MotionType.MONSTER_BLOCK -> min(guardActivation(current), crossedWristActivation(current))
             MotionType.MONSTER_REVIVE -> reviveActivation(current)
             MotionType.MONSTER_SKILL_ONE -> classSkillActivation(current, leftArm = true)
@@ -364,11 +391,106 @@ internal class DualPlayerCombatMotionBridge(
             return min(angle, crossBody).coerceIn(0f, 1f)
         }
 
+        /**
+         * Monster strong attack is a sequence, not the boxing hook: hold both wrists overhead for
+         * 500 ms, begin the descent before the 800 ms team-power hold, then drop both wrists by at
+         * least half a torso. The temporal cutoff prevents charge/ultimate poses from also firing it.
+         */
+        private fun monsterStrongAttackActivation(current: Features): Float {
+            val headY = current.headY ?: run {
+                resetMonsterStrongAttack()
+                return 0f
+            }
+            val bothOverhead = max(current.leftWrist.y, current.rightWrist.y) < headY
+            val wristSeparation = distance(current.leftWrist, current.rightWrist) /
+                current.shoulderWidth
+            val validReadyPose = bothOverhead &&
+                wristSeparation >= poseConfig.monsterStrongMinimumWristSeparationShoulderWidths &&
+                wristSeparation <= poseConfig.monsterStrongMaximumWristSeparationShoulderWidths
+            if (monsterStrongSuppressedUntilNeutral) {
+                if (!bothOverhead) resetMonsterStrongAttack()
+                return 0f
+            }
+            val startedNs = monsterStrongOverheadStartedNs
+            if (startedNs == null) {
+                if (validReadyPose) {
+                    monsterStrongOverheadStartedNs = current.timestampNs
+                    monsterStrongLeftAnchorRelativeY =
+                        current.leftWrist.y - current.shoulderCenter.y
+                    monsterStrongRightAnchorRelativeY =
+                        current.rightWrist.y - current.shoulderCenter.y
+                }
+                return 0f
+            }
+
+            val overheadElapsedNs = current.timestampNs - startedNs
+            if (bothOverhead) {
+                if (!validReadyPose || monsterStrongDescentStartedNs != null ||
+                    overheadElapsedNs >= poseConfig.monsterStrongTeamPowerCutoffNs
+                ) {
+                    if (!validReadyPose ||
+                        overheadElapsedNs >= poseConfig.monsterStrongTeamPowerCutoffNs
+                    ) {
+                        resetMonsterStrongAttack(suppressUntilNeutral = true)
+                    } else {
+                        resetMonsterStrongAttack()
+                        monsterStrongOverheadStartedNs = current.timestampNs
+                        monsterStrongLeftAnchorRelativeY =
+                            current.leftWrist.y - current.shoulderCenter.y
+                        monsterStrongRightAnchorRelativeY =
+                            current.rightWrist.y - current.shoulderCenter.y
+                    }
+                }
+                return 0f
+            }
+            if (overheadElapsedNs < poseConfig.monsterStrongMinimumOverheadHoldNs) {
+                resetMonsterStrongAttack()
+                return 0f
+            }
+
+            val existingDescentStartedNs = monsterStrongDescentStartedNs
+            if (
+                existingDescentStartedNs == null &&
+                overheadElapsedNs >= poseConfig.monsterStrongTeamPowerCutoffNs
+            ) {
+                resetMonsterStrongAttack()
+                return 0f
+            }
+            val descentStartedNs = existingDescentStartedNs ?: current.timestampNs.also {
+                monsterStrongDescentStartedNs = it
+            }
+            if (current.timestampNs - descentStartedNs > poseConfig.monsterStrongMaximumDescentNs) {
+                resetMonsterStrongAttack()
+                return 0f
+            }
+            val leftDrop = current.leftWrist.y - current.shoulderCenter.y -
+                requireNotNull(monsterStrongLeftAnchorRelativeY)
+            val rightDrop = current.rightWrist.y - current.shoulderCenter.y -
+                requireNotNull(monsterStrongRightAnchorRelativeY)
+            val activation = min(leftDrop, rightDrop) /
+                (current.torsoLength * poseConfig.monsterStrongMinimumDropTorsoLengths)
+            if (activation >= 1f) resetMonsterStrongAttack()
+            return activation.coerceIn(0f, 1f)
+        }
+
+        private fun resetMonsterStrongAttack(suppressUntilNeutral: Boolean = false) {
+            monsterStrongOverheadStartedNs = null
+            monsterStrongDescentStartedNs = null
+            monsterStrongLeftAnchorRelativeY = null
+            monsterStrongRightAnchorRelativeY = null
+            monsterStrongSuppressedUntilNeutral = suppressUntilNeutral
+        }
+
+        private fun monsterStrongSequenceActive(): Boolean =
+            monsterStrongOverheadStartedNs != null || monsterStrongSuppressedUntilNeutral
+
         private fun ultimateActivation(current: Features): Float {
             val leftRaise = (current.shoulderCenter.y - current.leftWrist.y) / current.torsoLength
             val rightRaise = (current.shoulderCenter.y - current.rightWrist.y) / current.torsoLength
-            return (min(leftRaise, rightRaise) / poseConfig.ultimateMinimumRaiseTorsoLengths)
-                .coerceIn(0f, 1f)
+            val raised = min(leftRaise, rightRaise) / poseConfig.ultimateMinimumRaiseTorsoLengths
+            val wristsTogether = 1f - distance(current.leftWrist, current.rightWrist) /
+                (current.shoulderWidth * poseConfig.ultimateMaximumWristDistanceShoulderWidths)
+            return min(raised, wristsTogether).coerceIn(0f, 1f)
         }
 
         private fun LivePoseObservation.toFeatures(timestampNs: Long): Features? {
@@ -381,6 +503,11 @@ internal class DualPlayerCombatMotionBridge(
             }
             if (confidence < poseConfig.minimumLandmarkConfidence) return null
             fun point(index: Int): Point = landmarks[index].let { landmark -> Point(landmark.x, landmark.y) }
+            val headY = landmarks[0].takeIf { landmark ->
+                !landmark.invalid() &&
+                    min(landmark.visibility ?: 0f, landmark.presence ?: 0f) >=
+                    poseConfig.minimumLandmarkConfidence
+            }?.y
             val leftShoulder = point(11)
             val rightShoulder = point(12)
             val leftElbow = point(13)
@@ -399,6 +526,7 @@ internal class DualPlayerCombatMotionBridge(
             ) return null
             return Features(
                 timestampNs = timestampNs,
+                headY = if (config.profile == DualPlayerCombatProfile.MONSTER) headY else null,
                 shoulderCenter = shoulderCenter,
                 chestCenter = midpoint(shoulderCenter, pelvisCenter),
                 pelvisCenter = pelvisCenter,

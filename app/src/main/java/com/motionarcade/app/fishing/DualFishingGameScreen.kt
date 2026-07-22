@@ -290,7 +290,7 @@ private fun DualFishingCoopCard(
         phaseLabel = phaseLabel(shared.phase),
         instruction = actor?.let { "${it.name} 차례 · ${actionLabel(shared.phase, shared.outcome)}" }
             ?: if (shared.phase == FishingPhase.RESULT) "포획 결과" else "입질을 기다리세요",
-        scoreLabel = "TEAM ${shared.score} · COMBO ${snapshot.combo}",
+        scoreLabel = "P1 ${snapshot.players.getValue(PlayerId.P1).score} · P2 ${snapshot.players.getValue(PlayerId.P2).score} · TEAM ${snapshot.teamScore}",
         progressLabel = "포획 ${(progress * 100).toInt()}%",
         progressDescription = "공유 포획 진행도 ${(progress * 100).toInt()}%",
         progress = progress,
@@ -338,7 +338,7 @@ private fun DualFishingCoopCard(
                 trackColor = Color(0xFF315767),
             )
             Text(
-                "TEAM ${shared.score} · REEL ${shared.reelCycles} · RECOVERY ${shared.recoveryTokens} · COMBO ${snapshot.combo}",
+                "P1 ${snapshot.players.getValue(PlayerId.P1).score} · P2 ${snapshot.players.getValue(PlayerId.P2).score} · TEAM ${snapshot.teamScore} · COMBO ${snapshot.combo}",
                 color = Color(0xFFA9C9D0),
                 style = MaterialTheme.typography.bodySmall,
             )

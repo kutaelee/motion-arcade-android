@@ -26,7 +26,7 @@ those remain a human G9 release condition.
 | Checker Framework compatibility annotations | 2.5.3 | exact technical exception records dual POM declaration and official tagged MIT evidence; legal approval not inferred |
 | kotlinx.coroutines | 1.11.0 | Apache-2.0 |
 | protobuf Gradle plugin | 0.10.0 | BSD-3-Clause |
-| protoc / protobuf-javalite | 4.35.1 | BSD-3-Clause |
+| protoc / protobuf-javalite | 4.26.1 | BSD-3-Clause |
 | JUnit 4 | 4.13.2 | EPL-1.0 |
 | Robolectric | 4.16.1 | MIT |
 | AndroidX Test / Espresso | 1.7.0 / 1.3.0 / 3.7.0 | Apache-2.0 |

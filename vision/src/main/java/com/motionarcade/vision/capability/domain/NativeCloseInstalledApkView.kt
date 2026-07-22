@@ -322,7 +322,10 @@ internal object NativeCloseInstalledApkEngine {
             var expectedStart = 0L
             physical.forEach { entry ->
                 reader.checkpoint()
-                if (entry.start != expectedStart) reject(NativeCloseApkFailure.LOCAL_RECORD_INVALID)
+                if (entry.start < expectedStart) reject(NativeCloseApkFailure.LOCAL_RECORD_INVALID)
+                if (entry.start > expectedStart) {
+                    validateAlignmentPadding(expectedStart, entry.start)
+                }
                 expectedStart = entry.end
                 reader.checkpoint()
             }
@@ -340,6 +343,65 @@ internal object NativeCloseInstalledApkEngine {
                 metadataEntries,
                 signingBlockPresent,
             )
+        }
+
+        /**
+         * AGP zipflinger aligns selected members with zero-only local records that intentionally
+         * have no central-directory entry. Accept only that exact non-semantic grammar; any name,
+         * payload, metadata drift, non-zero padding, or excessive gap remains fail-closed.
+         */
+        private fun validateAlignmentPadding(start: Long, end: Long) {
+            val length = end - start
+            if (length !in 1L..MAX_ALIGNMENT_PADDING_BYTES) {
+                reject(NativeCloseApkFailure.LOCAL_RECORD_INVALID)
+            }
+            var cursor = start
+            var records = 0
+            while (cursor < end) {
+                reader.checkpoint()
+                if (records >= MAX_ALIGNMENT_PADDING_RECORDS || end - cursor < LOCAL_HEADER_LENGTH) {
+                    reject(NativeCloseApkFailure.LOCAL_RECORD_INVALID)
+                }
+                val header = reader.readWithin(
+                    cursor,
+                    LOCAL_HEADER_LENGTH,
+                    end,
+                    NativeCloseApkFailure.LOCAL_RECORD_INVALID,
+                )
+                val version = u16(header, 4)
+                val flags = u16(header, 6)
+                val method = u16(header, 8)
+                val modifiedTime = u16(header, 10)
+                val modifiedDate = u16(header, 12)
+                val crc32 = u32(header, 14)
+                val compressedSize = u32(header, 18)
+                val uncompressedSize = u32(header, 22)
+                val nameLength = u16(header, 26)
+                val extraLength = u16(header, 28)
+                val recordEnd = checkedAdd(cursor, checkedAdd(LOCAL_HEADER_LENGTH, extraLength.toLong()))
+                if (u32(header, 0) != LOCAL_SIGNATURE || version != 0 || flags != 0 || method != 0 ||
+                    modifiedTime != ALIGNMENT_PADDING_TIME || modifiedDate != ALIGNMENT_PADDING_DATE ||
+                    crc32 != 0L || compressedSize != 0L || uncompressedSize != 0L ||
+                    nameLength != 0 || extraLength == 0 || recordEnd > end
+                ) {
+                    reject(NativeCloseApkFailure.LOCAL_RECORD_INVALID)
+                }
+                val extra = reader.readWithin(
+                    checkedAdd(cursor, LOCAL_HEADER_LENGTH),
+                    extraLength.toLong(),
+                    recordEnd,
+                    NativeCloseApkFailure.LOCAL_RECORD_INVALID,
+                )
+                if (extra.any { it != 0.toByte() }) {
+                    reject(NativeCloseApkFailure.LOCAL_RECORD_INVALID)
+                }
+                cursor = recordEnd
+                records += 1
+                reader.checkpoint()
+            }
+            if (cursor != end || records == 0) {
+                reject(NativeCloseApkFailure.LOCAL_RECORD_INVALID)
+            }
         }
 
         private fun parseCentralDirectory(
@@ -1424,6 +1486,10 @@ internal object NativeCloseInstalledApkEngine {
     private const val MAX_DEX_ENTRIES = 64
     private const val MAX_JNI_ENTRIES = 256
     private const val MAX_SIGNING_PAIR_COUNT = 65_534
+    private const val MAX_ALIGNMENT_PADDING_RECORDS = 256
+    private const val MAX_ALIGNMENT_PADDING_BYTES = 8_388_608L
+    private const val ALIGNMENT_PADDING_TIME = 0x0821
+    private const val ALIGNMENT_PADDING_DATE = 0x0221
     private const val MAX_SOURCE_IDENTITY_BYTES = 4_096
     private const val MAX_CANONICAL_BYTES = 1_048_576
     private const val MAX_ENTRY_BYTES = 268_435_456L

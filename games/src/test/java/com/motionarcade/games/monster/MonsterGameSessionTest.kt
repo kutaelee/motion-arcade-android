@@ -103,6 +103,53 @@ class MonsterGameSessionTest {
     }
 
     @Test
+    fun detectorConfidenceDoesNotReduceAnAdmittedStrikeButMotionQualityStillMatters() {
+        val lowerConfidence = game(seed = 18L)
+        val fullConfidence = game(seed = 18L)
+        val lowerQuality = game(seed = 18L)
+
+        queueAndAdvance(lowerConfidence, 0, MotionType.PUNCH_JAB, quality = 1f, confidence = 0.55f)
+        queueAndAdvance(fullConfidence, 0, MotionType.PUNCH_JAB, quality = 1f, confidence = 1f)
+        queueAndAdvance(lowerQuality, 0, MotionType.PUNCH_JAB, quality = 0.5f, confidence = 1f)
+
+        assertEquals(fullConfidence.snapshot.lastPlayerDamage, lowerConfidence.snapshot.lastPlayerDamage)
+        assertEquals(fullConfidence.snapshot.score, lowerConfidence.snapshot.score)
+        assertTrue(lowerQuality.snapshot.lastPlayerDamage < fullConfidence.snapshot.lastPlayerDamage)
+    }
+
+    @Test
+    fun dualPlayersReceiveTheSameConfidenceIndependentDamageRule() {
+        listOf(PlayerId.P1, PlayerId.P2).forEach { attacker ->
+            val lowerConfidence = MonsterGameSession.start("monster-dual-low-${attacker.name}", 19L, 0, GameMode.DUAL)
+            val fullConfidence = MonsterGameSession.start("monster-dual-high-${attacker.name}", 19L, 0, GameMode.DUAL)
+
+            assertTrue(lowerConfidence.accept(event(lowerConfidence, 0, MotionType.PUNCH_JAB, confidence = 0.55f, playerId = attacker)) is MonsterInputResult.Queued)
+            assertTrue(fullConfidence.accept(event(fullConfidence, 0, MotionType.PUNCH_JAB, confidence = 1f, playerId = attacker)) is MonsterInputResult.Queued)
+            lowerConfidence.advanceTicks(1)
+            fullConfidence.advanceTicks(1)
+
+            val lowActor = lowerConfidence.snapshot.players.getValue(attacker)
+            val highActor = fullConfidence.snapshot.players.getValue(attacker)
+            assertEquals(highActor.lastPlayerDamage, lowActor.lastPlayerDamage)
+            assertEquals(highActor.score, lowActor.score)
+            assertEquals(fullConfidence.snapshot.bossHealth, lowerConfidence.snapshot.bossHealth)
+        }
+    }
+
+    @Test
+    fun motionAndTouchSourcesResolveToTheSameMonsterState() {
+        val motion = MonsterGameSession.start("monster-source-equivalence", 20L, 0)
+        val touch = MonsterGameSession.start("monster-source-equivalence", 20L, 0)
+
+        assertTrue(motion.accept(event(motion, 0, MotionType.PUNCH_JAB, quality = 0.8f, confidence = 0.7f, source = InputSource.MOTION)) is MonsterInputResult.Queued)
+        assertTrue(touch.accept(event(touch, 0, MotionType.PUNCH_JAB, quality = 0.8f, confidence = 0.7f, source = InputSource.TOUCH)) is MonsterInputResult.Queued)
+        motion.advanceTicks(1)
+        touch.advanceTicks(1)
+
+        assertEquals(motion.snapshot, touch.snapshot)
+    }
+
+    @Test
     fun pauseFreezesTimerClearsQueuedInputsAndRequiresExplicitResume() {
         val game = game()
         assertTrue(game.accept(event(game, 0, MotionType.PUNCH_JAB)) is MonsterInputResult.Queued)
@@ -453,6 +500,7 @@ class MonsterGameSessionTest {
         metadata: Map<String, Float> = emptyMap(),
         playerId: PlayerId = PlayerId.P1,
         eventTimestampNs: Long = sequence * MonsterGameSession.FIXED_STEP_NS,
+        source: InputSource = InputSource.FIXTURE,
     ): MotionEventEnvelope = MotionEventEnvelope(
         eventId = "${game.snapshot.sessionId}/${playerId.name}/$sequence",
         sessionId = game.snapshot.sessionId,
@@ -463,7 +511,7 @@ class MonsterGameSessionTest {
         confidence = confidence,
         eventTimestampNs = eventTimestampNs,
         calibrationRevision = 0,
-        source = InputSource.FIXTURE,
+        source = source,
         metadata = metadata,
     )
 

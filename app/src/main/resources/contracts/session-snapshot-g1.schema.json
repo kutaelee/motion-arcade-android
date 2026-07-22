@@ -1,0 +1,673 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/contracts/session-snapshot-g1.schema.json",
+  "title": "TypedGameSessionSnapshotG1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "sessionId",
+    "gameId",
+    "mode",
+    "simulationTick",
+    "status",
+    "seed",
+    "prng",
+    "contentRevision",
+    "state",
+    "players",
+    "committedRewardIds"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "sessionId": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "gameId": { "enum": ["FISHING", "BOXING", "MONSTER"] },
+    "mode": { "enum": ["SOLO", "DUAL"] },
+    "simulationTick": { "$ref": "#/$defs/nonNegativeLong" },
+    "status": { "enum": ["RUNNING", "PAUSED", "COMPLETED"] },
+    "seed": { "$ref": "#/$defs/signedLong" },
+    "prng": { "$ref": "#/$defs/prng" },
+    "contentRevision": { "type": "string", "minLength": 1 },
+    "pauseReason": {
+      "type": ["string", "null"],
+      "enum": [
+        "USER",
+        "APP_BACKGROUND",
+        "ROTATION_REBIND",
+        "CAMERA_SWITCH",
+        "CAMERA_ERROR",
+        "POSE_LOST",
+        "PLAYER_OVERLAP",
+        "PLAYER_LANE_CROSS",
+        "THERMAL_CRITICAL",
+        "EVENT_QUEUE_OVERFLOW",
+        null
+      ]
+    },
+    "state": { "$ref": "#/$defs/gameState" },
+    "players": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 2,
+      "items": { "$ref": "#/$defs/playerState" }
+    },
+    "committedRewardIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": ["status"],
+        "properties": { "status": { "const": "PAUSED" } }
+      },
+      "then": {
+        "required": ["pauseReason"],
+        "properties": { "pauseReason": { "not": { "type": "null" } } }
+      },
+      "else": {
+        "properties": { "pauseReason": { "type": "null" } }
+      }
+    }
+  ],
+  "oneOf": [
+    {
+      "properties": {
+        "gameId": { "const": "FISHING" },
+        "mode": { "const": "SOLO" },
+        "state": { "$ref": "#/$defs/fishingSoloStateVariant" },
+        "players": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "prefixItems": [{ "$ref": "#/$defs/fishingSoloP1" }],
+          "items": false
+        }
+      }
+    },
+    {
+      "properties": {
+        "gameId": { "const": "FISHING" },
+        "mode": { "const": "DUAL" },
+        "state": { "$ref": "#/$defs/fishingDualStateVariant" },
+        "players": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [
+            { "$ref": "#/$defs/fishingDualP1" },
+            { "$ref": "#/$defs/fishingDualP2" }
+          ],
+          "items": false
+        },
+        "committedRewardIds": { "maxItems": 0 }
+      }
+    },
+    {
+      "properties": {
+        "gameId": { "const": "BOXING" },
+        "mode": { "const": "SOLO" },
+        "state": { "$ref": "#/$defs/boxingSoloStateVariant" },
+        "players": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "prefixItems": [{ "$ref": "#/$defs/boxingSoloP1" }],
+          "items": false
+        },
+        "committedRewardIds": { "maxItems": 0 }
+      }
+    },
+    {
+      "properties": {
+        "gameId": { "const": "BOXING" },
+        "mode": { "const": "DUAL" },
+        "state": { "$ref": "#/$defs/boxingDualStateVariant" },
+        "players": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [
+            { "$ref": "#/$defs/boxingDualP1" },
+            { "$ref": "#/$defs/boxingDualP2" }
+          ],
+          "items": false
+        },
+        "committedRewardIds": { "maxItems": 0 }
+      }
+    },
+    {
+      "properties": {
+        "gameId": { "const": "MONSTER" },
+        "mode": { "const": "SOLO" },
+        "state": { "$ref": "#/$defs/monsterSoloStateVariant" },
+        "players": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [
+            { "$ref": "#/$defs/monsterSoloP1" },
+            { "$ref": "#/$defs/monsterSoloAi" }
+          ],
+          "items": false
+        },
+        "committedRewardIds": { "maxItems": 0 }
+      }
+    },
+    {
+      "properties": {
+        "gameId": { "const": "MONSTER" },
+        "mode": { "const": "DUAL" },
+        "state": { "$ref": "#/$defs/monsterDualStateVariant" },
+        "players": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [
+            { "$ref": "#/$defs/monsterDualP1" },
+            { "$ref": "#/$defs/monsterDualP2" }
+          ],
+          "items": false
+        },
+        "committedRewardIds": { "maxItems": 0 }
+      }
+    }
+  ],
+  "$defs": {
+    "signedLong": {
+      "type": "integer",
+      "minimum": -9223372036854775808,
+      "maximum": 9223372036854775807
+    },
+    "nonNegativeLong": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9223372036854775807
+    },
+    "watermark": {
+      "type": "integer",
+      "minimum": -1,
+      "maximum": 9223372036854775807
+    },
+    "nonNegativeInt": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2147483647
+    },
+    "positiveInt": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647
+    },
+    "nullableLong": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "maximum": 9223372036854775807
+    },
+    "nullableUnitFloat": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "playerId": { "enum": ["P1", "P2", "AI"] },
+    "fishingPhase": {
+      "enum": ["READY", "BITE_WAIT", "HOOK_WINDOW", "REELING", "TENSION", "NETTING", "RESULT"]
+    },
+    "fishingFishNullable": { "type": ["string", "null"], "enum": ["SUNFIN", "MOON_CARP", null] },
+    "fishingOutcomeNullable": { "type": ["string", "null"], "enum": ["CAUGHT", "ESCAPED", null] },
+    "boxingPhase": { "enum": ["ROUND", "RESULT"] },
+    "boxingAiAttackNullable": { "type": ["string", "null"], "enum": ["STRAIGHT", "HOOK", "BODY", null] },
+    "boxingDodgeNullable": { "type": ["string", "null"], "enum": ["LEFT", "RIGHT", null] },
+    "boxingOutcomeNullable": { "type": ["string", "null"], "enum": ["WIN", "LOSS", "DRAW", null] },
+    "monsterBossPhaseNullable": {
+      "type": ["string", "null"],
+      "enum": ["PHASE_1", "PHASE_2", "PHASE_3", null]
+    },
+    "monsterBossAttackNullable": {
+      "type": ["string", "null"],
+      "enum": ["CLAW", "ORB", "BARRIER", null]
+    },
+    "monsterOutcomeNullable": {
+      "type": ["string", "null"],
+      "enum": ["VICTORY", "DEFEAT", "TIMEOUT", null]
+    },
+    "prng": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithmId", "algorithmVersion", "state"],
+      "properties": {
+        "algorithmId": { "type": "string", "minLength": 1 },
+        "algorithmVersion": { "$ref": "#/$defs/positiveInt" },
+        "state": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": { "$ref": "#/$defs/signedLong" }
+        }
+      }
+    },
+    "timelineEpoch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["epoch", "baseNs", "simulationBaseTick"],
+      "properties": {
+        "epoch": { "$ref": "#/$defs/nonNegativeLong" },
+        "baseNs": { "$ref": "#/$defs/nonNegativeLong" },
+        "simulationBaseTick": { "$ref": "#/$defs/nonNegativeLong" }
+      }
+    },
+    "fishingSoloState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "payloadVersion",
+        "eventTimelineEpoch",
+        "eventTimelineBaseNs",
+        "eventTimelineSimulationBaseTick",
+        "eventTimelineLedgerVersion",
+        "eventTimelineLedger",
+        "calibrationRevision",
+        "phase",
+        "regionDifficulty"
+      ],
+      "properties": {
+        "payloadVersion": { "$ref": "#/$defs/positiveInt" },
+        "eventTimelineEpoch": { "$ref": "#/$defs/nonNegativeLong" },
+        "eventTimelineBaseNs": { "$ref": "#/$defs/nonNegativeLong" },
+        "eventTimelineSimulationBaseTick": { "$ref": "#/$defs/nonNegativeLong" },
+        "eventTimelineLedgerVersion": { "$ref": "#/$defs/positiveInt" },
+        "eventTimelineLedger": { "type": "array", "items": { "$ref": "#/$defs/timelineEpoch" } },
+        "calibrationRevision": { "$ref": "#/$defs/nonNegativeInt" },
+        "phase": { "$ref": "#/$defs/fishingPhase" },
+        "fish": { "$ref": "#/$defs/fishingFishNullable" },
+        "biteAtTick": { "$ref": "#/$defs/nullableLong" },
+        "hookDeadlineTick": { "$ref": "#/$defs/nullableLong" },
+        "recoveryScheduledAtTick": { "$ref": "#/$defs/nullableLong" },
+        "regionDifficulty": { "$ref": "#/$defs/nonNegativeInt" },
+        "pendingRewardId": { "type": ["string", "null"] }
+      }
+    },
+    "fishingSoloPlayer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "playerId",
+        "reelCycles",
+        "tension",
+        "reelScore",
+        "tensionScore",
+        "recoveryTokens",
+        "failureStreak",
+        "score",
+        "acceptedSequenceWatermark",
+        "acceptedEventTimestampWatermarkNs",
+        "lastAppliedSequence",
+        "lastAppliedEventEpoch",
+        "lastAppliedEventTimestampNs",
+        "lastStateChangingSequence",
+        "lastStateChangingEventEpoch",
+        "lastStateChangingEventTimestampNs"
+      ],
+      "properties": {
+        "playerId": { "const": "P1" },
+        "castEventSequence": { "$ref": "#/$defs/nullableLong" },
+        "castEventEpoch": { "$ref": "#/$defs/nullableLong" },
+        "castEventTick": { "$ref": "#/$defs/nullableLong" },
+        "castEventTimestampNs": { "$ref": "#/$defs/nullableLong" },
+        "castEventTimelineBaseNs": { "$ref": "#/$defs/nullableLong" },
+        "castEventTimelineSimulationBaseTick": { "$ref": "#/$defs/nullableLong" },
+        "castQuality": { "$ref": "#/$defs/nullableUnitFloat" },
+        "hookEventSequence": { "$ref": "#/$defs/nullableLong" },
+        "hookEventEpoch": { "$ref": "#/$defs/nullableLong" },
+        "hookEventTick": { "$ref": "#/$defs/nullableLong" },
+        "hookEventTimestampNs": { "$ref": "#/$defs/nullableLong" },
+        "hookEventTimelineBaseNs": { "$ref": "#/$defs/nullableLong" },
+        "hookEventTimelineSimulationBaseTick": { "$ref": "#/$defs/nullableLong" },
+        "hookQuality": { "$ref": "#/$defs/nullableUnitFloat" },
+        "reelCycles": { "$ref": "#/$defs/nonNegativeInt" },
+        "tension": { "$ref": "#/$defs/nonNegativeInt" },
+        "reelScore": { "$ref": "#/$defs/nonNegativeInt" },
+        "tensionScore": { "$ref": "#/$defs/nonNegativeInt" },
+        "netQuality": { "$ref": "#/$defs/nullableUnitFloat" },
+        "recoveryTokens": { "$ref": "#/$defs/nonNegativeInt" },
+        "failureStreak": { "$ref": "#/$defs/nonNegativeInt" },
+        "score": { "$ref": "#/$defs/nonNegativeInt" },
+        "outcome": { "$ref": "#/$defs/fishingOutcomeNullable" },
+        "acceptedSequenceWatermark": { "$ref": "#/$defs/watermark" },
+        "acceptedEventTimestampWatermarkNs": { "$ref": "#/$defs/watermark" },
+        "lastAppliedSequence": { "$ref": "#/$defs/watermark" },
+        "lastAppliedEventEpoch": { "$ref": "#/$defs/watermark" },
+        "lastAppliedEventTick": { "$ref": "#/$defs/nullableLong" },
+        "lastAppliedEventTimestampNs": { "$ref": "#/$defs/watermark" },
+        "lastAppliedEventTimelineBaseNs": { "$ref": "#/$defs/nullableLong" },
+        "lastAppliedEventTimelineSimulationBaseTick": { "$ref": "#/$defs/nullableLong" },
+        "lastStateChangingSequence": { "$ref": "#/$defs/watermark" },
+        "lastStateChangingEventEpoch": { "$ref": "#/$defs/watermark" },
+        "lastStateChangingEventTick": { "$ref": "#/$defs/nullableLong" },
+        "lastStateChangingEventTimestampNs": { "$ref": "#/$defs/watermark" },
+        "lastStateChangingEventTimelineBaseNs": { "$ref": "#/$defs/nullableLong" },
+        "lastStateChangingEventTimelineSimulationBaseTick": { "$ref": "#/$defs/nullableLong" }
+      }
+    },
+    "fishingDualState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["payloadVersion", "calibrationRevision", "rodPlayerId", "catches", "combo"],
+      "properties": {
+        "payloadVersion": { "$ref": "#/$defs/positiveInt" },
+        "calibrationRevision": { "$ref": "#/$defs/nonNegativeInt" },
+        "rodPlayerId": { "$ref": "#/$defs/playerId" },
+        "catches": { "$ref": "#/$defs/nonNegativeInt" },
+        "combo": { "$ref": "#/$defs/nonNegativeInt" }
+      }
+    },
+    "fishingDualPlayer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "playerId", "phase", "reelCycles", "tension", "recoveryTokens", "score",
+        "acceptedSequenceWatermark", "acceptedEventTimestampWatermarkNs", "lastAppliedSequence"
+      ],
+      "properties": {
+        "playerId": { "$ref": "#/$defs/playerId" },
+        "phase": { "$ref": "#/$defs/fishingPhase" },
+        "fish": { "$ref": "#/$defs/fishingFishNullable" },
+        "biteAtTick": { "$ref": "#/$defs/nullableLong" },
+        "hookDeadlineTick": { "$ref": "#/$defs/nullableLong" },
+        "assistDeadlineTick": { "$ref": "#/$defs/nullableLong" },
+        "reelCycles": { "$ref": "#/$defs/nonNegativeInt" },
+        "tension": { "$ref": "#/$defs/nonNegativeInt" },
+        "recoveryTokens": { "$ref": "#/$defs/nonNegativeInt" },
+        "score": { "$ref": "#/$defs/nonNegativeInt" },
+        "outcome": { "$ref": "#/$defs/fishingOutcomeNullable" },
+        "acceptedSequenceWatermark": { "$ref": "#/$defs/watermark" },
+        "acceptedEventTimestampWatermarkNs": { "$ref": "#/$defs/watermark" },
+        "lastAppliedSequence": { "$ref": "#/$defs/watermark" }
+      }
+    },
+    "boxingSoloState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "payloadVersion", "calibrationRevision", "phase", "opponentHealth",
+        "roundTicksRemaining", "aiTelegraphTicksRemaining", "aiAttackOrdinal"
+      ],
+      "properties": {
+        "payloadVersion": { "$ref": "#/$defs/positiveInt" },
+        "calibrationRevision": { "$ref": "#/$defs/nonNegativeInt" },
+        "phase": { "$ref": "#/$defs/boxingPhase" },
+        "opponentHealth": { "$ref": "#/$defs/nonNegativeInt" },
+        "roundTicksRemaining": { "$ref": "#/$defs/nonNegativeInt" },
+        "aiTelegraph": { "$ref": "#/$defs/boxingAiAttackNullable" },
+        "aiTelegraphTicksRemaining": { "$ref": "#/$defs/nonNegativeInt" },
+        "aiAttackOrdinal": { "$ref": "#/$defs/nonNegativeInt" },
+        "outcome": { "$ref": "#/$defs/boxingOutcomeNullable" }
+      }
+    },
+    "boxingDualState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["payloadVersion", "calibrationRevision", "phase", "roundTicksRemaining"],
+      "properties": {
+        "payloadVersion": { "$ref": "#/$defs/positiveInt" },
+        "calibrationRevision": { "$ref": "#/$defs/nonNegativeInt" },
+        "phase": { "$ref": "#/$defs/boxingPhase" },
+        "roundTicksRemaining": { "$ref": "#/$defs/nonNegativeInt" },
+        "outcome": { "$ref": "#/$defs/boxingOutcomeNullable" }
+      }
+    },
+    "boxingPlayer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "playerId", "health", "stamina", "score", "guardTicksRemaining", "dodgeTicksRemaining",
+        "attackCooldownTicks", "requiresReturnToGuard", "lastPlayerDamage", "lastReceivedDamage",
+        "blockedAttackCount", "dodgedAttackCount", "ignoredStrikeCount", "acceptedSequenceWatermark",
+        "acceptedEventTimestampWatermarkNs", "lastAppliedSequence"
+      ],
+      "properties": {
+        "playerId": { "$ref": "#/$defs/playerId" },
+        "health": { "$ref": "#/$defs/nonNegativeInt" },
+        "stamina": { "$ref": "#/$defs/nonNegativeInt" },
+        "score": { "$ref": "#/$defs/nonNegativeInt" },
+        "guardTicksRemaining": { "$ref": "#/$defs/nonNegativeInt" },
+        "dodgeDirection": { "$ref": "#/$defs/boxingDodgeNullable" },
+        "dodgeTicksRemaining": { "$ref": "#/$defs/nonNegativeInt" },
+        "attackCooldownTicks": { "$ref": "#/$defs/nonNegativeInt" },
+        "requiresReturnToGuard": { "type": "boolean" },
+        "lastPlayerDamage": { "$ref": "#/$defs/nonNegativeInt" },
+        "lastReceivedDamage": { "$ref": "#/$defs/nonNegativeInt" },
+        "blockedAttackCount": { "$ref": "#/$defs/nonNegativeInt" },
+        "dodgedAttackCount": { "$ref": "#/$defs/nonNegativeInt" },
+        "ignoredStrikeCount": { "$ref": "#/$defs/nonNegativeInt" },
+        "acceptedSequenceWatermark": { "$ref": "#/$defs/watermark" },
+        "acceptedEventTimestampWatermarkNs": { "$ref": "#/$defs/watermark" },
+        "lastAppliedSequence": { "$ref": "#/$defs/watermark" }
+      }
+    },
+    "monsterState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "payloadVersion", "calibrationRevision", "stage", "waveIndex", "enemy", "enemyHealth",
+        "bossTelegraphTicksRemaining", "bossAttackOrdinal", "teamCharge", "teamScore", "roundTicksRemaining"
+      ],
+      "properties": {
+        "payloadVersion": { "$ref": "#/$defs/positiveInt" },
+        "calibrationRevision": { "$ref": "#/$defs/nonNegativeInt" },
+        "stage": { "enum": ["WAVE", "ELITE", "BOSS", "RESULT"] },
+        "waveIndex": { "$ref": "#/$defs/nonNegativeInt" },
+        "enemy": { "enum": ["MOSS_CRAWLER", "SKY_WISP", "STONE_TUSK", "IRON_WARDEN", "TEMPEST_TITAN"] },
+        "enemyHealth": { "$ref": "#/$defs/nonNegativeInt" },
+        "bossPhase": { "$ref": "#/$defs/monsterBossPhaseNullable" },
+        "bossAttack": { "$ref": "#/$defs/monsterBossAttackNullable" },
+        "bossTelegraphTicksRemaining": { "$ref": "#/$defs/nonNegativeInt" },
+        "bossAttackOrdinal": { "$ref": "#/$defs/nonNegativeInt" },
+        "teamCharge": { "$ref": "#/$defs/nonNegativeInt" },
+        "teamScore": { "$ref": "#/$defs/nonNegativeInt" },
+        "roundTicksRemaining": { "$ref": "#/$defs/nonNegativeInt" },
+        "pendingUltimatePlayer": { "type": ["string", "null"], "enum": ["P1", "P2", null] },
+        "pendingUltimateTimestampNs": { "$ref": "#/$defs/nullableLong" },
+        "lastHumanCoreActionTick": { "$ref": "#/$defs/nullableLong" },
+        "outcome": { "$ref": "#/$defs/monsterOutcomeNullable" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["pendingUltimatePlayer"],
+            "properties": { "pendingUltimatePlayer": { "not": { "type": "null" } } }
+          },
+          "then": {
+            "required": ["pendingUltimateTimestampNs"],
+            "properties": {
+              "pendingUltimateTimestampNs": { "not": { "type": "null" } },
+              "stage": { "const": "BOSS" },
+              "bossPhase": { "const": "PHASE_3" },
+              "teamCharge": { "const": 100 }
+            }
+          },
+          "else": {
+            "properties": { "pendingUltimateTimestampNs": { "type": "null" } }
+          }
+        }
+      ]
+    },
+    "monsterPlayer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "playerId", "playerClass", "health", "stamina", "score", "guardTicksRemaining",
+        "attackCooldownTicks", "skillOneCooldownTicks", "skillTwoCooldownTicks", "skillOneUses",
+        "skillTwoUses", "lane", "dangerEvades", "requiresRearm", "downed", "revivesPerformed",
+        "receivedRevives", "lastDamageDealt", "lastDamageTaken", "acceptedSequenceWatermark",
+        "acceptedEventTimestampWatermarkNs", "lastAppliedSequence"
+      ],
+      "properties": {
+        "playerId": { "$ref": "#/$defs/playerId" },
+        "playerClass": { "enum": ["VANGUARD", "RANGER"] },
+        "health": { "$ref": "#/$defs/nonNegativeInt" },
+        "stamina": { "$ref": "#/$defs/nonNegativeInt" },
+        "score": { "$ref": "#/$defs/nonNegativeInt" },
+        "guardTicksRemaining": { "$ref": "#/$defs/nonNegativeInt" },
+        "attackCooldownTicks": { "$ref": "#/$defs/nonNegativeInt" },
+        "skillOneCooldownTicks": { "$ref": "#/$defs/nonNegativeInt" },
+        "skillTwoCooldownTicks": { "$ref": "#/$defs/nonNegativeInt" },
+        "skillOneUses": { "$ref": "#/$defs/nonNegativeInt" },
+        "skillTwoUses": { "$ref": "#/$defs/nonNegativeInt" },
+        "lane": { "enum": ["LEFT", "CENTER", "RIGHT"] },
+        "dangerEvades": { "$ref": "#/$defs/nonNegativeInt" },
+        "requiresRearm": { "type": "boolean" },
+        "downed": { "type": "boolean" },
+        "revivesPerformed": { "$ref": "#/$defs/nonNegativeInt" },
+        "receivedRevives": { "$ref": "#/$defs/nonNegativeInt" },
+        "lastDamageDealt": { "$ref": "#/$defs/nonNegativeInt" },
+        "lastDamageTaken": { "$ref": "#/$defs/nonNegativeInt" },
+        "acceptedSequenceWatermark": { "$ref": "#/$defs/watermark" },
+        "acceptedEventTimestampWatermarkNs": { "$ref": "#/$defs/watermark" },
+        "lastAppliedSequence": { "$ref": "#/$defs/watermark" }
+      }
+    },
+    "fishingSoloStateVariant": {
+      "type": "object", "additionalProperties": false, "required": ["fishingSolo"],
+      "properties": { "fishingSolo": { "$ref": "#/$defs/fishingSoloState" } }
+    },
+    "fishingDualStateVariant": {
+      "type": "object", "additionalProperties": false, "required": ["fishingDual"],
+      "properties": { "fishingDual": { "$ref": "#/$defs/fishingDualState" } }
+    },
+    "boxingSoloStateVariant": {
+      "type": "object", "additionalProperties": false, "required": ["boxingSolo"],
+      "properties": { "boxingSolo": { "$ref": "#/$defs/boxingSoloState" } }
+    },
+    "boxingDualStateVariant": {
+      "type": "object", "additionalProperties": false, "required": ["boxingDual"],
+      "properties": { "boxingDual": { "$ref": "#/$defs/boxingDualState" } }
+    },
+    "monsterSoloStateVariant": {
+      "type": "object", "additionalProperties": false, "required": ["monsterSolo"],
+      "properties": {
+        "monsterSolo": {
+          "allOf": [
+            { "$ref": "#/$defs/monsterState" },
+            {
+              "properties": {
+                "pendingUltimatePlayer": { "const": null },
+                "pendingUltimateTimestampNs": { "const": null }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "monsterDualStateVariant": {
+      "type": "object", "additionalProperties": false, "required": ["monsterDual"],
+      "properties": { "monsterDual": { "$ref": "#/$defs/monsterState" } }
+    },
+    "fishingSoloPlayerVariant": {
+      "type": "object", "additionalProperties": false, "required": ["fishingSolo"],
+      "properties": { "fishingSolo": { "$ref": "#/$defs/fishingSoloPlayer" } }
+    },
+    "fishingDualPlayerVariant": {
+      "type": "object", "additionalProperties": false, "required": ["fishingDual"],
+      "properties": { "fishingDual": { "$ref": "#/$defs/fishingDualPlayer" } }
+    },
+    "boxingSoloPlayerVariant": {
+      "type": "object", "additionalProperties": false, "required": ["boxingSolo"],
+      "properties": { "boxingSolo": { "$ref": "#/$defs/boxingPlayer" } }
+    },
+    "boxingDualPlayerVariant": {
+      "type": "object", "additionalProperties": false, "required": ["boxingDual"],
+      "properties": { "boxingDual": { "$ref": "#/$defs/boxingPlayer" } }
+    },
+    "monsterSoloPlayerVariant": {
+      "type": "object", "additionalProperties": false, "required": ["monsterSolo"],
+      "properties": { "monsterSolo": { "$ref": "#/$defs/monsterPlayer" } }
+    },
+    "monsterDualPlayerVariant": {
+      "type": "object", "additionalProperties": false, "required": ["monsterDual"],
+      "properties": { "monsterDual": { "$ref": "#/$defs/monsterPlayer" } }
+    },
+    "fishingSoloP1": {
+      "allOf": [
+        { "$ref": "#/$defs/fishingSoloPlayerVariant" },
+        { "properties": { "fishingSolo": { "properties": { "playerId": { "const": "P1" } } } } }
+      ]
+    },
+    "fishingDualP1": {
+      "allOf": [
+        { "$ref": "#/$defs/fishingDualPlayerVariant" },
+        { "properties": { "fishingDual": { "properties": { "playerId": { "const": "P1" } } } } }
+      ]
+    },
+    "fishingDualP2": {
+      "allOf": [
+        { "$ref": "#/$defs/fishingDualPlayerVariant" },
+        { "properties": { "fishingDual": { "properties": { "playerId": { "const": "P2" } } } } }
+      ]
+    },
+    "boxingSoloP1": {
+      "allOf": [
+        { "$ref": "#/$defs/boxingSoloPlayerVariant" },
+        { "properties": { "boxingSolo": { "properties": { "playerId": { "const": "P1" } } } } }
+      ]
+    },
+    "boxingDualP1": {
+      "allOf": [
+        { "$ref": "#/$defs/boxingDualPlayerVariant" },
+        { "properties": { "boxingDual": { "properties": { "playerId": { "const": "P1" } } } } }
+      ]
+    },
+    "boxingDualP2": {
+      "allOf": [
+        { "$ref": "#/$defs/boxingDualPlayerVariant" },
+        { "properties": { "boxingDual": { "properties": { "playerId": { "const": "P2" } } } } }
+      ]
+    },
+    "monsterSoloP1": {
+      "allOf": [
+        { "$ref": "#/$defs/monsterSoloPlayerVariant" },
+        { "properties": { "monsterSolo": { "properties": { "playerId": { "const": "P1" } } } } }
+      ]
+    },
+    "monsterSoloAi": {
+      "allOf": [
+        { "$ref": "#/$defs/monsterSoloPlayerVariant" },
+        { "properties": { "monsterSolo": { "properties": { "playerId": { "const": "AI" } } } } }
+      ]
+    },
+    "monsterDualP1": {
+      "allOf": [
+        { "$ref": "#/$defs/monsterDualPlayerVariant" },
+        { "properties": { "monsterDual": { "properties": { "playerId": { "const": "P1" } } } } }
+      ]
+    },
+    "monsterDualP2": {
+      "allOf": [
+        { "$ref": "#/$defs/monsterDualPlayerVariant" },
+        { "properties": { "monsterDual": { "properties": { "playerId": { "const": "P2" } } } } }
+      ]
+    },
+    "gameState": {
+      "oneOf": [
+        { "$ref": "#/$defs/fishingSoloStateVariant" },
+        { "$ref": "#/$defs/fishingDualStateVariant" },
+        { "$ref": "#/$defs/boxingSoloStateVariant" },
+        { "$ref": "#/$defs/boxingDualStateVariant" },
+        { "$ref": "#/$defs/monsterSoloStateVariant" },
+        { "$ref": "#/$defs/monsterDualStateVariant" }
+      ]
+    },
+    "playerState": {
+      "oneOf": [
+        { "$ref": "#/$defs/fishingSoloPlayerVariant" },
+        { "$ref": "#/$defs/fishingDualPlayerVariant" },
+        { "$ref": "#/$defs/boxingSoloPlayerVariant" },
+        { "$ref": "#/$defs/boxingDualPlayerVariant" },
+        { "$ref": "#/$defs/monsterSoloPlayerVariant" },
+        { "$ref": "#/$defs/monsterDualPlayerVariant" }
+      ]
+    }
+  }
+}
